@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/addrecipeFab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -48,6 +48,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
+            android:id="@+id/searchLl"
             android:layout_width="136dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -69,6 +70,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/profileLl"
             android:layout_width="136dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -90,6 +92,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/recipesLl"
             android:layout_width="136dp"
             android:layout_height="match_parent"
             android:orientation="vertical">

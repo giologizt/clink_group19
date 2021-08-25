@@ -10,22 +10,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
-    //private FloatingActionButton fabRecipe;
     private Button btnLogin;
-    private TextView tvSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_signup);
 
-//        this.addRecipe();
         this.Login();
-        this.Signup();
     }
 
     private ActivityResultLauncher Launcher = registerForActivityResult(
@@ -38,32 +33,15 @@ public class MainActivity extends AppCompatActivity {
             }
     );
 
-
     private void Login() {
-        this.btnLogin = findViewById(R.id.loginBtn);
+        this.btnLogin = findViewById(R.id.signupBtn);
         this.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (MainActivity.this, RecipesActivity.class);
+                Intent intent = new Intent (SignupActivity.this, RecipesActivity.class);
 
                 Launcher.launch(intent);
             }
         });
     }
-
-    private void Signup() {
-        this.tvSignup = findViewById(R.id.signupTv);
-        this.tvSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (MainActivity.this, SignupActivity.class);
-
-                Launcher.launch(intent);
-            }
-        });
-    }
-
-
-
-
 }
