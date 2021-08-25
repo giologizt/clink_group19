@@ -24,6 +24,10 @@ public class RecipesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
+        this.fabRecipe = findViewById(R.id.addrecipeFab);
+        this.llProfile = findViewById(R.id.profileLl);
+        this.llSearch = findViewById(R.id.searchLl);
+
         this.addRecipe();
         this.Search();
         this.Profile();
@@ -40,7 +44,6 @@ public class RecipesActivity extends AppCompatActivity {
     );
 
     private void addRecipe() {
-        this.fabRecipe = findViewById(R.id.addrecipeFab);
         this.fabRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +55,6 @@ public class RecipesActivity extends AppCompatActivity {
     }
 
     private void Search() {
-        this.llSearch = findViewById(R.id.searchLl);
         this.llSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +66,6 @@ public class RecipesActivity extends AppCompatActivity {
     }
 
     private void Profile() {
-        this.llProfile = findViewById(R.id.profileLl);
         this.llProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -20,10 +20,10 @@
         android:id="@+id/editTextTextPersonName2"
         android:layout_width="333dp"
         android:layout_height="40dp"
-        android:layout_marginStart="36dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -63,10 +63,10 @@
         android:id="@+id/editTextTextPersonName4"
         android:layout_width="333dp"
         android:layout_height="40dp"
-        android:layout_marginStart="36dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
@@ -74,10 +74,10 @@
         android:id="@+id/editTextTextPersonName6"
         android:layout_width="333dp"
         android:layout_height="40dp"
-        android:layout_marginStart="36dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
@@ -85,10 +85,10 @@
         android:id="@+id/editTextTextPersonName7"
         android:layout_width="333dp"
         android:layout_height="40dp"
-        android:layout_marginStart="36dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
@@ -107,13 +107,13 @@
         android:id="@+id/textView17"
         android:layout_width="333dp"
         android:layout_height="27dp"
-        android:layout_marginStart="36dp"
         android:layout_marginTop="8dp"
         android:background="#CDCCCC"
         android:gravity="center"
         android:text="Add Ingredient +"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName6" />
 
@@ -121,13 +121,13 @@
         android:id="@+id/textView20"
         android:layout_width="333dp"
         android:layout_height="27dp"
-        android:layout_marginStart="36dp"
         android:layout_marginTop="8dp"
         android:background="#CDCCCC"
         android:gravity="center"
         android:text="Add New Step +"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName7" />
 
@@ -238,6 +238,8 @@
         android:backgroundTint="#950A0A"
         android:text="CANCEL"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/publishBtn"
+        app:layout_constraintHorizontal_bias="0.044"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button

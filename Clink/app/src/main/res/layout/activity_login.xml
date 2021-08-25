@@ -42,11 +42,11 @@
         android:id="@+id/editTextTextEmailAddress"
         android:layout_width="306dp"
         android:layout_height="40dp"
-        android:layout_marginStart="52dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
@@ -99,10 +99,11 @@
         android:id="@+id/signupTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="SIGN UP"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
         app:layout_constraintStart_toEndOf="@+id/textView27"
         app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
 
@@ -110,11 +111,11 @@
         android:id="@+id/editTextTextPassword"
         android:layout_width="306dp"
         android:layout_height="40dp"
-        android:layout_marginStart="52dp"
         android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="textPassword"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
