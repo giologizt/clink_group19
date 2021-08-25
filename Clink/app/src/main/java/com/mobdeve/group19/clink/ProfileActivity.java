@@ -9,7 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -18,6 +21,9 @@ public class ProfileActivity extends AppCompatActivity {
     private FloatingActionButton fabRecipe;
     private LinearLayout llRecipes;
     private LinearLayout llSearch;
+    private Button btnEdit;
+    private TextView tvName;
+    private EditText ptName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,17 @@ public class ProfileActivity extends AppCompatActivity {
         this.addRecipe();
         this.Recipes();
         this.Search();
+
+        this.btnEdit = findViewById(R.id.editBtn);
+        this.tvName = findViewById(R.id.editnameTv);
+        this.ptName = findViewById(R.id.editnamePt);
+
+//        this.btnEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
     private ActivityResultLauncher Launcher = registerForActivityResult(

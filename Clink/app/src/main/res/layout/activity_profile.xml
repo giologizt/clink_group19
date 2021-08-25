@@ -12,6 +12,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="84dp"
         android:clickable="true"
+        app:backgroundTint="@color/main"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/add" />
@@ -48,13 +49,25 @@
                 app:srcCompat="@drawable/profile_foreground" />
 
             <TextView
-                android:id="@+id/textView5"
-                android:layout_width="200dp"
+                android:id="@+id/editnameTv"
+                android:layout_width="218dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/editnamePt"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:visibility="visible" />
 
         </LinearLayout>
 
@@ -78,13 +91,25 @@
                 app:srcCompat="@drawable/email_foreground" />
 
             <TextView
-                android:id="@+id/textView6"
-                android:layout_width="200dp"
+                android:id="@+id/editemailTv"
+                android:layout_width="218dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/editemailPt"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:visibility="visible" />
         </LinearLayout>
 
         <View
@@ -107,13 +132,25 @@
                 app:srcCompat="@drawable/birthday_foreground" />
 
             <TextView
-                android:id="@+id/textView7"
-                android:layout_width="200dp"
+                android:id="@+id/editbdayTv"
+                android:layout_width="218dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:text="TextView"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:visibility="gone" />
+
+            <EditText
+                android:id="@+id/editbdayPt"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:visibility="visible" />
         </LinearLayout>
 
         <View
@@ -136,8 +173,8 @@
                 app:srcCompat="@drawable/eye_foreground" />
 
             <TextView
-                android:id="@+id/textView8"
-                android:layout_width="200dp"
+                android:id="@+id/editpasswordTv"
+                android:layout_width="218dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
@@ -272,7 +309,7 @@
         app:srcCompat="@drawable/change" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/editBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"

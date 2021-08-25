@@ -12,9 +12,42 @@
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="84dp"
         android:clickable="true"
+        app:backgroundTint="@color/main"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/add" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="358dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="#C5C5C5"
+        android:backgroundTint="#C6C6C6"
+        android:orientation="horizontal"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="8dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/find_foreground" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName5"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="search here..."
+            android:inputType="textPersonName" />
+    </LinearLayout>
 
     <SearchView
         android:id="@+id/searchView"
@@ -22,11 +55,14 @@
         android:layout_height="49dp"
 
         android:layout_marginTop="16dp"
-        android:background="#B89292"
+        android:background="#D8D7D7"
         android:clickable="true"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+    </SearchView>
 
     <TextView
         android:id="@+id/resultTv"
@@ -40,7 +76,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.076"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView2"
