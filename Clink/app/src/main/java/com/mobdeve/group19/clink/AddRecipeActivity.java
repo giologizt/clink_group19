@@ -1,5 +1,9 @@
 package com.mobdeve.group19.clink;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -14,9 +18,49 @@ import android.widget.Toast;
 
 public class AddRecipeActivity extends AppCompatActivity {
 
+    private Button btnCancel;
+    private Button btnPublish;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
+
+        this.Cancel();
+        this.Publish();
+    }
+
+    private ActivityResultLauncher Launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+
+                }
+            }
+    );
+
+    private void Cancel() {
+        this.btnCancel = findViewById(R.id.cancelBtn);
+        this.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (AddRecipeActivity.this, RecipesActivity.class);
+
+                Launcher.launch(intent);
+            }
+        });
+    }
+
+    private void Publish() {
+        this.btnPublish = findViewById(R.id.publishBtn);
+        this.btnPublish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (AddRecipeActivity.this, RecipesActivity.class);
+
+                Launcher.launch(intent);
+            }
+        });
     }
 }
