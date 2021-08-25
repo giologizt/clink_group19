@@ -24,7 +24,7 @@ public class RecipesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
-        this.fabRecipe = findViewById(R.id.addrecipeFab);
+        this.fabRecipe = (FloatingActionButton) findViewById(R.id.addrecipeFab);
         this.llProfile = findViewById(R.id.profileLl);
         this.llSearch = findViewById(R.id.searchLl);
 
@@ -33,7 +33,7 @@ public class RecipesActivity extends AppCompatActivity {
         this.Profile();
     }
 
-    private ActivityResultLauncher Launcher = registerForActivityResult(
+    public ActivityResultLauncher Launcher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
@@ -43,7 +43,7 @@ public class RecipesActivity extends AppCompatActivity {
             }
     );
 
-    private void addRecipe() {
+    public void addRecipe() {
         this.fabRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +54,7 @@ public class RecipesActivity extends AppCompatActivity {
         });
     }
 
-    private void Search() {
+    public void Search() {
         this.llSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +65,7 @@ public class RecipesActivity extends AppCompatActivity {
         });
     }
 
-    private void Profile() {
+    public void Profile() {
         this.llProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
