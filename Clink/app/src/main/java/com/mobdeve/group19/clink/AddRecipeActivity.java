@@ -10,9 +10,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
@@ -21,10 +23,52 @@ public class AddRecipeActivity extends AppCompatActivity {
     private Button btnCancel;
     private Button btnPublish;
 
+    private Button btnIngredients;
+    private Button btnSteps;
+
+    private int ingredientsLines;
+    private int stepsLines;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
+
+        this.ingredientsLines = 1;
+        this.stepsLines = 1;
+
+        this.btnIngredients = findViewById(R.id.btn_addIngredient);
+        this.btnSteps = findViewById(R.id.btn_steps);
+
+        btnIngredients.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout ingredientsLayout = findViewById(R.id.ll_ingredients);
+                ingredientsLayout.setOrientation(LinearLayout.VERTICAL);
+                EditText et = new EditText(getApplicationContext());
+                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                et.setLayoutParams(p);
+                et.setId(ingredientsLines + 1);
+                ingredientsLayout.addView(et);
+                ingredientsLines++;
+            }
+        });
+
+        btnSteps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout stepsLayout = findViewById(R.id.ll_steps);
+                stepsLayout.setOrientation(LinearLayout.VERTICAL);
+                EditText et = new EditText(getApplicationContext());
+                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                et.setLayoutParams(p);
+                et.setId(ingredientsLines + 1);
+                stepsLayout.addView(et);
+                stepsLines++;
+            }
+        });
 
         this.Cancel();
         this.Publish();
@@ -47,6 +91,8 @@ public class AddRecipeActivity extends AppCompatActivity {
 //        textView.setText("New text: " + text);
 //        return textView;
 //    }
+
+
 
     private ActivityResultLauncher Launcher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
