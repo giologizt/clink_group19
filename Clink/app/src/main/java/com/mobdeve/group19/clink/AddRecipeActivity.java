@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ public class AddRecipeActivity extends AppCompatActivity {
     private Button btnIngredients;
     private Button btnSteps;
 
+    private Button btnImage;
+
     private int ingredientsLines;
     private int stepsLines;
 
@@ -40,6 +43,16 @@ public class AddRecipeActivity extends AppCompatActivity {
         this.btnIngredients = findViewById(R.id.btn_addIngredient);
         this.btnSteps = findViewById(R.id.btn_steps);
 
+        this.btnImage = findViewById(R.id.btn_addImage);
+
+        btnImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivity(intent);
+            }
+        });
+
         btnIngredients.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +63,8 @@ public class AddRecipeActivity extends AppCompatActivity {
 
                 et.setLayoutParams(p);
                 et.setId(ingredientsLines + 1);
+                et.setTextColor(Color.BLACK);
+                et.setHighlightColor(Color.BLACK);
                 ingredientsLayout.addView(et);
                 ingredientsLines++;
             }
@@ -65,6 +80,8 @@ public class AddRecipeActivity extends AppCompatActivity {
 
                 et.setLayoutParams(p);
                 et.setId(ingredientsLines + 1);
+                et.setTextColor(Color.BLACK);
+                et.setHighlightColor(Color.BLACK);
                 stepsLayout.addView(et);
                 stepsLines++;
             }

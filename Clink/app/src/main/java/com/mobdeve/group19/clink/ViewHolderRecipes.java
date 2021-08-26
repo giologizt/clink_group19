@@ -11,7 +11,7 @@ public class ViewHolderRecipes extends RecyclerView.ViewHolder {
     private TextView nameTv, timeTv;
     private ImageView cocktailIv;
 
-    public ViewHolderRecipes (@NonNull @org.jetbrains.annotations.NotNull View itemView) {
+    public ViewHolderRecipes (@NonNull View itemView) {
         super(itemView);
         this.nameTv = itemView.findViewById(R.id.cocktail_nameTv);
         this.timeTv = itemView.findViewById(R.id.preptimeTv);
