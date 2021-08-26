@@ -13,6 +13,14 @@ public class ViewHolderRecipes extends RecyclerView.ViewHolder {
 
     public ViewHolderRecipes (@NonNull @org.jetbrains.annotations.NotNull View itemView) {
         super(itemView);
-
+        this.nameTv = itemView.findViewById(R.id.cocktail_nameTv);
+        this.timeTv = itemView.findViewById(R.id.preptimeTv);
+        this.cocktailIv = itemView.findViewById(R.id.cocktailIv);
     }
+
+    public void setNameTv (String name) {this.nameTv.setText(name);}
+
+    public void setTimeTv (String time) {this.timeTv.setText(time);}
+
+    public void setCocktailIv (int cocktailIv) {this.cocktailIv.setImageResource(cocktailIv);}
 }
