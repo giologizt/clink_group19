@@ -30,6 +30,24 @@ public class AddRecipeActivity extends AppCompatActivity {
         this.Publish();
     }
 
+//    private OnClickListener onClick() {
+//        return new OnClickListener() {
+//
+//            @Override
+//            public void onClick(View v) {
+//                mLayout.addView(createNewTextView(mEditText.getText().toString()));
+//            }
+//        };
+//    }
+//
+//    private TextView createNewTextView(String text) {
+//        final LayoutParams lparams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+//        final TextView textView = new TextView(this);
+//        textView.setLayoutParams(lparams);
+//        textView.setText("New text: " + text);
+//        return textView;
+//    }
+
     private ActivityResultLauncher Launcher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
