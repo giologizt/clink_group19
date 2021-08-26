@@ -5,6 +5,8 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +20,9 @@ public class RecipesActivity extends AppCompatActivity {
     private FloatingActionButton fabRecipe;
     private LinearLayout llSearch;
     private LinearLayout llProfile;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager MyManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,12 @@ public class RecipesActivity extends AppCompatActivity {
         this.addRecipe();
         this.Search();
         this.Profile();
+
+        this.recyclerView = findViewById(R.id.recipesRv);
+        this.MyManager = new LinearLayoutManager(this);
+        this.recyclerView.setLayoutManager(this.MyManager);
+
+        this.recyclerView.setAdapter(new AdapterRecipes(DataHelperRecipe.initializeData()));
     }
 
     public ActivityResultLauncher Launcher = registerForActivityResult(
