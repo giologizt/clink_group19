@@ -8,8 +8,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recipesRv"
-        android:layout_width="413dp"
-        android:layout_height="610dp"
+        android:layout_width="411dp"
+        android:layout_height="604dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cocktailrecipeTv" />
@@ -32,11 +32,12 @@
         android:id="@+id/cocktailrecipeTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="16dp"
         android:text="Cocktail Recipes"
         android:textAllCaps="true"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.081"
         app:layout_constraintStart_toStartOf="parent"

@@ -21,9 +21,11 @@ public class ProfileActivity extends AppCompatActivity {
     private FloatingActionButton fabRecipe;
     private LinearLayout llRecipes;
     private LinearLayout llSearch;
-    private Button btnEdit;
-    private TextView tvName;
-    private EditText ptName;
+    private LinearLayout llPassword;
+    private  Button btnEdit;
+//    private Button btnEdit;
+//    private TextView tvName;
+//    private EditText ptName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +35,12 @@ public class ProfileActivity extends AppCompatActivity {
         this.addRecipe();
         this.Recipes();
         this.Search();
+        this.Password();
+        this.EditProfile();
 
-        this.btnEdit = findViewById(R.id.editBtn);
-        this.tvName = findViewById(R.id.editnameTv);
-        this.ptName = findViewById(R.id.editnamePt);
+//        this.btnEdit = findViewById(R.id.editBtn);
+//        this.tvName = findViewById(R.id.editnameTv);
+//        this.ptName = findViewById(R.id.editnamePt);
 
 //        this.btnEdit.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -86,6 +90,30 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (ProfileActivity.this, RecipesActivity.class);
+
+                Launcher.launch(intent);
+            }
+        });
+    }
+
+    private void Password() {
+        this.llPassword = findViewById(R.id.passwordLl);
+        this.llPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (ProfileActivity.this, PasswordActivity.class);
+
+                Launcher.launch(intent);
+            }
+        });
+    }
+
+    private void EditProfile() {
+        this.btnEdit = findViewById(R.id.editprofileBtn);
+        this.btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (ProfileActivity.this, EditProfileActivity.class);
 
                 Launcher.launch(intent);
             }
