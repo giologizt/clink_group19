@@ -19,13 +19,12 @@
 
     <ScrollView
         android:id="@+id/scrollView4"
-        android:layout_width="389dp"
-        android:layout_height="604dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        android:layout_width="377dp"
+        android:layout_height="675dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.175">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -119,7 +118,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/feedbackRv"
                 android:layout_width="match_parent"
-                android:layout_height="172dp"
+                android:layout_height="162dp"
                 android:layout_marginTop="6dp">
 
             </androidx.recyclerview.widget.RecyclerView>
@@ -150,6 +149,7 @@
         android:background="@color/main"
         android:gravity="bottom"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
