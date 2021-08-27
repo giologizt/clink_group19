@@ -22,8 +22,8 @@
         android:layout_width="358dp"
         android:layout_height="48dp"
         android:layout_marginTop="16dp"
-        android:background="#C5C5C5"
-        android:backgroundTint="#C6C6C6"
+        android:background="#FFFFFF"
+        android:backgroundTint="#DFDFDF"
         android:orientation="horizontal"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,6 +71,7 @@
         android:layout_marginTop="16dp"
         android:text="results"
         android:textAllCaps="true"
+        android:textColor="@color/main"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,6 +84,8 @@
         android:layout_width="410dp"
         android:layout_height="476dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="57dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resultTv">
@@ -90,6 +93,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
+        android:id="@+id/linearLayout6"
         android:layout_width="414dp"
         android:layout_height="71dp"
         android:background="@color/main"
