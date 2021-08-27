@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="16dp"
         android:clickable="true"
         app:backgroundTint="@color/main"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,7 +20,7 @@
     <ScrollView
         android:id="@+id/scrollView4"
         android:layout_width="377dp"
-        android:layout_height="675dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
