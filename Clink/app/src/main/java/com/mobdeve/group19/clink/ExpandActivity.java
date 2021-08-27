@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import java.util.ArrayList;
 
 public class ExpandActivity extends AppCompatActivity {
 
@@ -27,6 +27,10 @@ public class ExpandActivity extends AppCompatActivity {
     private LinearLayout llSearch;
     private LinearLayout llProfile;
     private LinearLayout llRecipes;
+    private Button btnEditRecipe;
+    private TextView tvFeedback;
+    private AdapterFeedback Adapter;
+    private ArrayList<Feedback> dataFeedback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +64,16 @@ public class ExpandActivity extends AppCompatActivity {
         this.MyManager = new LinearLayoutManager(this);
         this.recyclerView.setLayoutManager(this.MyManager);
 
+//        this.Adapter = new AdapterFeedback(this.dataFeedback);
+//        this.recyclerView.setAdapter(this.Adapter);
+
         this.recyclerView.setAdapter(new AdapterFeedback(DataHelperFeedback.initializeData()));
 
         this.Recipes();
         this.Search();
         this.Profile();
+        this.EditRecipe();
+        this.WriteFeedback();
 
     }
 
@@ -78,16 +87,35 @@ public class ExpandActivity extends AppCompatActivity {
             }
     );
 
-//    public void Edit() {
-//        this.btnEdit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent (ExpandActivity.this, AddRecipeActivity.class);
+//    public ActivityResultLauncher Launcher2 = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(),
+//            new ActivityResultCallback<ActivityResult>() {
+//                @Override
+//                public void onActivityResult(ActivityResult result) {
+//                    if (result.getData() != null) {
+//                        Intent intent = result.getData();
+//                        String feedback = intent.getStringExtra(AddReviewActivity.KEY_FEEDBACK);
 //
-//                Launcher.launch(intent);
+//                        dataFeedback.add(0, new Feedback(R.drawable.dua, "Dua Lipa", feedback));
+//
+//                        Adapter.notifyItemChanged(0);
+//                        Adapter.notifyItemRangeChanged(0, Adapter.getItemCount());
+//                    }
+//                }
 //            }
-//        });
-//    }
+//    );
+
+    public void EditRecipe() {
+        this.btnEditRecipe = findViewById(R.id.editrecipeBtn);
+        this.btnEditRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (ExpandActivity.this, EditRecipeActivity.class);
+
+                Launcher.launch(intent);
+            }
+        });
+    }
 
     public void Search() {
         this.llSearch = findViewById(R.id.searchLl_expand);
@@ -121,6 +149,19 @@ public class ExpandActivity extends AppCompatActivity {
                 Intent intent = new Intent (ExpandActivity.this, RecipesActivity.class);
 
                 Launcher.launch(intent);
+            }
+        });
+    }
+
+    private void WriteFeedback() {
+        this.tvFeedback = findViewById(R.id.leavereviewTv);
+        this.tvFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (ExpandActivity.this, AddReviewActivity.class);
+
+                Launcher.launch(intent);
+                //Launcher2.launch(intent);
             }
         });
     }

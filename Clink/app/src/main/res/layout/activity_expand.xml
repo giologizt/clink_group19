@@ -112,6 +112,14 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
+            <TextView
+                android:id="@+id/leavereviewTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Leave a review..."
+                android:textColor="#850404" />
+
             <Button
                 android:id="@+id/editrecipeBtn"
                 android:layout_width="wrap_content"
