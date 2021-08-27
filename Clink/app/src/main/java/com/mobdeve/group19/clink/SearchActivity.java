@@ -52,7 +52,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void Profile() {
-        this.llProfile = findViewById(R.id.profileLl_search);
+        this.llProfile = findViewById(R.id.profileLl_expand);
         this.llProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +64,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void Recipes() {
-        this.llRecipes = findViewById(R.id.recipesLl_search);
+        this.llRecipes = findViewById(R.id.recipesLl_expand);
         this.llRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

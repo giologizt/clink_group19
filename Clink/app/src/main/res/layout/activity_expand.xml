@@ -135,6 +135,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
+            android:id="@+id/searchLl_expand"
             android:layout_width="136dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -156,7 +157,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/profileLl_search"
+            android:id="@+id/profileLl_expand"
             android:layout_width="136dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -178,7 +179,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/recipesLl_search"
+            android:id="@+id/recipesLl_expand"
             android:layout_width="136dp"
             android:layout_height="match_parent"
             android:orientation="vertical">

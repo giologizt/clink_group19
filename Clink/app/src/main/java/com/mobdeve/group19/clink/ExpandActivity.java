@@ -1,13 +1,22 @@
 package com.mobdeve.group19.clink;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ExpandActivity extends AppCompatActivity {
 
@@ -15,6 +24,9 @@ public class ExpandActivity extends AppCompatActivity {
     private ImageView expand_cocktailIv;
     private RecyclerView recyclerView;
     private LinearLayoutManager MyManager;
+    private LinearLayout llSearch;
+    private LinearLayout llProfile;
+    private LinearLayout llRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,5 +61,68 @@ public class ExpandActivity extends AppCompatActivity {
         this.recyclerView.setLayoutManager(this.MyManager);
 
         this.recyclerView.setAdapter(new AdapterFeedback(DataHelperFeedback.initializeData()));
+
+        this.Recipes();
+        this.Search();
+        this.Profile();
+
     }
+
+    public ActivityResultLauncher Launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+
+                }
+            }
+    );
+
+//    public void Edit() {
+//        this.btnEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent (ExpandActivity.this, AddRecipeActivity.class);
+//
+//                Launcher.launch(intent);
+//            }
+//        });
+//    }
+
+    public void Search() {
+        this.llSearch = findViewById(R.id.searchLl_expand);
+        this.llSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (ExpandActivity.this, SearchActivity.class);
+
+                Launcher.launch(intent);
+            }
+        });
+    }
+
+    public void Profile() {
+        this.llProfile = findViewById(R.id.profileLl_expand);
+        this.llProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (ExpandActivity.this, ProfileActivity.class);
+
+                Launcher.launch(intent);
+            }
+        });
+    }
+
+    private void Recipes() {
+        this.llRecipes = findViewById(R.id.recipesLl_expand);
+        this.llRecipes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (ExpandActivity.this, RecipesActivity.class);
+
+                Launcher.launch(intent);
+            }
+        });
+    }
+
 }

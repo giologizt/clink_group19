@@ -54,15 +54,6 @@ public class RecipesActivity extends AppCompatActivity {
             }
     );
 
-    public ActivityResultLauncher Launcher2 = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-
-                }
-            }
-    );
 
     public void addRecipe() {
         this.fabRecipe.setOnClickListener(new View.OnClickListener() {
