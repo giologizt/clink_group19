@@ -1,6 +1,8 @@
 package com.mobdeve.group19.clink;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +13,8 @@ public class ExpandActivity extends AppCompatActivity {
 
     private TextView expand_nameTv, expand_timeTv, expand_ingTv, expand_stepsTv;
     private ImageView expand_cocktailIv;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager MyManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +43,11 @@ public class ExpandActivity extends AppCompatActivity {
 
         String Steps = intent.getStringExtra(AdapterRecipes.KEY_STEPS);
         this.expand_stepsTv.setText(Steps);
+
+        this.recyclerView = findViewById(R.id.feedbackRv);
+        this.MyManager = new LinearLayoutManager(this);
+        this.recyclerView.setLayoutManager(this.MyManager);
+
+        this.recyclerView.setAdapter(new AdapterFeedback(DataHelperFeedback.initializeData()));
     }
 }

@@ -7,9 +7,9 @@ public class DataHelperFeedback {
         ArrayList<Feedback> data = new ArrayList<Feedback>();
 
         data.add(new Feedback(
-                R.drawable.margarita, "Harry Styles", "I love the drink!"));
+                R.drawable.ed, "Ed Sheeran", "I love the drink!"));
         data.add(new Feedback(
-                R.drawable.grasshopper, "Peter Parker", "This is life changing....."));
+                R.drawable.taylor, "Taylor Swift", "This is life changing....."));
         return data;
     }
 }
