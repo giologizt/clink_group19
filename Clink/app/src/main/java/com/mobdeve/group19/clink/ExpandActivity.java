@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 
 public class ExpandActivity extends AppCompatActivity {
@@ -27,8 +29,9 @@ public class ExpandActivity extends AppCompatActivity {
     private LinearLayout llSearch;
     private LinearLayout llProfile;
     private LinearLayout llRecipes;
-    private Button btnEditRecipe;
+    private FloatingActionButton btnEditRecipe;
     private TextView tvFeedback;
+    private TextView tvEditFeedback;
     private AdapterFeedback Adapter;
     private ArrayList<Feedback> dataFeedback;
 
@@ -74,7 +77,7 @@ public class ExpandActivity extends AppCompatActivity {
         this.Profile();
         this.EditRecipe();
         this.WriteFeedback();
-
+        //this.EditFeedback();
     }
 
     public ActivityResultLauncher Launcher = registerForActivityResult(
@@ -165,5 +168,18 @@ public class ExpandActivity extends AppCompatActivity {
             }
         });
     }
+
+//    private void EditFeedback() {
+//        this.tvEditFeedback = findViewById(R.id.editreviewTv);
+//        this.tvEditFeedback.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent (ExpandActivity.this, EditReviewActivity.class);
+//
+//                Launcher.launch(intent);
+//                //Launcher2.launch(intent);
+//            }
+//        });
+//    }
 
 }

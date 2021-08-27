@@ -5,10 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editrecipeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="84dp"
+        android:clickable="true"
+        app:backgroundTint="@color/main"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/edit_foreground" />
+
     <ScrollView
         android:id="@+id/scrollView4"
-        android:layout_width="380dp"
-        android:layout_height="659dp"
+        android:layout_width="385dp"
+        android:layout_height="629dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.551"
@@ -121,12 +133,12 @@
                 android:textColor="#850404" />
 
             <Button
-                android:id="@+id/editrecipeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
-                android:text="EDIT RECIPE" />
+                android:text="EDIT RECIPE"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>
