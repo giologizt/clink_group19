@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -40,7 +39,7 @@ public class ExpandActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expand);
 
-        this.expand_nameTv = findViewById(R.id.expand_nameTv);
+        this.expand_nameTv = findViewById(R.id.tv_recipename);
         this.expand_timeTv = findViewById(R.id.expand_timeTv);
         this.expand_cocktailIv = findViewById(R.id.expand_picIv);
         this.expand_ingTv = findViewById(R.id.expand_ingredientsTv);
