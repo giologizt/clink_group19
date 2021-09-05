@@ -16,6 +16,8 @@ public class ApiHelper {
     private static String BASE_URL = "http://localhost:3000";
     private static String authToken;
 
+    private Message message;
+
     public ApiHelper() {
 
         CookieHandler cookieHandler = new CookieManager();
@@ -30,7 +32,7 @@ public class ApiHelper {
 
     }
 
-    public String login(String username, String password) {
+    public void login(String username, String password) {
         Login loginInformation = new Login(username, password);
         Call<Login> call = retrofitInterface.executeLogin(loginInformation);
 
@@ -41,6 +43,7 @@ public class ApiHelper {
                     System.out.println(response.body().getMessage());
                     System.out.println(response.body().getAccessToken());
                     authToken = "bearer " + response.body().getAccessToken();
+
                 } else {
                     System.out.println("Invalid Credentials");
                 }
@@ -52,7 +55,6 @@ public class ApiHelper {
             }
         });
 
-        return authToken;
     }
 
     public void register(String username,

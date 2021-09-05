@@ -42,7 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/loginTv" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/pt_username"
         android:layout_width="306dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
@@ -64,7 +64,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress" />
+        app:layout_constraintTop_toBottomOf="@+id/pt_username" />
 
     <TextView
         android:id="@+id/textView25"
@@ -76,7 +76,19 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/ps_password" />
+
+    <EditText
+        android:id="@+id/ps_password"
+        android:layout_width="306dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
     <Button
         android:id="@+id/loginBtn"
@@ -103,6 +115,7 @@
             android:id="@+id/textView27"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
             android:text="DON'T HAVE AN ACCOUNT?"
             android:textColor="#C1BCBC" />
 
@@ -114,17 +127,5 @@
             android:textColor="@color/black"
             android:textStyle="bold" />
     </LinearLayout>
-
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="306dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
