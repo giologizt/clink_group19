@@ -3,6 +3,9 @@ package com.mobdeve.group19.clink.model;
 import java.util.HashMap;
 import java.util.Map;
 
+import kotlin.RequiresOptIn;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.http.*;
@@ -27,10 +30,22 @@ public interface RetrofitInterface {
     @PUT("/changePassword")
     Call<Profile> executeChangePassword(@Header("Authorization") String accessToken, @Body Profile profile);
 
-    /*
-    @PUT("/changePassword")
-    Call<ChangePassword> executeChangePassword(@Body ChangePassword changepassword);
+    @POST("/postRecipe")
+    Call<Recipe> executePostRecipe(@Part MultipartBody.Part filePart, @PartMap Map<String, RequestBody> partMap);
+                                   //@Part("name") RequestBody name,
+                                   //@Part("prepTime") RequestBody prepTime,
+                                   //@Part("author") RequestBody author,
+                                   //@Part("steps") RequestBody steps,
+                                   //@Part("reviews") RequestBody reviews,
+                                   //@Part("ingredients") RequestBody ingredients);
 
+    @GET("/getRecipes")
+    Call<Recipe> executeGetRecipes();
+
+    @GET("/getRecipe")
+    Call<Recipe> executeGetRecipe();
+
+    /*
 
     @POST("/postRecipe")
     Call<PostRecipe> executePostRecipe(@Body PostRecipe postRecipe);

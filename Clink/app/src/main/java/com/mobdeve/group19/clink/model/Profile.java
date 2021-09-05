@@ -29,4 +29,6 @@ public class Profile {
 
     public String getBirthday () { return this.birthday; }
 
+    public String getPassword () { return this.newpassword; }
+
 }

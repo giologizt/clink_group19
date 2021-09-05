@@ -1,13 +1,23 @@
 package com.mobdeve.group19.clink.model;
 
+import android.provider.MediaStore;
+import android.util.Log;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.io.File;
+import java.lang.reflect.Array;
 import java.net.CookieHandler;
 import java.net.CookieManager;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ApiHelper {
 
@@ -15,6 +25,11 @@ public class ApiHelper {
     private RetrofitInterface retrofitInterface;
     private static String BASE_URL = "http://localhost:3000";
     private static String authToken;
+
+    Message message;
+    String filePath = "";
+    ArrayList<Recipe> recipes = new ArrayList<>();
+
 
     public ApiHelper() {
 
@@ -41,16 +56,22 @@ public class ApiHelper {
             @Override
             public void onResponse(Call<Login> call, Response<Login> response) {
                 if (response.isSuccessful()) {
-                    System.out.println(response.body().getMessage());
-                    System.out.println(response.body().getAccessToken());
+                    Log.d("ApiHelper - Login", response.body().getMessage());
+                    Log.d("ApiHelper - Login", response.body().getAccessToken());
+                    //System.out.println(response.body().getMessage());
+                    //System.out.println(response.body().getAccessToken());
                     authToken = "bearer " + response.body().getAccessToken();
+                    message = new Message("Login Successful", response.code(), authToken);
                 } else {
-                    System.out.println("Invalid Credentials");
+                    Log.d("ApiHelper - Login", "Invalid Credentials Given");
+                    message = new Message("Login Failed", response.code());
+                    //System.out.println("Invalid Credentials");
                 }
             }
 
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
+                Log.d("ApiHelper - Login", "Something went wrong");
                 t.printStackTrace();
             }
         });
@@ -69,15 +90,19 @@ public class ApiHelper {
             @Override
             public void onResponse(Call<Register> call, Response<Register> response) {
                 if (response.isSuccessful()) {
-                    System.out.println(response.body().getMessage());
-                    System.out.println(response.body().getUsername());
+                    Log.d("ApiHelper - Register", response.body().getMessage());
+                    Log.d("ApiHelper - Register", response.body().getUsername());
+                    //System.out.println(response.body().getMessage());
+                    //System.out.println(response.body().getUsername());
                 } else
-                    System.out.println(response.errorBody());
+                    Log.d("ApiHelper - Register", response.errorBody().toString());
+                    //System.out.println(response.errorBody());
             }
 
             @Override
             public void onFailure(Call<Register> call, Throwable t) {
-
+                Log.d("ApiHelper - Register", "Something went wrong");
+                t.printStackTrace();
             }
         });
     }
@@ -89,16 +114,21 @@ public class ApiHelper {
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 if (response.isSuccessful()) {
-                    System.out.println(response.body().getUsername());
-                    System.out.println(response.body().getEmail());
-                    System.out.println(response.body().getFullName());
-                    System.out.println(response.body().getBirthday());
+                    Log.d("ApiHelper - getProfile", response.body().getEmail());
+                    Log.d("ApiHelper - getProfile", response.body().getUsername());
+                    Log.d("ApiHelper - getProfile", response.body().getFullName());
+                    Log.d("ApiHelper - getProfile", response.body().getBirthday());
+                    //System.out.println(response.body().getUsername());
+                    //System.out.println(response.body().getEmail());
+                    //System.out.println(response.body().getFullName());
+                    //System.out.println(response.body().getBirthday());
                 }
             }
 
             @Override
             public void onFailure(Call<Profile> call, Throwable t) {
-
+                Log.d("ApiHelper - getProfile", "Something went wrong");
+                t.printStackTrace();
             }
         });
     }
@@ -111,12 +141,18 @@ public class ApiHelper {
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 if (response.isSuccessful()) {
-                    System.out.println("Profile Edited.");
+                    Log.d("ApiHelper - editProfile", "Profile edited");
+                    Log.d("ApiHelper - editProfile", response.body().getEmail());
+                    Log.d("ApiHelper - editProfile", response.body().getUsername());
+                    Log.d("ApiHelper - editProfile", response.body().getFullName());
+                    Log.d("ApiHelper - editProfile", response.body().getBirthday());
+                    //System.out.println("Profile Edited.");
                 }
             }
 
             @Override
             public void onFailure(Call<Profile> call, Throwable t) {
+                Log.d("ApiHelper - editProfile", "Something went wrong");
                 t.printStackTrace();
             }
         });
@@ -130,15 +166,77 @@ public class ApiHelper {
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 if (response.isSuccessful()) {
-                    System.out.println("Password Changed.");
+                    Log.d("ApiHelper - changePass", "Password changed");
+                    Log.d("ApiHelper - changePass", response.body().getPassword());
+                    //System.out.println("Password Changed.");
                 }
             }
 
             @Override
             public void onFailure(Call<Profile> call, Throwable t) {
+                Log.d("ApiHelper - changePass", "Something went wrong");
                 t.printStackTrace();
             }
         });
     }
+
+    public void postRecipe(ArrayList<String> recipesteps, ArrayList<String> recipereviews, ArrayList<ArrayList<String>> recipeingredients,
+                           String recipename, Integer recipeprepTime, String recipeauthor){
+
+        File file = new File(filePath);
+
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("recipe-image", file.getName(), requestBody);
+
+        RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), recipename);
+        RequestBody prepTime = RequestBody.create(MediaType.parse("multipart/form-data"), recipeprepTime.toString());
+        RequestBody author = RequestBody.create(MediaType.parse("multipart/form-data"), recipeauthor);
+        //RequestBody steps = RequestBody.create(MediaType.parse(), recipesteps);
+
+        HashMap<String, RequestBody> map = new HashMap<>();
+        map.put("name", name);
+        map.put("prepTime", prepTime);
+        map.put("author", author);
+
+        for(int i = 0; i < recipesteps.size(); i++) {
+            RequestBody steps = RequestBody.create(MediaType.parse("multipart/form-data"), recipesteps.get(i));
+            map.put("steps[" + i + "]", steps);
+        }
+
+        for(int i = 0; i < recipeingredients.size(); i++) {
+            RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).get(0));
+            RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).get(1));
+            map.put("ingredients[" + i + "][quantity]", quantity);
+            map.put("ingredients[" + i + "][ingredientName]", ingredientName);
+        }
+
+        Call<Recipe> call = retrofitInterface.executePostRecipe(filePart, map);
+
+        call.enqueue(new Callback<Recipe>() {
+            @Override
+            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
+                if(response.isSuccessful()) {
+                    Log.d("ApiHelper - postRecipe", "Recipe added");
+                    Log.d("ApiHelper - postRecipe", response.body().getAuthor());
+                    Log.d("ApiHelper - postRecipe", response.body().getName());
+                    Log.d("ApiHelper - postRecipe", response.body().getPrepTime().toString());
+                    Log.d("ApiHelper - postRecipe", response.body().getSteps().toString());
+                    Log.d("ApiHelper - postRecipe", response.body().getIngredients().toString());
+                } else {
+                    Log.d("ApiHelper - postRecipe", response.errorBody().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Recipe> call, Throwable t) {
+                Log.d("ApiHelper - postRecipe", "Something went wrong");
+                t.printStackTrace();
+            }
+        });
+
+
+    }
+
 }
 
