@@ -7,8 +7,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.jetbrains.annotations.NotNull;
-
 public class ViewHolderFeedback extends RecyclerView.ViewHolder {
     private TextView usernameTv, commentTv;
     private ImageView userIv;
