@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -31,6 +32,9 @@ public class LoginActivity extends AppCompatActivity {
     // Login and Signup Button
     private Button btnLogin;
     private TextView tvSignup;
+
+    // Error Login
+    private TextView errorMsg;
 
     // API Helper
     ApiHelper helper;
@@ -75,6 +79,9 @@ public class LoginActivity extends AppCompatActivity {
 
         this.btnLogin = findViewById(R.id.loginBtn);
 
+        // Initialize Intent
+        Intent intent = new Intent (LoginActivity.this, RecipesActivity.class);
+
         // When the login button is pressed
         this.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +100,18 @@ public class LoginActivity extends AppCompatActivity {
                         helper.login(username, password, new CustomCallback() {
                             @Override
                             public void success(Message message) {
-                                Log.d("Token: ",message.getToken());
+                                if(message.getCode() == 400) {
+                                    // Show cannot find user error
+                                    Toast.makeText(getApplicationContext(), "Error: Cannot find user.", Toast.LENGTH_SHORT).show();
+                                } else if(message.getCode() == 401) {
+                                    // Show cannot find wrong password error
+                                    Toast.makeText(getApplicationContext(), "Error: Invalid Password.", Toast.LENGTH_SHORT).show();
+                                } else if(message.getCode() == 200) {
+                                    editor.putString(JSON_TOKEN_KEY, message.getToken());
+                                    editor.apply();
+
+                                    Launcher.launch(intent);
+                                }
                             }
 
                             @Override
