@@ -16,8 +16,10 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.mobdeve.group19.clink.model.ApiHelper;
+import com.mobdeve.group19.clink.model.CustomCallback;
 import com.mobdeve.group19.clink.model.Message;
 
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -87,8 +89,19 @@ public class LoginActivity extends AppCompatActivity {
                 executorService.execute(new Runnable() {
                     @Override
                     public void run() {
-                        Message message = helper.login(username, password);
-                        Log.d("Login Frontend: ", message.getMessage());
+
+                        helper.login(username, password, new CustomCallback() {
+                            @Override
+                            public void success(Message message) {
+                                Log.d("Token: ",message.getToken());
+                            }
+
+                            @Override
+                            public void failure(Throwable t) {
+                                t.printStackTrace();
+                            }
+                        });
+
                     }
                 });
 

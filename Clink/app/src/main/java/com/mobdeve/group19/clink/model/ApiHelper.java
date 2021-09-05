@@ -20,6 +20,8 @@ import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 public class ApiHelper {
 
@@ -28,7 +30,6 @@ public class ApiHelper {
     private static String BASE_URL = "http://10.0.2.2:3000";
     private static String authToken;
 
-    Message message;
     String filePath = "";
     ArrayList<Recipe> recipes = new ArrayList<>();
 
@@ -36,9 +37,6 @@ public class ApiHelper {
     public ApiHelper() {
 
         CookieHandler cookieHandler = new CookieManager();
-
-        //OkHttpClient.Builder client = new OkHttpClient().Builder();
-
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -50,7 +48,9 @@ public class ApiHelper {
 
     }
 
-    public Message login(String username, String password) {
+
+
+    public void login(String username, String password, CustomCallback callback) {
         Login loginInformation = new Login(username, password);
         Call<Login> call = retrofitInterface.executeLogin(loginInformation);
 
@@ -63,10 +63,13 @@ public class ApiHelper {
                     //System.out.println(response.body().getMessage());
                     //System.out.println(response.body().getAccessToken());
                     authToken = "bearer " + response.body().getAccessToken();
-                    message = new Message("Login Successful", response.code(), authToken);
+                    Message message = new Message("Login Successful", response.code(), authToken);
+                    callback.success(message);
+
                 } else {
                     Log.d("ApiHelper - Login", "Invalid Credentials Given");
-                    message = new Message("Login Failed", response.code());
+                    Message message = new Message("Login Failed", response.code());
+                    callback.success(message);
                     //System.out.println("Invalid Credentials");
                 }
             }
@@ -74,11 +77,10 @@ public class ApiHelper {
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
                 Log.d("ApiHelper - Login", "Something went wrong");
-                t.printStackTrace();
+                callback.failure(t);
             }
         });
 
-        return message;
     }
 
     public void register(String username,
