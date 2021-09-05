@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void Login() {
         this.btnLogin = findViewById(R.id.loginBtn);
+
+        // When the login button is pressed
         this.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void Signup() {
         this.tvSignup = findViewById(R.id.signupTv);
+
+        // When the signup button is pressed
         this.tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

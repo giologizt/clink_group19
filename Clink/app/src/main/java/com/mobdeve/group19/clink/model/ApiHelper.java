@@ -20,9 +20,6 @@ public class ApiHelper {
 
         CookieHandler cookieHandler = new CookieManager();
 
-        //OkHttpClient.Builder client = new OkHttpClient().Builder();
-
-
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
