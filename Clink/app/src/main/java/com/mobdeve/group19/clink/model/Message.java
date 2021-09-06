@@ -21,7 +21,10 @@ public class Message {
         this.token = token;
         this.code = -1;
         this.message = null;
+    }
 
+    public Message(Integer code){
+        this.code = code;
     }
 
     public String getMessage() {
