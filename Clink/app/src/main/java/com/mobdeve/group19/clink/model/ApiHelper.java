@@ -1,5 +1,6 @@
 package com.mobdeve.group19.clink.model;
 
+
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -10,6 +11,7 @@ import com.google.gson.reflect.TypeToken;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
+
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.File;
 import java.lang.reflect.Array;
+
 import java.lang.reflect.Type;
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -26,24 +29,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+
 public class ApiHelper {
 
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
-    private static String BASE_URL = "http://localhost:3000";
+    private static String BASE_URL = "http://10.0.2.2:3000";
     private static String authToken;
+
 
     Message message;
     String filePath = "";
     //ArrayList<Recipe> recipes = new ArrayList<>();
 
-
     public ApiHelper() {
 
         CookieHandler cookieHandler = new CookieManager();
-
-        //OkHttpClient.Builder client = new OkHttpClient().Builder();
-
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -55,7 +56,9 @@ public class ApiHelper {
 
     }
 
-    public String login(String username, String password) {
+
+
+    public void login(String username, String password, CustomCallback callback) {
         Login loginInformation = new Login(username, password);
         Call<Login> call = retrofitInterface.executeLogin(loginInformation);
 
@@ -65,13 +68,16 @@ public class ApiHelper {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - Login", response.body().getMessage());
                     Log.d("ApiHelper - Login", response.body().getAccessToken());
-                    //System.out.println(response.body().getMessage());
-                    //System.out.println(response.body().getAccessToken());
+
                     authToken = "bearer " + response.body().getAccessToken();
-                    message = new Message("Login Successful", response.code(), authToken);
+                    Message message = new Message("Login Successful", response.code(), authToken);
+                    callback.success(message);
+
                 } else {
                     Log.d("ApiHelper - Login", "Invalid Credentials Given");
-                    message = new Message("Login Failed", response.code());
+                    Message message = new Message("Login Failed", response.code());
+                    callback.success(message);
+
                     //System.out.println("Invalid Credentials");
                 }
             }
@@ -79,11 +85,11 @@ public class ApiHelper {
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
                 Log.d("ApiHelper - Login", "Something went wrong");
-                t.printStackTrace();
+                 callback.failure(t);
+
             }
         });
 
-        return authToken;
     }
 
     public void register(String username,
@@ -101,9 +107,10 @@ public class ApiHelper {
                     Log.d("ApiHelper - Register", response.body().getUsername());
                     //System.out.println(response.body().getMessage());
                     //System.out.println(response.body().getUsername());
-                } else
+                } else {
                     Log.d("ApiHelper - Register", response.errorBody().toString());
                     //System.out.println(response.errorBody());
+                }
             }
 
             @Override
@@ -174,7 +181,9 @@ public class ApiHelper {
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - changePass", "Password changed");
+
                     Log.d("ApiHelper - changePass", response.body().getPassword());
+
                     //System.out.println("Password Changed.");
                 }
             }

@@ -24,7 +24,9 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".RecipesActivity" />
         <activity android:name=".AddRecipeActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
