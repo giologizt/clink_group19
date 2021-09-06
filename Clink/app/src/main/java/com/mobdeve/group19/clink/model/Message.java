@@ -15,10 +15,13 @@ public class Message {
     public Message(String message, Integer code) {
         this.message = message;
         this.code = code;
+        this.token = null;
     }
 
     public Message(String token) {
         this.token = token;
+        this.code = -1;
+        this.message = null;
     }
 
     public String getMessage() {
