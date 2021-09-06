@@ -38,7 +38,7 @@ public class SearchActivity extends AppCompatActivity {
     );
 
     private void addRecipe() {
-        this.fabRecipe = findViewById(R.id.addrecipeFab);
+        this.fabRecipe = findViewById(R.id.addrecipeFab_profile);
         this.fabRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

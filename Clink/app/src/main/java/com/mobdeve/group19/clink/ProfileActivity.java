@@ -10,15 +10,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private FloatingActionButton fabRecipe;
+    private LinearLayout fabRecipe;
     private LinearLayout llRecipes;
     private LinearLayout llSearch;
     private LinearLayout llPassword;
@@ -34,7 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         this.addRecipe();
         this.Recipes();
-        this.Search();
+        //this.Search();
         this.Password();
         this.EditProfile();
 
@@ -72,17 +70,17 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void Search() {
-        this.llSearch = findViewById(R.id.searchLl_profile);
-        this.llSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (ProfileActivity.this, SearchActivity.class);
-
-                Launcher.launch(intent);
-            }
-        });
-    }
+//    private void Search() {
+//        this.llSearch = findViewById(R.id.recipesLl_profile);
+//        this.llSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent (ProfileActivity.this, SearchActivity.class);
+//
+//                Launcher.launch(intent);
+//            }
+//        });
+//    }
 
     private void Recipes() {
         this.llRecipes = findViewById(R.id.recipesLl_profile);
