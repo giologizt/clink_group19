@@ -460,8 +460,26 @@ public class ApiHelper {
 
     }
 
-    public void deleteReview(String recipeId, String reviewId){
-        
+    public void deleteReview(Review review, String recipeId){
+        Recipe recipe = new Recipe(review, recipeId);
+        Call<Recipe> call = retrofitInterface.executeDeleteReview(recipe);
+
+        call.enqueue(new Callback<Recipe>() {
+            @Override
+            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
+                if(response.isSuccessful()){
+                    Log.d("ApiHelper - delReview", "Review deleted");
+                } else {
+                    Log.d("ApiHelper - delReview", "Review not deleted");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Recipe> call, Throwable t) {
+                Log.d("ApiHelper - editReview", "Something went wrong");
+                t.printStackTrace();
+            }
+        });
     }
 
 }
