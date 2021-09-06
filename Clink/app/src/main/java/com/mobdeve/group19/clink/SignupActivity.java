@@ -26,6 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -44,6 +45,9 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        helper = new ApiHelper();
+        executorService = Executors.newSingleThreadExecutor();
 
         Intent intent = new Intent (SignupActivity.this, LoginActivity.class);
 
@@ -103,10 +107,15 @@ public class SignupActivity extends AppCompatActivity {
                                     helper.register(username, fullname, email, birthday, password, new CustomCallback() {
                                         @Override
                                         public void success(Message message) {
-                                            if(message.getCode() == 400){
-                                                Toast.makeText(getApplicationContext(), "Error: " + message.getMessage(), Toast.LENGTH_SHORT).show();
-                                            } else {
+                                            if(message.getCode() == 200){
                                                 Launcher.launch(intent);
+                                            }
+                                        }
+
+                                        @Override
+                                        public void error(Message message) {
+                                            if(message.getCode() == 400){
+                                                Toast.makeText(getApplicationContext(), "Error: Something went wrong", Toast.LENGTH_SHORT).show();
                                             }
                                         }
 

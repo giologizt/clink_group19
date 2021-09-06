@@ -104,13 +104,13 @@ public class ApiHelper {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - Register", response.body().getMessage());
                     Log.d("ApiHelper - Register", response.body().getUsername());
-                    Message message = new Message(response.body().getMessage(), response.code());
+                    Message message = new Message(response.code());
                     callback.success(message);
                     //System.out.println(response.body().getMessage());
                     //System.out.println(response.body().getUsername());
                 } else {
                     Log.d("ApiHelper - Register", response.errorBody().toString());
-                    Message message = new Message(response.body().getMessage(), response.code());
+                    Message message = new Message(response.code());
                     callback.success(message);
                     //System.out.println(response.errorBody());
                 }
