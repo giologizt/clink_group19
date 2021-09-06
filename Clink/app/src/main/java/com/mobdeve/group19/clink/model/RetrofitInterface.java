@@ -1,7 +1,5 @@
 package com.mobdeve.group19.clink.model;
 
-import com.mobdeve.group19.clink.Recipe;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +32,6 @@ public interface RetrofitInterface {
 
     @POST("/postRecipe")
     Call<Recipe> executePostRecipe(@Part MultipartBody.Part filePart, @PartMap Map<String, RequestBody> partMap);
-
     //@Part("name") RequestBody name,
     //@Part("prepTime") RequestBody prepTime,
     //@Part("author") RequestBody author,
@@ -46,30 +43,7 @@ public interface RetrofitInterface {
     Call<Recipe> executeGetRecipes();
 
     @GET("/getRecipe")
-    Call<Recipe> executeGetRecipe();
-
-    /*
-    
-    @GET("/getRecipe")
     Call<Recipe> executeGetRecipe(@Body String id);
 
-    @PUT("/updateRecipe")
-    Call<Recipe> executeUpdateRecipe(@Part MultipartBody.Part filePart, @PartMap Map<String, RequestBody> partMap);
 
-    @GET("/searchRecipe")
-    Call<Recipe> executeSearchRecipe(@Body String searchQuery);
-
-    @DELETE("/deleteRecipe")
-    Call<Recipe> executeDeleteRecipe(@Body String id);
-
-    @POST("/addReview")
-    Call<Recipe> executeAddReview(@Body Recipe recipe);
-
-    @PUT("/editReview")
-    Call<Recipe> executeEditReview(@Body Recipe recipe);
-
-    @DELETE("/deleteReview")
-    Call<Recipe> executeDeleteReview(@Body Recipe recipe);
-
-    */
 }
