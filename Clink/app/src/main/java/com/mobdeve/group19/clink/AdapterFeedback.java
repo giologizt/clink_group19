@@ -30,7 +30,7 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
     public void onBindViewHolder(@NonNull @NotNull ViewHolderFeedback holder, int position) {
         holder.setUsernameTv(data.get(position).getUsername());
         holder.setCommentTv(data.get(position).getComment());
-        holder.setUserIv(data.get(position).getImageId());
+        //holder.setUserIv(data.get(position).getImageId());
     }
 
     @Override
