@@ -132,7 +132,7 @@ public class ExpandActivity extends AppCompatActivity {
     }
 
     public void Profile() {
-        this.llProfile = findViewById(R.id.profileLl_expand);
+        this.llProfile = findViewById(R.id.profileLl);
         this.llProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +144,7 @@ public class ExpandActivity extends AppCompatActivity {
     }
 
     private void Recipes() {
-        this.llRecipes = findViewById(R.id.recipesLl_expand);
+        this.llRecipes = findViewById(R.id.recipesLl_search);
         this.llRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

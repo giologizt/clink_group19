@@ -197,7 +197,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/profileLl_expand"
+            android:id="@+id/profileLl"
             android:layout_width="136dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -219,7 +219,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/recipesLl_expand"
+            android:id="@+id/recipesLl_search"
             android:layout_width="136dp"
             android:layout_height="match_parent"
             android:orientation="vertical">

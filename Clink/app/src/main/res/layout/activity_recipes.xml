@@ -6,34 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recipesRv"
-        android:layout_width="411dp"
-        android:layout_height="604dp"
-        android:layout_marginTop="25dp"
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="358dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:background="#FFFFFF"
+        android:backgroundTint="#DFDFDF"
+        android:orientation="horizontal"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cocktailrecipeTv" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addrecipeFab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        app:backgroundTint="@color/main"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.868"
-        app:srcCompat="@drawable/add" />
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="8dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/find_foreground" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName5"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="search here..."
+            android:inputType="textPersonName" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/cocktailrecipeTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="sans-serif-medium"
         android:text="Cocktail Recipes"
         android:textAllCaps="true"
@@ -42,53 +51,88 @@
         android:textStyle="bold"
         android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.081"
+        app:layout_constraintHorizontal_bias="0.082"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recipesRv"
+        android:layout_width="405dp"
+        android:layout_height="472dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cocktailrecipeTv" />
 
     <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="0dp"
-        android:layout_height="71dp"
+        android:id="@+id/linearLayout6"
+        android:layout_width="411dp"
+        android:layout_height="55dp"
         android:background="@color/main"
         android:gravity="bottom"
         android:orientation="horizontal"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:id="@+id/searchLl"
-            android:layout_width="136dp"
+            android:id="@+id/recipesLl"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:background="#CAB576"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginTop="8dp"
+                app:srcCompat="@drawable/cocktail" />
+
+            <TextView
+                android:id="@+id/cocktailTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="RECIPES"
+                android:textSize="10sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/addrecipeFab"
+            android:layout_width="132dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="104dp"
-                android:layout_height="41dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                app:srcCompat="@drawable/search" />
+                android:layout_height="32dp"
+                android:layout_gravity="clip_vertical|center_horizontal"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/add2" />
 
             <TextView
                 android:id="@+id/searchTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="SEARCH" />
+                android:text="SEARCH"
+                android:textSize="10sp"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/profileLl"
-            android:layout_width="136dp"
+            android:layout_width="138dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="107dp"
-                android:layout_height="42dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 app:srcCompat="@drawable/profile" />
@@ -98,29 +142,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="MY PROFILE" />
+                android:text="MY PROFILE"
+                android:textSize="10sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/recipesLl"
-            android:layout_width="136dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:layout_marginTop="8dp"
-                app:srcCompat="@drawable/cocktail" />
-
-            <TextView
-                android:id="@+id/cocktailTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="RECIPES" />
-        </LinearLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

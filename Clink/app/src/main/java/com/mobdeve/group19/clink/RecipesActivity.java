@@ -17,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class RecipesActivity extends AppCompatActivity {
 
-    private FloatingActionButton fabRecipe;
+    private LinearLayout fabRecipe;
     private LinearLayout llSearch;
     private LinearLayout llProfile;
     private RecyclerView recyclerView;
@@ -29,12 +29,12 @@ public class RecipesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
-        this.fabRecipe = (FloatingActionButton) findViewById(R.id.addrecipeFab);
+        this.fabRecipe = findViewById(R.id.addrecipeFab);
         this.llProfile = findViewById(R.id.profileLl);
-        this.llSearch = findViewById(R.id.searchLl);
+        //this.llSearch = findViewById(R.id.searchLl);
 
         this.addRecipe();
-        this.Search();
+        //this.Search();
         this.Profile();
 
         this.recyclerView = findViewById(R.id.recipesRv);
@@ -66,16 +66,16 @@ public class RecipesActivity extends AppCompatActivity {
         });
     }
 
-    public void Search() {
-        this.llSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (RecipesActivity.this, SearchActivity.class);
-
-                Launcher.launch(intent);
-            }
-        });
-    }
+//    public void Search() {
+//        this.llSearch.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent (RecipesActivity.this, SearchActivity.class);
+//
+//                Launcher.launch(intent);
+//            }
+//        });
+//    }
 
     public void Profile() {
         this.llProfile.setOnClickListener(new View.OnClickListener() {
