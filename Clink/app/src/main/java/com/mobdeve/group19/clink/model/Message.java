@@ -5,7 +5,7 @@ public class Message {
     String message;
     Integer code;
     String token = "";
-
+  
     public Message(String message, Integer code, String token) {
         this.message = message;
         this.code = code;
@@ -19,6 +19,9 @@ public class Message {
 
     public Message(String token) {
         this.token = token;
+        this.code = -1;
+        this.message = null;
+
     }
 
     public String getMessage() {
