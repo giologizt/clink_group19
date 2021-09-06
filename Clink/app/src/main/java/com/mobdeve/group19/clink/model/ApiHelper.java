@@ -85,18 +85,15 @@ public class ApiHelper {
             @Override
             public void onFailure(Call<Login> call, Throwable t) {
                 Log.d("ApiHelper - Login", "Something went wrong");
-                 callback.failure(t);
+                callback.failure(t);
 
             }
         });
 
     }
 
-    public void register(String username,
-                         String fullname,
-                         String email,
-                         String birthday,
-                         String password) {
+    public void register(String username, String fullname, String email, String birthday,
+                         String password, CustomCallback callback) {
         Register registerInformation = new Register(username, fullname, email, birthday, password);
         Call<Register> call = retrofitInterface.executeRegister(registerInformation);
         call.enqueue(new Callback<Register>() {
@@ -105,10 +102,14 @@ public class ApiHelper {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - Register", response.body().getMessage());
                     Log.d("ApiHelper - Register", response.body().getUsername());
+                    Message message = new Message(response.body().getMessage(), response.code());
+                    callback.success(message);
                     //System.out.println(response.body().getMessage());
                     //System.out.println(response.body().getUsername());
                 } else {
                     Log.d("ApiHelper - Register", response.errorBody().toString());
+                    Message message = new Message(response.body().getMessage(), response.code());
+                    callback.success(message);
                     //System.out.println(response.errorBody());
                 }
             }
@@ -116,12 +117,13 @@ public class ApiHelper {
             @Override
             public void onFailure(Call<Register> call, Throwable t) {
                 Log.d("ApiHelper - Register", "Something went wrong");
+                callback.failure(t);
                 t.printStackTrace();
             }
         });
     }
 
-    public void getProfile(String id) {
+    public void getProfile(String id, ProfileCallback callback) {
         Call<Profile> call = retrofitInterface.executeGetProfile(authToken);
 
         call.enqueue(new Callback<Profile>() {
@@ -132,22 +134,32 @@ public class ApiHelper {
                     Log.d("ApiHelper - getProfile", response.body().getUsername());
                     Log.d("ApiHelper - getProfile", response.body().getFullName());
                     Log.d("ApiHelper - getProfile", response.body().getBirthday());
+                    Message message = new Message(response.code());
+                    Profile profile = new Profile(response.body().getId(), response.body().getUsername(), response.body().getEmail(),
+                            response.body().getFullName(), response.body().getBirthday(), response.body().getPassword());
+                    callback.success(message, profile);
+
                     //System.out.println(response.body().getUsername());
                     //System.out.println(response.body().getEmail());
                     //System.out.println(response.body().getFullName());
                     //System.out.println(response.body().getBirthday());
+                } else {
+                    Log.d("ApiHelper - getProfile", "Cannot find profile");
+                    Message message = new Message(response.code());
+                    callback.error(message);
                 }
             }
 
             @Override
             public void onFailure(Call<Profile> call, Throwable t) {
                 Log.d("ApiHelper - getProfile", "Something went wrong");
+                callback.failure(t);
                 t.printStackTrace();
             }
         });
     }
 
-    public void editProfile(String email, String fullName, String birthday) {
+    public void editProfile(String email, String fullName, String birthday, CustomCallback callback) {
         Profile profileInformation = new Profile(email, fullName, birthday);
         Call<Profile> call = retrofitInterface.executeEditProfile(authToken, profileInformation);
 
@@ -156,23 +168,29 @@ public class ApiHelper {
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - editProfile", "Profile edited");
-                    Log.d("ApiHelper - editProfile", response.body().getEmail());
-                    Log.d("ApiHelper - editProfile", response.body().getUsername());
-                    Log.d("ApiHelper - editProfile", response.body().getFullName());
-                    Log.d("ApiHelper - editProfile", response.body().getBirthday());
+                    //Log.d("ApiHelper - editProfile", response.body().getEmail());
+                    //Log.d("ApiHelper - editProfile", response.body().getUsername());
+                    //Log.d("ApiHelper - editProfile", response.body().getFullName());
+                    //Log.d("ApiHelper - editProfile", response.body().getBirthday());
                     //System.out.println("Profile Edited.");
+                    Message message = new Message("Profile edited", response.code());
+                    callback.success(message);
+                } else {
+                    Message message = new Message("Profile not edited", response.code());
+                    callback.success(message);
                 }
             }
 
             @Override
             public void onFailure(Call<Profile> call, Throwable t) {
                 Log.d("ApiHelper - editProfile", "Something went wrong");
+                callback.failure(t);
                 t.printStackTrace();
             }
         });
     }
 
-    public void changePassword(String newpassword, String oldpassword) {
+    public void changePassword(String newpassword, String oldpassword, CustomCallback callback) {
         Profile profileInformation = new Profile(newpassword, oldpassword);
         Call<Profile> call = retrofitInterface.executeChangePassword(authToken, profileInformation);
 
@@ -181,16 +199,20 @@ public class ApiHelper {
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - changePass", "Password changed");
-
-                    Log.d("ApiHelper - changePass", response.body().getPassword());
-
+                    //Log.d("ApiHelper - changePass", response.body().getNewpassword());
+                    Message message = new Message("Password changed", response.code());
+                    callback.success(message);
                     //System.out.println("Password Changed.");
+                } else {
+                    Message message = new Message("Password not changed", response.code());
+                    callback.success(message);
                 }
             }
 
             @Override
             public void onFailure(Call<Profile> call, Throwable t) {
                 Log.d("ApiHelper - changePass", "Something went wrong");
+                callback.failure(t);
                 t.printStackTrace();
             }
         });

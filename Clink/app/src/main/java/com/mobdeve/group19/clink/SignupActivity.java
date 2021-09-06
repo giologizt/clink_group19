@@ -10,17 +10,53 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class SignupActivity extends AppCompatActivity {
 
-    private Button btnLogin;
+    private Button btnSignup;
+    private TextView etFullname, etEmail, etPassword, etBirthDay, etBirthMonth, etBirthYear;
+
+    private String fullname, email, password;
+    private int day, month, year;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        this.Login();
+        btnSignup = findViewById(R.id.signupBtn);
+
+        etFullname = findViewById(R.id.et_signupFullname);
+        etEmail = findViewById(R.id.et_signupEmail);
+        etPassword = findViewById(R.id.et_signupPassword);
+
+        etBirthDay = findViewById(R.id.et_signupDay);
+        etBirthMonth = findViewById(R.id.et_signupMonth);
+        etBirthYear = findViewById(R.id.et_signupYear);
+
+        this.btnSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // Get text values
+                fullname = etFullname.getText().toString();
+                password = etPassword.getText().toString();
+                email = etEmail.getText().toString();
+
+                day = Integer.parseInt(etBirthDay.getText().toString());
+                month = Integer.parseInt(etBirthMonth.getText().toString());
+                year = Integer.parseInt(etBirthYear.getText().toString());
+
+                if(fullname.equals("") || password.equals("") || email.equals("")){
+
+                } else {
+
+                }
+            }
+        });
+
     }
 
     private ActivityResultLauncher Launcher = registerForActivityResult(
@@ -32,16 +68,4 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
     );
-
-    private void Login() {
-        this.btnLogin = findViewById(R.id.signupBtn);
-        this.btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (SignupActivity.this, RecipesActivity.class);
-
-                Launcher.launch(intent);
-            }
-        });
-    }
 }

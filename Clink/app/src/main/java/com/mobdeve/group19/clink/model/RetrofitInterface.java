@@ -45,5 +45,22 @@ public interface RetrofitInterface {
     @GET("/getRecipe")
     Call<Recipe> executeGetRecipe(@Body String id);
 
+    @PUT("/updateRecipe")
+    Call<Recipe> executeUpdateRecipe(@Part MultipartBody.Part filePart, @PartMap Map<String, RequestBody> partMap);
+
+    @GET("/searchRecipe")
+    Call<Recipe> executeSearchRecipe(@Body String searchQuery);
+
+    @DELETE("/deleteRecipe")
+    Call<Recipe> executeDeleteRecipe(@Body String id);
+
+    @POST("/addReview")
+    Call<Recipe> executeAddReview(@Body Recipe recipe);
+
+    @PUT("/editReview")
+    Call<Recipe> executeEditReview(@Body Recipe recipe);
+
+    @DELETE("/deleteReview")
+    Call<Recipe> executeDeleteReview(@Body Recipe recipe);
 
 }

@@ -32,7 +32,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/et_signupFullname"
                 android:layout_width="306dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="48dp"
@@ -53,7 +53,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editTextTextEmailAddress3"
+                android:id="@+id/et_signupEmail"
                 android:layout_width="306dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="48dp"
@@ -80,7 +80,7 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/editTextNumber"
+                    android:id="@+id/et_signupDay"
                     android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -95,7 +95,7 @@
                     android:text="DD" />
 
                 <EditText
-                    android:id="@+id/editTextNumber2"
+                    android:id="@+id/et_signupMonth"
                     android:layout_width="25dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -110,7 +110,7 @@
                     android:text="MM" />
 
                 <EditText
-                    android:id="@+id/editTextNumber3"
+                    android:id="@+id/et_signupYear"
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
