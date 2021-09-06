@@ -5,8 +5,15 @@ public class Message {
     String message;
     Integer code;
     String token = "";
+    String id;
   
     public Message(String message, Integer code, String token) {
+        this.message = message;
+        this.code = code;
+        this.token = token;
+    }
+
+    public Message(String id, String message, Integer code, String token) {
         this.message = message;
         this.code = code;
         this.token = token;
@@ -25,6 +32,10 @@ public class Message {
 
     public Message(Integer code){
         this.code = code;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getMessage() {

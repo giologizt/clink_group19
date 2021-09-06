@@ -67,10 +67,11 @@ public class ApiHelper {
             public void onResponse(Call<Login> call, Response<Login> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - Login", response.body().getMessage());
+                    Log.d("ApiHelper - Login", response.body().getId());
                     Log.d("ApiHelper - Login", response.body().getAccessToken());
 
                     authToken = "bearer " + response.body().getAccessToken();
-                    Message message = new Message("Login Successful", response.code(), authToken);
+                    Message message = new Message(response.body().getId(), "Login Successful", response.code(), authToken);
                     callback.success(message);
 
                 } else {
@@ -78,7 +79,6 @@ public class ApiHelper {
                     Message message = new Message("Login Failed", response.code());
                     callback.success(message);
 
-                    //System.out.println("Invalid Credentials");
                 }
             }
 

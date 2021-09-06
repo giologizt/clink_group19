@@ -38,7 +38,7 @@
                 app:srcCompat="@drawable/profile_foreground" />
 
             <TextView
-                android:id="@+id/editnameTv"
+                android:id="@+id/tv_profileName"
                 android:layout_width="218dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -80,7 +80,7 @@
                 app:srcCompat="@drawable/email_foreground" />
 
             <TextView
-                android:id="@+id/editemailTv"
+                android:id="@+id/tv_profileEmail"
                 android:layout_width="218dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -121,7 +121,7 @@
                 app:srcCompat="@drawable/birthday_foreground" />
 
             <TextView
-                android:id="@+id/editbdayTv"
+                android:id="@+id/tv_profileBirthday"
                 android:layout_width="218dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -228,10 +228,23 @@
         android:id="@+id/editprofileBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="24dp"
         android:text="EDIT PROFILE"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.31"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:text="LOGOUT"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.087"
+        app:layout_constraintStart_toEndOf="@+id/editprofileBtn"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
     <LinearLayout
