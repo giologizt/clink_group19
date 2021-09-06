@@ -79,7 +79,7 @@ public class ApiHelper {
                 } else {
                     Log.d("ApiHelper - Login", "Invalid Credentials Given");
                     Message message = new Message("Login Failed", response.code());
-                    callback.success(message);
+                    callback.error(message);
 
                 }
             }
@@ -208,7 +208,7 @@ public class ApiHelper {
                     //System.out.println("Password Changed.");
                 } else {
                     Message message = new Message("Password not changed", response.code());
-                    callback.success(message);
+                    callback.error(message);
                 }
             }
 
