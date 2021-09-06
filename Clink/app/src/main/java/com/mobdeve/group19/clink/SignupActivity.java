@@ -49,7 +49,7 @@ public class SignupActivity extends AppCompatActivity {
                 month = Integer.parseInt(etBirthMonth.getText().toString());
                 year = Integer.parseInt(etBirthYear.getText().toString());
 
-                if(fullname.equals("") || password.equals("") || email.equals("") || day == null ){
+                if(fullname.equals("") || password.equals("") || email.equals("")){
 
                 } else {
 
