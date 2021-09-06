@@ -7,84 +7,118 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mobdeve.group19.clink.model.ApiHelper;
+import com.mobdeve.group19.clink.model.Message;
+import com.mobdeve.group19.clink.model.Profile;
+import com.mobdeve.group19.clink.model.ProfileCallback;
+
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private FloatingActionButton fabRecipe;
+    // JSON TOKEN KEY from shared preferences
+    private static final String JSON_TOKEN_KEY = "JSON_TOKEN_KEY";
+    private static final String USER_ID_KEY = "USER_ID_KEY";
+
     private LinearLayout llRecipes;
-    private LinearLayout llSearch;
     private LinearLayout llPassword;
-    private  Button btnEdit;
-//    private Button btnEdit;
-//    private TextView tvName;
-//    private EditText ptName;
+
+    private Button btnEdit, btnLogout;
+
+    private TextView tvName, tvEmail, tvBirthday;
+
+    private ExecutorService executorService;
+
+    private ApiHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        this.addRecipe();
-        this.Recipes();
-        this.Search();
-        this.Password();
-        this.EditProfile();
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sp.edit();
 
-//        this.btnEdit = findViewById(R.id.editBtn);
-//        this.tvName = findViewById(R.id.editnameTv);
-//        this.ptName = findViewById(R.id.editnamePt);
+        this.helper = new ApiHelper();
 
-//        this.btnEdit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        executorService = Executors.newSingleThreadExecutor();
+
+        // For the getProfile service3
+        this.tvName = findViewById(R.id.tv_profileName);
+        this.tvEmail = findViewById(R.id.tv_profileEmail);
+        this.tvBirthday = findViewById(R.id.tv_profileBirthday);
+
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+
+                String authToken = sp.getString(JSON_TOKEN_KEY, "");
+                helper.getProfile(authToken, new ProfileCallback() {
+                    @Override
+                    public void success(Message message, Profile profile) {
+                        tvName.setText(profile.getFullName());
+                        tvEmail.setText(profile.getEmail());
+                        tvBirthday.setText(profile.getBirthday());
+                    }
+
+                    @Override
+                    public void error(Message message) {
+                        tvName.setText("");
+                        tvEmail.setText("");
+                        tvBirthday.setText("");
+                    }
+
+                    @Override
+                    public void failure(Throwable t) {
+                        t.printStackTrace();
+                    }
+                });
+            }
+        });
+
+        // For logout
+        this.btnLogout = findViewById(R.id.logoutBtn);
+
+        Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
+
+        this.btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString(JSON_TOKEN_KEY, "");
+                editor.putString(USER_ID_KEY, "");
+                editor.apply();
+
+                Launcher.launch(intent);
+            }
+        });
+
+        // For button actions
+        this.recipes();
+        this.password();
+        this.editProfile();
     }
 
     private ActivityResultLauncher Launcher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-
-                }
+        new ActivityResultContracts.StartActivityForResult(),
+        new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
             }
+        }
     );
 
-    private void addRecipe() {
-        this.fabRecipe = findViewById(R.id.addrecipeFab_profile);
-        this.fabRecipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (ProfileActivity.this, AddRecipeActivity.class);
-
-                Launcher.launch(intent);
-            }
-        });
-    }
-
-    private void Search() {
-        this.llSearch = findViewById(R.id.searchLl_profile);
-        this.llSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (ProfileActivity.this, SearchActivity.class);
-
-                Launcher.launch(intent);
-            }
-        });
-    }
-
-    private void Recipes() {
+    private void recipes() {
         this.llRecipes = findViewById(R.id.recipesLl_profile);
         this.llRecipes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +130,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void Password() {
+    private void password() {
         this.llPassword = findViewById(R.id.passwordLl);
         this.llPassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    private void EditProfile() {
+    private void editProfile() {
         this.btnEdit = findViewById(R.id.editprofileBtn);
         this.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override

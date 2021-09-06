@@ -2,17 +2,17 @@ package com.mobdeve.group19.clink;
 
 public class Feedback {
     private String username, comment;
-    private int imageId;
+    //private int imageId;
 
-    public Feedback(int imageId, String username, String comment) {
-        this.imageId = imageId;
+    public Feedback(String username, String comment) {
+        //this.imageId = imageId;
         this.username = username;
         this.comment = comment;
     }
 
-    public int getImageId() {
-        return imageId;
-    }
+//   public int getImageId() {
+//        return imageId;
+//    }
 
     public String getUsername() {
         return username;

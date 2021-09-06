@@ -1,7 +1,9 @@
 package com.mobdeve.group19.clink.model;
 
 
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -67,18 +69,18 @@ public class ApiHelper {
             public void onResponse(Call<Login> call, Response<Login> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - Login", response.body().getMessage());
+                    Log.d("ApiHelper - Login", response.body().getId());
                     Log.d("ApiHelper - Login", response.body().getAccessToken());
 
                     authToken = "bearer " + response.body().getAccessToken();
-                    Message message = new Message("Login Successful", response.code(), authToken);
+                    Message message = new Message(response.body().getId(), "Login Successful", response.code(), authToken);
                     callback.success(message);
 
                 } else {
                     Log.d("ApiHelper - Login", "Invalid Credentials Given");
                     Message message = new Message("Login Failed", response.code());
-                    callback.success(message);
+                    callback.error(message);
 
-                    //System.out.println("Invalid Credentials");
                 }
             }
 
@@ -123,7 +125,8 @@ public class ApiHelper {
         });
     }
 
-    public void getProfile(String id, ProfileCallback callback) {
+    public void getProfile(String authToken, ProfileCallback callback) {
+
         Call<Profile> call = retrofitInterface.executeGetProfile(authToken);
 
         call.enqueue(new Callback<Profile>() {
@@ -190,7 +193,7 @@ public class ApiHelper {
         });
     }
 
-    public void changePassword(String newpassword, String oldpassword, CustomCallback callback) {
+    public void changePassword(String newpassword, String oldpassword, String authToken, CustomCallback callback) {
         Profile profileInformation = new Profile(newpassword, oldpassword);
         Call<Profile> call = retrofitInterface.executeChangePassword(authToken, profileInformation);
 
@@ -205,7 +208,7 @@ public class ApiHelper {
                     //System.out.println("Password Changed.");
                 } else {
                     Message message = new Message("Password not changed", response.code());
-                    callback.success(message);
+                    callback.error(message);
                 }
             }
 

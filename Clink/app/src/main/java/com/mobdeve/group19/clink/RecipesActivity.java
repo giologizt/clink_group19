@@ -13,8 +13,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 public class RecipesActivity extends AppCompatActivity {
 
     private LinearLayout fabRecipe;
@@ -29,7 +27,7 @@ public class RecipesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
 
-        this.fabRecipe = findViewById(R.id.addrecipeFab);
+        this.fabRecipe = findViewById(R.id.addrecipeFab_profile);
         this.llProfile = findViewById(R.id.profileLl);
         //this.llSearch = findViewById(R.id.searchLl);
 

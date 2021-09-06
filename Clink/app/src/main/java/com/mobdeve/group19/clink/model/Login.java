@@ -5,7 +5,7 @@ public class Login {
     private final String username;
     private final String password;
 
-    private String userId;
+    private String id;
     private String accessToken;
     private String message;
 
@@ -16,8 +16,8 @@ public class Login {
 
     }
 
-    public String getUserId () {
-        return this.userId;
+    public String getId () {
+        return this.id;
     }
 
     public String getMessage () {

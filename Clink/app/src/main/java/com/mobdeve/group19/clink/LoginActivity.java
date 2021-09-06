@@ -26,8 +26,9 @@ import java.util.concurrent.Executors;
 
 public class LoginActivity extends AppCompatActivity {
 
-    // JSON Token  Key
+    // JSON Token Key and UserID
     private static final String JSON_TOKEN_KEY = "JSON_TOKEN_KEY";
+    private static final String USER_ID_KEY = "USER_ID_KEY";
 
     // Login and Signup Button
     private Button btnLogin;
@@ -100,17 +101,23 @@ public class LoginActivity extends AppCompatActivity {
                         helper.login(username, password, new CustomCallback() {
                             @Override
                             public void success(Message message) {
+                                if(message.getCode() == 200) {
+                                    editor.putString(JSON_TOKEN_KEY, message.getToken());
+                                    editor.putString(USER_ID_KEY, message.getId());
+                                    editor.apply();
+
+                                    Launcher.launch(intent);
+                                }
+                            }
+
+                            @Override
+                            public void error(Message message) {
                                 if(message.getCode() == 400) {
                                     // Show cannot find user error
                                     Toast.makeText(getApplicationContext(), "Error: Cannot find user.", Toast.LENGTH_SHORT).show();
                                 } else if(message.getCode() == 401) {
                                     // Show cannot find wrong password error
                                     Toast.makeText(getApplicationContext(), "Error: Invalid Password.", Toast.LENGTH_SHORT).show();
-                                } else if(message.getCode() == 200) {
-                                    editor.putString(JSON_TOKEN_KEY, message.getToken());
-                                    editor.apply();
-
-                                    Launcher.launch(intent);
                                 }
                             }
 
