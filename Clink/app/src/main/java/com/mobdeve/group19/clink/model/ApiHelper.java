@@ -1,7 +1,9 @@
 package com.mobdeve.group19.clink.model;
 
 
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 
@@ -123,7 +125,8 @@ public class ApiHelper {
         });
     }
 
-    public void getProfile(String id, ProfileCallback callback) {
+    public void getProfile(String authToken, ProfileCallback callback) {
+
         Call<Profile> call = retrofitInterface.executeGetProfile(authToken);
 
         call.enqueue(new Callback<Profile>() {
@@ -190,7 +193,7 @@ public class ApiHelper {
         });
     }
 
-    public void changePassword(String newpassword, String oldpassword, CustomCallback callback) {
+    public void changePassword(String newpassword, String oldpassword, String authToken, CustomCallback callback) {
         Profile profileInformation = new Profile(newpassword, oldpassword);
         Call<Profile> call = retrofitInterface.executeChangePassword(authToken, profileInformation);
 

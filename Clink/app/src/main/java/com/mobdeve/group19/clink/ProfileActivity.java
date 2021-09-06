@@ -63,8 +63,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                String id = sp.getString(USER_ID_KEY, "");
-                helper.getProfile(id, new ProfileCallback() {
+                String authToken = sp.getString(JSON_TOKEN_KEY, "");
+                helper.getProfile(authToken, new ProfileCallback() {
                     @Override
                     public void success(Message message, Profile profile) {
                         tvName.setText(profile.getFullName());

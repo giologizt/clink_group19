@@ -10,17 +10,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class PasswordActivity extends AppCompatActivity {
 
     private Button btnUpdate;
+    private TextView tvOldPassword, tvNewPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password);
 
-        this.Update();
+
+
     }
 
     private ActivityResultLauncher Launcher = registerForActivityResult(
@@ -33,15 +36,4 @@ public class PasswordActivity extends AppCompatActivity {
             }
     );
 
-    private void Update() {
-        this.btnUpdate = findViewById(R.id.updatepasswordBtn);
-        this.btnUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (PasswordActivity.this, ProfileActivity.class);
-
-                Launcher.launch(intent);
-            }
-        });
-    }
 }
