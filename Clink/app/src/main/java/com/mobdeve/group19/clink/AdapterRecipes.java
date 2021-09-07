@@ -1,5 +1,6 @@
 package com.mobdeve.group19.clink;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,12 @@ public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
     public static final String KEY_STEPS = "KEY_STEPS";
     public static final String KEY_IMAGE = "KEY_IMAGE";
 
-    public AdapterRecipes(ArrayList<Recipe> data) {this.data = data; }
+    private Context context;
+
+    public AdapterRecipes(ArrayList<Recipe> data, Context context) {
+        this.data = data;
+        this.context = context;
+    }
 
     @NonNull
     @Override
@@ -52,7 +58,7 @@ public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderRecipes holder, int position) {
-        holder.bindData(data.get(position));
+        holder.bindData(data.get(position), context);
     }
 
     @Override

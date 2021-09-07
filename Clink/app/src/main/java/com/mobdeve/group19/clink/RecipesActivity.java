@@ -73,7 +73,7 @@ public class RecipesActivity extends AppCompatActivity {
                     @Override
                     public void success(Message message, ArrayList<Recipe> recipe) {
                         recipes = recipe;
-                        recyclerView.setAdapter(new AdapterRecipes(recipes));
+                        recyclerView.setAdapter(new AdapterRecipes(recipes, getApplicationContext()));
                         System.out.println(recipes.get(0).getName());
                     }
 

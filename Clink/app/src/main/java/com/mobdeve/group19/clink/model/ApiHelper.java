@@ -70,7 +70,7 @@ public class ApiHelper {
             public void onResponse(Call<Login> call, Response<Login> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - Login", response.body().getMessage());
-                    Log.d("ApiHelper - Login", response.body().getId());
+                    //Log.d("ApiHelper - Login", response.body().getId());
                     Log.d("ApiHelper - Login", response.body().getAccessToken());
 
                     authToken = "bearer " + response.body().getAccessToken();

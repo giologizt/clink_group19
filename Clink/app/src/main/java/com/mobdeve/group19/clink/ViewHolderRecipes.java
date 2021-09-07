@@ -1,6 +1,8 @@
 package com.mobdeve.group19.clink;
 
+import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,8 +11,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
 import java.net.URI;
 import com.mobdeve.group19.clink.model.Recipe;
+import com.squareup.picasso.Picasso;
 
 public class ViewHolderRecipes extends RecyclerView.ViewHolder {
     private TextView nameTv, timeTv;
@@ -25,12 +29,17 @@ public class ViewHolderRecipes extends RecyclerView.ViewHolder {
         this.boxLl = itemView.findViewById(R.id.boxLl);
     }
 
-    public void bindData (Recipe data) {
+    public void bindData (Recipe data, Context context) {
         this.nameTv.setText(data.getName());
         this.timeTv.setText(data.getPrepTime().toString());
 
-        Uri cocktail = Uri.parse(cocktailIv.toString());
-        this.cocktailIv.setImageURI(cocktail);
+        Log.d("View Holder Recipes", data.getImage());
+        File file = new File(data.getImage());
+
+        Picasso.with(context).load(file).into(this.cocktailIv);
+
+        //Uri cocktail = Uri.parse(cocktailIv.toString());
+        //this.cocktailIv.setImageURI(cocktail);
     }
 
     public LinearLayout getBoxLl () {return this.boxLl; }
