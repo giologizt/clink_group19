@@ -40,6 +40,15 @@ public class SignupActivity extends AppCompatActivity {
 
     ExecutorService executorService;
 
+    private ActivityResultLauncher Launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,14 +144,4 @@ public class SignupActivity extends AppCompatActivity {
         });
 
     }
-
-    private ActivityResultLauncher Launcher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-
-                }
-            }
-    );
 }
