@@ -8,6 +8,7 @@ public class Profile {
     String fullname;
     String birthday;
     String password;
+
     String newpassword;
     String oldpassword;
 
@@ -45,6 +46,10 @@ public class Profile {
 
     public String getBirthday () {
         return this.birthday;
+    }
+
+    public String getOldpassword () {
+        return this.oldpassword;
     }
 
     public String getNewpassword () {
