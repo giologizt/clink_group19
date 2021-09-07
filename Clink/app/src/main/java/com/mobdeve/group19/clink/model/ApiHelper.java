@@ -246,8 +246,8 @@ public class ApiHelper {
         }
 
         for(int i = 0; i < recipeingredients.size(); i++) {
-            RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getQuantity().toString());
-            RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getIngredient());
+            RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), Integer.toString(recipeingredients.get(i).getQuantity()));
+            RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getIngredientName());
             map.put("ingredients[" + i + "][quantity]", quantity);
             map.put("ingredients[" + i + "][ingredientName]", ingredientName);
         }
@@ -279,37 +279,48 @@ public class ApiHelper {
     }
 
     public void getRecipes(RecipeCallback callback){
-        // Gson gson = new Gson();
-        Call<Recipe> call = retrofitInterface.executeGetRecipes();
+        Gson gson = new Gson();
+        Call<ArrayList<Recipe>> call = retrofitInterface.executeGetRecipes();
 
-        call.enqueue(new Callback<Recipe>() {
+        call.enqueue(new Callback<ArrayList<Recipe>>() {
             @Override
-            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
+            public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response) {
                 if(response.isSuccessful()){
-                    String result = response.body().toString();
-                    System.out.println(result);
-                    //Type dataType = new TypeToken<ArrayList<Recipe>>() {}.getType();
-                    //ArrayList<Recipe> enums = gson.fromJson(result, dataType);
+                    //String result = response.body().toString();
+                    //System.out.println(result);
+                    //Type dataType = new TypeToken<Collection<Recipe>>() {}.getType();
+                    //Collection<Recipe> enums = gson.fromJson(response.body().toString(), dataType);
                     // Recipe[] recipe = enums.toArray(new Recipe[enums.size()]);
                     //recipe[0].getAuthor()
                     //add callback method for recipe arraylist
-                    Log.d("ApiHelper - getRecipes", "Recipes not collected");
+                    Log.d("ApiHelper - getRecipes", "Recipes collected");
+                    //for(Recipe recipe: enums){
+                    //    Log.d("ApiHelper - getRecipes", recipe.toString());
+                    //}
                     // Log.d("ApiHelper - getRecipes", recipe[0].getAuthor());
                     // Log.d("ApiHelper - getRecipes", recipe[0].getIngredients().toString());
                     // Log.d("ApiHelper - getRecipes", recipe[0].getName());
 
+                    ArrayList<Recipe> recipes = response.body();
+
+                    Log.d("ApiHelper - getRecipes", recipes.get(0).getPrepTime().toString());
+                    Log.d("ApiHelper - getRecipes", recipes.get(0).getSteps().get(0));
+                    Log.d("ApiHelper - getRecipes", recipes.get(0).getIngredients().get(0).getIngredientName());
+
+                    Log.d("ApiHelper - getRecipes", recipes.get(1).getPrepTime().toString());
+                    Log.d("ApiHelper - getRecipes", recipes.get(1).getSteps().get(0));
+
                     Message message = new Message("Successful.", response.code());
 
-                    //callback.success(message, enums);
+                    callback.success(message, recipes);
                 } else {
                     Log.d("ApiHelper - getRecipes", response.errorBody().toString());
                 }
             }
 
             @Override
-            public void onFailure(Call<Recipe> call, Throwable t) {
-                Log.d("ApiHelper - getRecipes", "Something went wrong");
-                t.printStackTrace();
+            public void onFailure(Call<ArrayList<Recipe>> call, Throwable t) {
+
             }
         });
 
@@ -366,8 +377,8 @@ public class ApiHelper {
         }
 
         for(int i = 0; i < recipeingredients.size(); i++) {
-            RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getQuantity().toString());
-            RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getIngredient());
+            RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), Integer.toString(recipeingredients.get(i).getQuantity()));
+            RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getIngredientName());
             map.put("ingredients[" + i + "][quantity]", quantity);
             map.put("ingredients[" + i + "][ingredientName]", ingredientName);
         }

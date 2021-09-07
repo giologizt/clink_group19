@@ -2,20 +2,20 @@ package com.mobdeve.group19.clink.model;
 
 public class Ingredients {
 
-    Integer quantity;
-    String ingredient;
+    int quantity;
+    String ingredientName;
 
-    public Ingredients(Integer quantity, String ingredient) {
+    public Ingredients(Integer quantity, String ingredientName) {
         this.quantity = quantity;
-        this.ingredient = ingredient;
+        this.ingredientName = ingredientName;
     }
 
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public String getIngredient() {
-        return ingredient;
+    public String getIngredientName() {
+        return ingredientName;
     }
 
 }

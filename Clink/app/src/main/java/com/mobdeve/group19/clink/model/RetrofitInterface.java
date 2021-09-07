@@ -1,5 +1,6 @@
 package com.mobdeve.group19.clink.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,7 +41,7 @@ public interface RetrofitInterface {
     //@Part("ingredients") RequestBody ingredients);
 
     @GET("/getRecipes")
-    Call<Recipe> executeGetRecipes();
+    Call<ArrayList<Recipe>> executeGetRecipes();
 
     @GET("/getRecipe")
     Call<Recipe> executeGetRecipe(@Body String id);
