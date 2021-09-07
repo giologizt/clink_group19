@@ -24,7 +24,7 @@ import java.util.concurrent.Executors;
 
 public class PasswordActivity extends AppCompatActivity {
 
-    private static final String JSON_KEY_TOKEN = "JSON_KEY_TOKEN";
+    private static final String JSON_TOKEN_KEY = "JSON_TOKEN_KEY";
 
     private Button btnUpdate;
     private TextView etOldPassword, etNewPassword;
@@ -48,6 +48,8 @@ public class PasswordActivity extends AppCompatActivity {
 
         this.helper = new ApiHelper();
 
+        Intent intent = new Intent(PasswordActivity.this, ProfileActivity.class);
+
         this.btnUpdate.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -61,12 +63,12 @@ public class PasswordActivity extends AppCompatActivity {
                     executorService.execute(new Runnable() {
                         @Override
                         public void run() {
-                            String authToken = sp.getString(JSON_KEY_TOKEN, "");
+                            String authToken = sp.getString(JSON_TOKEN_KEY, "");
                             helper.changePassword(newPassword, oldPassword, authToken, new CustomCallback() {
                                 @Override
                                 public void success(Message message) {
                                     Toast.makeText(getApplicationContext(), "Successfully changed your password", Toast.LENGTH_SHORT).show();
-
+                                    Launcher.launch(intent);
                                 }
 
                                 @Override

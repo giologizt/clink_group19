@@ -194,9 +194,8 @@ public class ApiHelper {
     }
 
     public void changePassword(String newpassword, String oldpassword, String authToken, CustomCallback callback) {
-        Profile profileInformation = new Profile(newpassword, oldpassword);
-        Call<Profile> call = retrofitInterface.executeChangePassword(authToken, profileInformation);
-
+        Profile passwordInformation = new Profile(newpassword, oldpassword);
+        Call<Profile> call = retrofitInterface.executeChangePassword(authToken, passwordInformation);
         call.enqueue(new Callback<Profile>() {
             @Override
             public void onResponse(Call<Profile> call, Response<Profile> response) {
