@@ -122,6 +122,7 @@ public class SignupActivity extends AppCompatActivity {
                                             @Override
                                             public void success(Message message) {
                                                 if (message.getCode() == 201) {
+                                                    Toast.makeText(getApplicationContext(), "Successfully registered", Toast.LENGTH_SHORT).show();
                                                     Launcher.launch(intent);
                                                 }
                                             }

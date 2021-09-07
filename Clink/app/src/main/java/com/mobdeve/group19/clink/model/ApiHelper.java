@@ -180,7 +180,7 @@ public class ApiHelper {
                     callback.success(message);
                 } else {
                     Message message = new Message("Profile not edited", response.code());
-                    callback.success(message);
+                    callback.error(message);
                 }
             }
 
