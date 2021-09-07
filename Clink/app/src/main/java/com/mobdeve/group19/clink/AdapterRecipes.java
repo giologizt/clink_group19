@@ -34,7 +34,6 @@ public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ExpandActivity.class);
-
                 Recipe currentRecipe = data.get(ViewHolderRecipes.getAdapterPosition());
 
                 intent.putExtra(KEY_NAME, currentRecipe.getName());
@@ -53,12 +52,7 @@ public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderRecipes holder, int position) {
-        holder.setNameTv(data.get(position).getName());
-        holder.setTimeTv(data.get(position).getPrepTime().toString());
-        // holder.setCocktailIv(data.get(position).getRecipeId());
-        holder.setIngredientsTv(data.get(position).getIngredients().toString());
-        holder.setStepsTv(data.get(position).getSteps().toString());
-        holder.setCocktailIv(data.get(position).getImageFile());
+        holder.bindData(data.get(position));
     }
 
     @Override

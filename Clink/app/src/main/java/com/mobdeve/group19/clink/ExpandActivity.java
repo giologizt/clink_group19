@@ -46,7 +46,7 @@ public class ExpandActivity extends AppCompatActivity {
         this.expand_stepsTv = findViewById(R.id.expand_stepsTv);
 
         Intent intent = getIntent();
-
+        /*
         String Name = intent.getStringExtra(AdapterRecipes.KEY_NAME);
         this.expand_nameTv.setText(Name);
 
@@ -61,6 +61,8 @@ public class ExpandActivity extends AppCompatActivity {
 
         String Steps = intent.getStringExtra(AdapterRecipes.KEY_STEPS);
         this.expand_stepsTv.setText(Steps);
+
+        */
 
         this.recyclerView = findViewById(R.id.feedbackRv);
         this.MyManager = new LinearLayoutManager(this);
