@@ -7,7 +7,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +29,8 @@ import java.util.concurrent.Executors;
 
 public class EditProfileActivity extends AppCompatActivity {
 
+    private static final String JSON_TOKEN_KEY = "JSON_TOKEN_KEY";
+
     private Button btnEdit;
     private TextView etFullname, etEmail, etBirthDay, etBirthMonth, etBirthYear;
 
@@ -34,7 +38,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private int day, month, year;
 
     private ApiHelper helper;
-
+    private SharedPreferences sp;
     private ExecutorService executorService;
 
     @Override
@@ -42,6 +46,7 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        this.sp = PreferenceManager.getDefaultSharedPreferences(this);
         this.executorService = Executors.newSingleThreadExecutor();
 
         this.helper = new ApiHelper();
@@ -100,13 +105,17 @@ public class EditProfileActivity extends AppCompatActivity {
 
                             SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                             SimpleDateFormat todayFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-                            Date today = null;
+                            Date birth = null;
                             Date legal = null;
 
                             try {
                                 legal = dateFormat.parse(legalDate);
+                                birth = dateFormat.parse(birthdate);
                                 if (legal.compareTo(now) > 0) {
                                     Toast.makeText(getApplicationContext(), "Error: Please enter a legal birthdate.", Toast.LENGTH_SHORT).show();
+                                    error = 1;
+                                } else if(birth.compareTo(now) > 0) {
+                                    Toast.makeText(getApplicationContext(), "Error: You entered an invalid birthdate.", Toast.LENGTH_SHORT).show();
                                     error = 1;
                                 } else {
                                     error = 0;
@@ -122,7 +131,8 @@ public class EditProfileActivity extends AppCompatActivity {
                         executorService.execute(new Runnable() {
                             @Override
                             public void run() {
-                                helper.editProfile(email, fullname, birthdate, new CustomCallback() {
+                                String authToken = sp.getString(JSON_TOKEN_KEY, "");
+                                helper.editProfile(email, fullname, birthdate, authToken, new CustomCallback() {
                                     @Override
                                     public void success(Message message) {
                                         Toast.makeText(getApplicationContext(), "Successfully changed your profile", Toast.LENGTH_SHORT).show();

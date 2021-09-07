@@ -103,7 +103,7 @@ public class SignupActivity extends AppCompatActivity {
 
                         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
                         SimpleDateFormat todayFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-                        Date today = null;
+                        Date birth = null;
                         Date legal = null;
 
                         Log.d("MainActivity", now.toString());
@@ -111,9 +111,11 @@ public class SignupActivity extends AppCompatActivity {
                         try {
                             //today = dateFormat.parse(now.toString());
                             legal = dateFormat.parse(legalDate);
-
+                            birth = dateFormat.parse(birthday);
                             if (legal.compareTo(now) > 0) {
                                 Toast.makeText(getApplicationContext(), "Error: You're not legally allowed to use this app.", Toast.LENGTH_SHORT).show();
+                            } else if(birth.compareTo(now) > 0) {
+                                Toast.makeText(getApplicationContext(), "Error: You entered an invalid birthdate.", Toast.LENGTH_SHORT).show();
                             } else {
                                 executorService.execute(new Runnable() {
                                     @Override

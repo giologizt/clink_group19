@@ -162,7 +162,7 @@ public class ApiHelper {
         });
     }
 
-    public void editProfile(String email, String fullName, String birthday, CustomCallback callback) {
+    public void editProfile(String email, String fullName, String birthday, String authToken, CustomCallback callback) {
         Profile profileInformation = new Profile(email, fullName, birthday);
         Call<Profile> call = retrofitInterface.executeEditProfile(authToken, profileInformation);
 
