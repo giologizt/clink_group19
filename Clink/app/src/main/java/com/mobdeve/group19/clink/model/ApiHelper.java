@@ -111,7 +111,7 @@ public class ApiHelper {
                 } else {
                     Log.d("ApiHelper - Register", response.errorBody().toString());
                     Message message = new Message(response.code());
-                    callback.success(message);
+                    callback.error(message);
                     //System.out.println(response.errorBody());
                 }
             }

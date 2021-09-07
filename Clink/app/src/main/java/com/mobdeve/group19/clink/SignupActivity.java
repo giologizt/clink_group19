@@ -81,8 +81,8 @@ public class SignupActivity extends AppCompatActivity {
                 email = etEmail.getText().toString();
                 username = etUsername.getText().toString();
 
-                if(fullname.equals("") || password.equals("") || email.equals("") || username.equals("") || etBirthDay.getText().toString().equals("")
-                    || etBirthMonth.getText().toString().equals("") || etBirthYear.getText().toString().equals("")){
+                if (fullname.equals("") || password.equals("") || email.equals("") || username.equals("") || etBirthDay.getText().toString().equals("")
+                        || etBirthMonth.getText().toString().equals("") || etBirthYear.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Error: Please fill up all text fields.", Toast.LENGTH_SHORT).show();
                 } else {
 
@@ -90,54 +90,60 @@ public class SignupActivity extends AppCompatActivity {
                     month = Integer.parseInt(etBirthMonth.getText().toString());
                     year = Integer.parseInt(etBirthYear.getText().toString());
 
-                    Integer legalyear = (year + 18);
-                    Date now = Calendar.getInstance().getTime();
+                    if (month < 1 || month > 12 || day < 1 || ((month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) &&
+                            day > 31) || ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) || (month == 2 && day > 29)) {
+                        Toast.makeText(getApplicationContext(), "Error: Please input a valid date.", Toast.LENGTH_SHORT).show();
+                    } else {
 
-                    String birthday =  etBirthMonth.getText().toString() + "/" + etBirthDay.getText().toString() + "/" + etBirthYear.getText().toString();
-                    String legalDate =  etBirthMonth.getText().toString() + "/" + etBirthDay.getText().toString() + "/" + legalyear.toString();
+                        Integer legalyear = (year + 18);
+                        Date now = Calendar.getInstance().getTime();
 
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-                    SimpleDateFormat todayFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-                    Date today = null;
-                    Date legal = null;
+                        String birthday = etBirthMonth.getText().toString() + "/" + etBirthDay.getText().toString() + "/" + etBirthYear.getText().toString();
+                        String legalDate = etBirthMonth.getText().toString() + "/" + etBirthDay.getText().toString() + "/" + legalyear.toString();
 
-                    Log.d("MainActivity", now.toString());
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                        SimpleDateFormat todayFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+                        Date today = null;
+                        Date legal = null;
 
-                    try {
-                        //today = dateFormat.parse(now.toString());
-                        legal = dateFormat.parse(legalDate);
+                        Log.d("MainActivity", now.toString());
 
-                        if(legal.compareTo(now) > 0){
-                            Toast.makeText(getApplicationContext(), "Error: You're not legally allowed to use this app.", Toast.LENGTH_SHORT).show();
-                        } else {
-                            executorService.execute(new Runnable(){
-                                @Override
-                                public void run() {
-                                    helper.register(username, fullname, email, birthday, password, new CustomCallback() {
-                                        @Override
-                                        public void success(Message message) {
-                                            if(message.getCode() == 200){
-                                                Launcher.launch(intent);
+                        try {
+                            //today = dateFormat.parse(now.toString());
+                            legal = dateFormat.parse(legalDate);
+
+                            if (legal.compareTo(now) > 0) {
+                                Toast.makeText(getApplicationContext(), "Error: You're not legally allowed to use this app.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                executorService.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        helper.register(username, fullname, email, birthday, password, new CustomCallback() {
+                                            @Override
+                                            public void success(Message message) {
+                                                if (message.getCode() == 201) {
+                                                    Launcher.launch(intent);
+                                                }
                                             }
-                                        }
 
-                                        @Override
-                                        public void error(Message message) {
-                                            if(message.getCode() == 400){
-                                                Toast.makeText(getApplicationContext(), "Error: Something went wrong", Toast.LENGTH_SHORT).show();
+                                            @Override
+                                            public void error(Message message) {
+                                                if (message.getCode() == 400) {
+                                                    Toast.makeText(getApplicationContext(), "Error: Something went wrong", Toast.LENGTH_SHORT).show();
+                                                }
                                             }
-                                        }
 
-                                        @Override
-                                        public void failure(Throwable t) {
-                                            t.printStackTrace();
-                                        }
-                                    });
-                                }
-                            });
+                                            @Override
+                                            public void failure(Throwable t) {
+                                                t.printStackTrace();
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
                     }
                 }
             }
