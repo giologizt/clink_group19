@@ -100,4 +100,7 @@ public class Recipe {
         return  this.image;
     }
 
+    public URI getImageFile() {
+        return imageFile;
+    }
 }

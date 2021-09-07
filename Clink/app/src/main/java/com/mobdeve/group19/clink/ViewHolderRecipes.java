@@ -1,5 +1,6 @@
 package com.mobdeve.group19.clink;
 
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -7,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.net.URI;
 
 public class ViewHolderRecipes extends RecyclerView.ViewHolder {
     private TextView nameTv, timeTv, ingredientsTv, stepsTv;
@@ -27,7 +30,10 @@ public class ViewHolderRecipes extends RecyclerView.ViewHolder {
 
     public void setTimeTv (String time) {this.timeTv.setText(time);}
 
-    public void setCocktailIv (int cocktailIv) {this.cocktailIv.setImageResource(cocktailIv);}
+    public void setCocktailIv (URI cocktailIv) {
+        Uri cocktail = Uri.parse(cocktailIv.toString());
+        this.cocktailIv.setImageURI(cocktail);
+    }
 
     public LinearLayout getBoxLl () {return this.boxLl; }
 

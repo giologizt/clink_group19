@@ -20,6 +20,7 @@ public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
     public static final String KEY_PIC = "KEY_PIC";
     public static final String KEY_INGREDIENTS = "KEY_INGREDIENTS";
     public static final String KEY_STEPS = "KEY_STEPS";
+    public static final String KEY_IMAGE = "KEY_IMAGE";
 
     public AdapterRecipes(ArrayList<Recipe> data) {this.data = data; }
 
@@ -41,6 +42,7 @@ public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
                 intent.putExtra(KEY_PIC, currentRecipe.getRecipeId());
                 intent.putExtra(KEY_INGREDIENTS, currentRecipe.getIngredients());
                 intent.putExtra(KEY_STEPS, currentRecipe.getSteps());
+                intent.putExtra(KEY_IMAGE, currentRecipe.getImageFile());
 
                 v.getContext().startActivity(intent);
             }
@@ -56,6 +58,7 @@ public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
         // holder.setCocktailIv(data.get(position).getRecipeId());
         holder.setIngredientsTv(data.get(position).getIngredients().toString());
         holder.setStepsTv(data.get(position).getSteps().toString());
+        holder.setCocktailIv(data.get(position).getImageFile());
     }
 
     @Override
