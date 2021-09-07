@@ -15,9 +15,11 @@ public class Recipe {
     String author;
     String recipeId;
 
+    String image;
+
     String message;
 
-    public Recipe(ArrayList<String> steps, ArrayList<Review> reviews, ArrayList<Ingredients> ingredients, String name, Integer prepTime, String author, String recipeId) {
+    public Recipe(ArrayList<String> steps, ArrayList<Review> reviews, ArrayList<Ingredients> ingredients, String name, Integer prepTime, String author, String recipeId, String image) {
         this.steps = steps;
         this.reviews = reviews;
         this.ingredients = ingredients;
@@ -25,6 +27,7 @@ public class Recipe {
         this.prepTime = prepTime;
         this.author = author;
         this.recipeId = recipeId;
+        this.image = image;
     }
 
     public Recipe(ArrayList<String> steps, ArrayList<Ingredients> ingredients, String name, Integer prepTime, String author, String recipeId, String message) {
@@ -78,6 +81,10 @@ public class Recipe {
 
     public String getMessage() {
         return this.message;
+    }
+
+    public String getImage() {
+        return  this.image;
     }
 
 }

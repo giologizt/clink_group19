@@ -27,6 +27,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.net.CookieHandler;
 import java.net.CookieManager;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -302,7 +303,10 @@ public class ApiHelper {
                     // Log.d("ApiHelper - getRecipes", recipe[0].getName());
 
                     ArrayList<Recipe> recipes = response.body();
+                    File file = new File(recipes.get(0).getImage());
+                    URI image = file.toURI();
 
+                    Log.d("ApiHelper - getRecipes", image.toString());
                     Log.d("ApiHelper - getRecipes", recipes.get(0).getPrepTime().toString());
                     Log.d("ApiHelper - getRecipes", recipes.get(0).getSteps().get(0));
                     Log.d("ApiHelper - getRecipes", recipes.get(0).getIngredients().get(0).getIngredientName());
