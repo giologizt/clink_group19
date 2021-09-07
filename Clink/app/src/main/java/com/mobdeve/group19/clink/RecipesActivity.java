@@ -13,6 +13,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.mobdeve.group19.clink.model.ApiHelper;
+import com.mobdeve.group19.clink.model.CustomCallback;
+import com.mobdeve.group19.clink.model.Message;
+import com.mobdeve.group19.clink.model.Recipe;
+import com.mobdeve.group19.clink.model.RecipeCallback;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class RecipesActivity extends AppCompatActivity {
 
     private LinearLayout fabRecipe;
@@ -20,6 +32,15 @@ public class RecipesActivity extends AppCompatActivity {
     private LinearLayout llProfile;
     private RecyclerView recyclerView;
     private LinearLayoutManager MyManager;
+
+    // Recipes Array
+    private ArrayList<Recipe> recipes;
+
+    // API Helper
+    private ApiHelper helper;
+
+    // Single Thread
+    private ExecutorService executorService;
 
 
     @Override
@@ -39,7 +60,35 @@ public class RecipesActivity extends AppCompatActivity {
         this.MyManager = new LinearLayoutManager(this);
         this.recyclerView.setLayoutManager(this.MyManager);
 
-        this.recyclerView.setAdapter(new AdapterRecipes(DataHelperRecipe.initializeData()));
+        this.helper = new ApiHelper();
+
+        this.recipes = new ArrayList<Recipe>();
+
+        executorService = Executors.newSingleThreadExecutor();
+
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                helper.getRecipes(new RecipeCallback() {
+                    @Override
+                    public void success(Message message, ArrayList<Recipe> recipe) {
+                        recipes = recipe;
+                    }
+
+                    @Override
+                    public void error(Message message) {
+
+                    }
+
+                    @Override
+                    public void failure(Throwable t) {
+
+                    }
+                });
+            }
+        });
+
+        this.recyclerView.setAdapter(new AdapterRecipes(recipes));
     }
 
     public ActivityResultLauncher Launcher = registerForActivityResult(
@@ -58,7 +107,6 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (RecipesActivity.this, AddRecipeActivity.class);
-
                 Launcher.launch(intent);
             }
         });

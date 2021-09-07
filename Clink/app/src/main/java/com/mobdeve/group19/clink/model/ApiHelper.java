@@ -278,8 +278,8 @@ public class ApiHelper {
 
     }
 
-    public void getRecipes(){
-        Gson gson = new Gson();
+    public void getRecipes(RecipeCallback callback){
+        // Gson gson = new Gson();
         Call<Recipe> call = retrofitInterface.executeGetRecipes();
 
         call.enqueue(new Callback<Recipe>() {
@@ -287,16 +287,20 @@ public class ApiHelper {
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 if(response.isSuccessful()){
                     String result = response.body().toString();
-
-                    Type dataType = new TypeToken<Collection<Recipe>>() {}.getType();
-                    Collection<Recipe> enums = gson.fromJson(result, dataType);
-                    Recipe[] recipe = enums.toArray(new Recipe[enums.size()]);
+                    System.out.println(result);
+                    //Type dataType = new TypeToken<ArrayList<Recipe>>() {}.getType();
+                    //ArrayList<Recipe> enums = gson.fromJson(result, dataType);
+                    // Recipe[] recipe = enums.toArray(new Recipe[enums.size()]);
                     //recipe[0].getAuthor()
                     //add callback method for recipe arraylist
                     Log.d("ApiHelper - getRecipes", "Recipes not collected");
-                    Log.d("ApiHelper - getRecipes", recipe[0].getAuthor());
-                    Log.d("ApiHelper - getRecipes", recipe[0].getIngredients().toString());
-                    Log.d("ApiHelper - getRecipes", recipe[0].getName());
+                    // Log.d("ApiHelper - getRecipes", recipe[0].getAuthor());
+                    // Log.d("ApiHelper - getRecipes", recipe[0].getIngredients().toString());
+                    // Log.d("ApiHelper - getRecipes", recipe[0].getName());
+
+                    Message message = new Message("Successful.", response.code());
+
+                    //callback.success(message, enums);
                 } else {
                     Log.d("ApiHelper - getRecipes", response.errorBody().toString());
                 }

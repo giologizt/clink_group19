@@ -1,10 +1,10 @@
 package com.mobdeve.group19.clink;
 
-public class Recipe {
+public class Recipe_test {
     private String name, time, ingredients, steps;
     private int imageId;
 
-    public Recipe(int imageId, String name, String time, String ingredients, String steps) {
+    public Recipe_test(int imageId, String name, String time, String ingredients, String steps) {
         this.imageId = imageId;
         this.name = name;
         this.time = time;

@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mobdeve.group19.clink.model.Recipe;
+
 import java.util.ArrayList;
 
 public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
@@ -35,8 +37,8 @@ public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
                 Recipe currentRecipe = data.get(ViewHolderRecipes.getAdapterPosition());
 
                 intent.putExtra(KEY_NAME, currentRecipe.getName());
-                intent.putExtra(KEY_TIME, currentRecipe.getTime());
-                intent.putExtra(KEY_PIC, currentRecipe.getImageId());
+                intent.putExtra(KEY_TIME, currentRecipe.getPrepTime());
+                intent.putExtra(KEY_PIC, currentRecipe.getRecipeId());
                 intent.putExtra(KEY_INGREDIENTS, currentRecipe.getIngredients());
                 intent.putExtra(KEY_STEPS, currentRecipe.getSteps());
 
@@ -50,10 +52,10 @@ public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolderRecipes holder, int position) {
         holder.setNameTv(data.get(position).getName());
-        holder.setTimeTv(data.get(position).getTime());
-        holder.setCocktailIv(data.get(position).getImageId());
-        holder.setIngredientsTv(data.get(position).getIngredients());
-        holder.setStepsTv(data.get(position).getSteps());
+        holder.setTimeTv(data.get(position).getPrepTime().toString());
+        // holder.setCocktailIv(data.get(position).getRecipeId());
+        holder.setIngredientsTv(data.get(position).getIngredients().toString());
+        holder.setStepsTv(data.get(position).getSteps().toString());
     }
 
     @Override
