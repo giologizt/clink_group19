@@ -37,7 +37,7 @@ public class ApiHelper {
 
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
-    private static String BASE_URL = "http://10.0.2.2:3000";
+    private static final String BASE_URL = "http://10.0.2.2:3000";
     private static String authToken;
 
 
