@@ -31,6 +31,7 @@ public interface RetrofitInterface {
     @PUT("/changePassword")
     Call<Profile> executeChangePassword(@Header("Authorization") String accessToken, @Body Profile profile);
 
+    @Multipart
     @POST("/postRecipe")
     Call<Recipe> executePostRecipe(@Part MultipartBody.Part filePart, @PartMap Map<String, RequestBody> partMap);
     //@Part("name") RequestBody name,

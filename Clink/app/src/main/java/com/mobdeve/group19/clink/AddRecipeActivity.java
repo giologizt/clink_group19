@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,7 +43,7 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     private Button btnImage;
 
-    private TextView etName, etprepTime;
+    private EditText etName, etprepTime;
 
     private int ingredientsLines;
     private int stepsLines;
@@ -57,8 +58,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
 
-        this.ingredientsLines = 1;
-        this.stepsLines = 1;
+        this.ingredientsLines = 100;
+        this.stepsLines = 200;
 
         this.executorService = Executors.newSingleThreadExecutor();
 
@@ -100,7 +101,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                 et.setLayoutParams(p);
-                et.setId(Integer.parseInt("et_ingredient" + (ingredientsLines + 1)));
+                et.setId(ingredientsLines + 1);
                 et.setTextColor(Color.BLACK);
                 et.setHighlightColor(Color.BLACK);
                 ingredientsLayout.addView(et);
@@ -117,7 +118,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                 LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                 et.setLayoutParams(p);
-                et.setId(Integer.parseInt("et_steps" + (stepsLines + 1)));
+                et.setId(stepsLines + 1);
                 et.setTextColor(Color.BLACK);
                 et.setHighlightColor(Color.BLACK);
                 stepsLayout.addView(et);
@@ -128,45 +129,15 @@ public class AddRecipeActivity extends AppCompatActivity {
         ArrayList<Ingredients> ingredients = new ArrayList<>();
         ArrayList<String> steps = new ArrayList<>();
 
-        String name = etName.getText().toString();
+        //String name = etName.getText().toString();
         int prepTime;
-
-        for(int i = 0; i < ingredientsLines; i++){
-            TextView ingredient;
-
-            if(i == 0) {
-                ingredient = findViewById(R.id.et_ingredient0);
-            } else {
-                ingredient = findViewById(Integer.parseInt("et_ingredient" + (i)));
-            }
-
-            Ingredients ingrdientName = new Ingredients(ingredient.getText().toString());
-            ingredients.add(ingrdientName);
-        }
-
-        for(int i = 0; i < stepsLines; i++){
-            TextView step;
-
-            if(i == 0) {
-                step = findViewById(R.id.et_steps0);
-            } else {
-                step = findViewById(Integer.parseInt("et_steps" + (i)));
-            }
-
-            //TextView step = findViewById(Integer.parseInt("et_steps" + (i)));
-            steps.add(step.getText().toString());
-        }
-
 
         this.Cancel();
 
-        if(name.equals("") || etprepTime.getText().toString().equals("") || ingredients.get(0).equals("") ||
-        steps.get(0).equals("")) {
-            Toast.makeText(getApplicationContext(), "Error: Please fill up all text fields.", Toast.LENGTH_SHORT).show();
-        } else {
-            prepTime = Integer.parseInt(etprepTime.getText().toString());
-            this.Publish(name, prepTime, ingredients, steps, imageUri);
-        }
+        //prepTime = Integer.parseInt(etprepTime.getText().toString());
+        //Log.d("AddRecipe", "this.Publish was reached");
+        this.Publish();
+
     }
 
 //    private OnClickListener onClick() {
@@ -211,36 +182,88 @@ public class AddRecipeActivity extends AppCompatActivity {
         });
     }
 
-    private void Publish(String name, int prepTime, ArrayList<Ingredients> ingridients, ArrayList<String> steps, Uri imageUri) {
+    private ArrayList<Ingredients> getIngredients(){
+        ArrayList<Ingredients> ingredients = new ArrayList<>();
+        for(int i = 0; i < (ingredientsLines - 100); i++){
+            EditText ingredient;
+
+            if(i == 0) {
+                ingredient = findViewById(R.id.et_ingredient0);
+            } else {
+                ingredient = findViewById(i);
+            }
+
+            Ingredients ingrdientName = new Ingredients(ingredient.getText().toString());
+            ingredients.add(ingrdientName);
+        }
+
+        return ingredients;
+    }
+
+    private ArrayList<String> getSteps(){
+        ArrayList<String> steps = new ArrayList<>();
+        for(int i = 0; i < (stepsLines - 200); i++){
+            EditText step;
+
+            if(i == 0) {
+                step = findViewById(R.id.et_steps0);
+            } else {
+                step = findViewById(i);
+            }
+
+            //TextView step = findViewById(Integer.parseInt("et_steps" + (i)));
+            steps.add(step.getText().toString());
+        }
+
+        return steps;
+    }
+
+    private void Publish() {
         this.btnPublish = findViewById(R.id.publishBtn);
         this.btnPublish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (AddRecipeActivity.this, RecipesActivity.class);
+                String name = etName.getText().toString();
+                String time = etprepTime.getText().toString();
+                ArrayList<Ingredients> ingredients =  getIngredients();
+                ArrayList<String> steps = getSteps();
+                Uri image = imageUri;
 
-                executorService.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        helper.postRecipe(steps, ingridients, name, prepTime, imageUri, new CustomCallback() {
-                            @Override
-                            public void success(Message message) {
-                                Toast.makeText(getApplicationContext(), "Recipe added", Toast.LENGTH_SHORT).show();
-                            }
+                Intent intent = new Intent(AddRecipeActivity.this, RecipesActivity.class);
+                Log.d("Add Recipe", "Publish was reached");
 
-                            @Override
-                            public void error(Message message) {
+                if (name.equals("") || time.equals("") || ingredients.get(0).getIngredientName().equals("") ||
+                        steps.get(0).equals("")) {
+                    Toast.makeText(getApplicationContext(), "Error: Please fill up all text fields.", Toast.LENGTH_SHORT).show();
+                    Log.d("Add Recipe", name);
+                    Log.d("Add Recipe", time);
+                    Log.d("Add Recipe", ingredients.get(0).getIngredientName());
+                    Log.d("Add Recipe", steps.get(0));
+                } else {
+                    int prepTime = Integer.parseInt(time);
+                    executorService.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            helper.postRecipe(steps, ingredients, name, prepTime, imageUri, new CustomCallback() {
+                                @Override
+                                public void success(Message message) {
+                                    Toast.makeText(getApplicationContext(), "Recipe added", Toast.LENGTH_SHORT).show();
+                                    Launcher.launch(intent);
+                                }
 
-                            }
+                                @Override
+                                public void error(Message message) {
 
-                            @Override
-                            public void failure(Throwable t) {
+                                }
 
-                            }
-                        });
-                    }
-                });
+                                @Override
+                                public void failure(Throwable t) {
 
-                Launcher.launch(intent);
+                                }
+                            });
+                        }
+                    });
+                }
             }
         });
     }

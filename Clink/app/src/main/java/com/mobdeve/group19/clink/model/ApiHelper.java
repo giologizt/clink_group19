@@ -223,8 +223,10 @@ public class ApiHelper {
         File file = new File(imageUri.getPath());
         String fileName = file.getName();
 
+        Log.d("ApiHelper - postRecipe", fileName);
+
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part filePart = MultipartBody.Part.createFormData("recipe-image", file.getName(), requestBody);
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("recipe-image", fileName, requestBody);
 
         RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), recipename);
         RequestBody prepTime = RequestBody.create(MediaType.parse("multipart/form-data"), recipeprepTime.toString());
