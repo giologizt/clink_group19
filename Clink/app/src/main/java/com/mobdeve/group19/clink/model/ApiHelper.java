@@ -241,10 +241,10 @@ public class ApiHelper {
         }
 
         for(int i = 0; i < recipeingredients.size(); i++) {
-            RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), Integer.toString(recipeingredients.get(i).getQuantity()));
+            //RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), Integer.toString(recipeingredients.get(i).getQuantity()));
             RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getIngredientName());
-            map.put("ingredients[" + i + "][quantity]", quantity);
-            map.put("ingredients[" + i + "][ingredientName]", ingredientName);
+            //map.put("ingredients[" + i + "][quantity]", quantity);
+            map.put("ingredients[" + i + "]", ingredientName);
         }
 
         Call<Recipe> call = retrofitInterface.executePostRecipe(filePart, map);
@@ -376,10 +376,10 @@ public class ApiHelper {
         }
 
         for(int i = 0; i < recipeingredients.size(); i++) {
-            RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), Integer.toString(recipeingredients.get(i).getQuantity()));
+            //RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), Integer.toString(recipeingredients.get(i).getQuantity()));
             RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getIngredientName());
-            map.put("ingredients[" + i + "][quantity]", quantity);
-            map.put("ingredients[" + i + "][ingredientName]", ingredientName);
+            //map.put("ingredients[" + i + "][quantity]", quantity);
+            map.put("ingredients[" + i + "]", ingredientName);
         }
 
         Call<Recipe> call = retrofitInterface.executeUpdateRecipe(filePart, map);
