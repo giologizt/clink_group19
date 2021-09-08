@@ -408,34 +408,33 @@ public class ApiHelper {
 
     }
 
-    public void searchRecipe(String searchQuery){
+    public void searchRecipe(String searchQuery, RecipesCallback callback){
         Gson gson = new Gson();
-        Call<Recipe> call = retrofitInterface.executeSearchRecipe(searchQuery);
+        Call<ArrayList<Recipe>> call = retrofitInterface.executeSearchRecipe(searchQuery);
 
-        call.enqueue(new Callback<Recipe>() {
+        call.enqueue(new Callback<ArrayList<Recipe>>() {
             @Override
-            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
+            public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response) {
                 if (response.isSuccessful()) {
-                    String result = response.body().toString();
 
-                    Type dataType = new TypeToken<Collection<Recipe>>() {}.getType();
-                    Collection<Recipe> enums = gson.fromJson(result, dataType);
-                    Recipe[] recipe = enums.toArray(new Recipe[enums.size()]);
-                    //recipe[0].getAuthor()
-                    //add callback method for recipe arraylist
+                    ArrayList<Recipe> recipes = response.body();
+                    File file = new File(recipes.get(0).getImage());
+                    URI image = file.toURI();
+
                     Log.d("ApiHelper - search", "Recipes not collected");
-                    Log.d("ApiHelper - search", recipe[0].getAuthor());
-                    Log.d("ApiHelper - search", recipe[0].getIngredients().toString());
-                    Log.d("ApiHelper - search", recipe[0].getName());
+                    Message message = new Message("Successful.", response.code());
+                    callback.success(message, recipes);
                 } else {
                     Log.d("ApiHelper - search", response.errorBody().toString());
+                    Message message = new Message("Error.", response.code());
+                    callback.error(message);
                 }
             }
 
             @Override
-            public void onFailure(Call<Recipe> call, Throwable t) {
+            public void onFailure(Call<ArrayList<Recipe>> call, Throwable t) {
                 Log.d("ApiHelper - search", "Something went wrong");
-                t.printStackTrace();
+                callback.failure(t);
             }
         });
     }

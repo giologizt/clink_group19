@@ -27,7 +27,7 @@
             app:srcCompat="@drawable/find_foreground" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName5"
+            android:id="@+id/et_search"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"

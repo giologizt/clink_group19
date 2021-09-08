@@ -71,17 +71,27 @@ public class ExpandActivity extends AppCompatActivity {
                     @Override
                     public void success(Message message, Recipe recipe) {
                         expand_nameTv.setText(recipe.getName());
-                        expand_timeTv.setText(Integer.toString(recipe.getPrepTime()));
 
-                        StringBuilder stringBuilder = new StringBuilder();
-                        String steps = "";
+                        if(recipe.getPrepTime() <= 1)
+                            expand_timeTv.setText(Integer.toString(recipe.getPrepTime()) + " minute");
+                        else
+                            expand_timeTv.setText(Integer.toString(recipe.getPrepTime()) + " minutes");
+
+                        StringBuilder steps = new StringBuilder();
+                        StringBuilder ingredients = new StringBuilder();
+
+                        for(int j = 0; j < recipe.getIngredients().size(); j++) {
+                            ingredients.append(Integer.toString(j+1) + ". " + recipe.getIngredients().get(j).getIngredientName() + "\n");
+                        }
+
+                        expand_ingTv.setText(ingredients);
 
                         for(int i = 0; i < recipe.getSteps().size(); i++) {
 
-                            stringBuilder.append(Integer.toString(i+1) + ". " + recipe.getSteps().get(i) + "\n");
+                            steps.append(Integer.toString(i+1) + ". " + recipe.getSteps().get(i) + "\n");
 
                         }
-                        expand_stepsTv.setText(stringBuilder.toString());
+                        expand_stepsTv.setText(steps.toString());
 
                         File file = new File("http://10.0.2.2:3000/image/" + recipe.getImage());
                         Picasso.with(getApplicationContext()).load("http://10.0.2.2:3000/image/" + recipe.getImage()).into(expand_cocktailIv);
