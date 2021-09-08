@@ -18,20 +18,20 @@ public class Recipe {
     String name;
     Integer prepTime;
     String author;
-    String recipeId;
+    String _id;
 
     String image;
 
     String message;
 
-    public Recipe(ArrayList<String> steps, ArrayList<Review> reviews, ArrayList<Ingredients> ingredients, String name, Integer prepTime, String author, String recipeId, String image) {
+    public Recipe(ArrayList<String> steps, ArrayList<Review> reviews, ArrayList<Ingredients> ingredients, String name, Integer prepTime, String author, String id, String image) {
         this.steps = steps;
         this.reviews = reviews;
         this.ingredients = ingredients;
         this.name = name;
         this.prepTime = prepTime;
         this.author = author;
-        this.recipeId = recipeId;
+        this._id = id;
         this.image = image;
 
         this.file = new File(image);
@@ -45,7 +45,7 @@ public class Recipe {
         this.name = name;
         this.prepTime = prepTime;
         this.author = author;
-        this.recipeId = recipeId;
+        this._id = recipeId;
         this.message = message;
 
         this.image = image;
@@ -57,11 +57,11 @@ public class Recipe {
     public Recipe(Review review, String recipeId) {
         this.review.reviewId = review.getReviewId();
         this.review.review = review.getReview();
-        this.recipeId = recipeId;
+        this._id = recipeId;
     }
 
     public Recipe(String recipeId) {
-        this.recipeId = recipeId;
+        this._id = recipeId;
     }
 
     public ArrayList<String> getSteps() {
@@ -89,7 +89,7 @@ public class Recipe {
     }
 
     public String getRecipeId() {
-        return recipeId;
+        return _id;
     }
 
     public String getMessage() {

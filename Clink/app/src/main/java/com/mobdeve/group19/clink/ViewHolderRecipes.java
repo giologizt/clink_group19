@@ -35,12 +35,8 @@ public class ViewHolderRecipes extends RecyclerView.ViewHolder {
 
         Log.d("View Holder Recipes", data.getImage());
         File file = new File("http://10.0.2.2:3000/image/" + data.getImage());
-
         Picasso.with(context).load("http://10.0.2.2:3000/image/" + data.getImage()).into(this.cocktailIv);
 
-        //Uri cocktail = Uri.parse(cocktailIv.toString());
-        //Uri cocktail = Uri.parse(data.getImageFile().toString());
-        //this.cocktailIv.setImageURI(cocktail);
     }
 
     public LinearLayout getBoxLl () {return this.boxLl; }

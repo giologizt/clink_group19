@@ -10,14 +10,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.mobdeve.group19.clink.model.ApiHelper;
+import com.mobdeve.group19.clink.model.Message;
+import com.mobdeve.group19.clink.model.Recipe;
+import com.mobdeve.group19.clink.model.RecipeCallback;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class ExpandActivity extends AppCompatActivity {
 
@@ -34,6 +43,9 @@ public class ExpandActivity extends AppCompatActivity {
     private AdapterFeedback Adapter;
     private ArrayList<Feedback> dataFeedback;
 
+    ExecutorService executorService;
+    ApiHelper helper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,23 +58,48 @@ public class ExpandActivity extends AppCompatActivity {
         this.expand_stepsTv = findViewById(R.id.expand_stepsTv);
 
         Intent intent = getIntent();
-        /*
-        String Name = intent.getStringExtra(AdapterRecipes.KEY_NAME);
-        this.expand_nameTv.setText(Name);
 
-        String Time = intent.getStringExtra(AdapterRecipes.KEY_TIME);
-        this.expand_timeTv.setText(Time);
+        executorService = Executors.newSingleThreadExecutor();
+        helper = new ApiHelper();
 
-        int Pic = intent.getIntExtra(AdapterRecipes.KEY_PIC, 0);
-        this.expand_cocktailIv.setImageResource(Pic);
+        executorService.execute(new Runnable() {
+            @Override
+            public void run() {
+                String id = intent.getStringExtra(AdapterRecipes.KEY_RECIPE_ID);
+                Log.d("ID", id);
+                helper.getRecipe(id, new RecipeCallback() {
+                    @Override
+                    public void success(Message message, Recipe recipe) {
+                        expand_nameTv.setText(recipe.getName());
+                        expand_timeTv.setText(Integer.toString(recipe.getPrepTime()));
 
-        String Ingredients = intent.getStringExtra(AdapterRecipes.KEY_INGREDIENTS);
-        this.expand_ingTv.setText(Ingredients);
+                        StringBuilder stringBuilder = new StringBuilder();
+                        String steps = "";
 
-        String Steps = intent.getStringExtra(AdapterRecipes.KEY_STEPS);
-        this.expand_stepsTv.setText(Steps);
+                        for(int i = 0; i < recipe.getSteps().size(); i++) {
 
-        */
+                            stringBuilder.append(Integer.toString(i+1) + ". " + recipe.getSteps().get(i) + "\n");
+
+                        }
+                        expand_stepsTv.setText(stringBuilder.toString());
+
+                        File file = new File("http://10.0.2.2:3000/image/" + recipe.getImage());
+                        Picasso.with(getApplicationContext()).load("http://10.0.2.2:3000/image/" + recipe.getImage()).into(expand_cocktailIv);
+
+                    }
+
+                    @Override
+                    public void error(Message message) {
+
+                    }
+
+                    @Override
+                    public void failure(Throwable t) {
+
+                    }
+                });
+            }
+        });
 
         this.recyclerView = findViewById(R.id.feedbackRv);
         this.MyManager = new LinearLayoutManager(this);

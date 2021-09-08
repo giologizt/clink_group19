@@ -1,10 +1,6 @@
 package com.mobdeve.group19.clink.model;
 
 
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -12,7 +8,6 @@ import com.google.gson.reflect.TypeToken;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -22,7 +17,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.io.File;
-import java.lang.reflect.Array;
 
 import java.lang.reflect.Type;
 import java.net.CookieHandler;
@@ -279,7 +273,7 @@ public class ApiHelper {
 
     }
 
-    public void getRecipes(RecipeCallback callback){
+    public void getRecipes(RecipesCallback callback){
         Gson gson = new Gson();
         Call<ArrayList<Recipe>> call = retrofitInterface.executeGetRecipes();
 
@@ -324,13 +318,13 @@ public class ApiHelper {
 
             @Override
             public void onFailure(Call<ArrayList<Recipe>> call, Throwable t) {
-
+                callback.failure(t);
             }
         });
 
     }
 
-    public void getRecipe(String id) {
+    public void getRecipe(String id, RecipeCallback callback) {
         Call<Recipe> call = retrofitInterface.executeGetRecipe(id);
 
         call.enqueue(new Callback<Recipe>() {
@@ -341,10 +335,11 @@ public class ApiHelper {
                     Log.d("ApiHelper - getRecipe", response.body().getAuthor());
                     Log.d("ApiHelper - getRecipe", response.body().getPrepTime().toString());
                     Log.d("ApiHelper - getRecipe", response.body().getSteps().toString());
-                    //System.out.println(response.body().getUsername());
-                    //System.out.println(response.body().getEmail());
-                    //System.out.println(response.body().getFullName());
-                    //System.out.println(response.body().getBirthday());
+
+                    Recipe recipe = response.body();
+                    Message message = new Message("Successful.", response.code());
+
+                    callback.success(message, recipe);
                 } else {
                     Log.d("ApiHelper - getRecipe", response.errorBody().toString());
                 }

@@ -14,14 +14,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.mobdeve.group19.clink.model.ApiHelper;
-import com.mobdeve.group19.clink.model.CustomCallback;
 import com.mobdeve.group19.clink.model.Message;
 import com.mobdeve.group19.clink.model.Recipe;
-import com.mobdeve.group19.clink.model.RecipeCallback;
+import com.mobdeve.group19.clink.model.RecipesCallback;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -69,7 +66,7 @@ public class RecipesActivity extends AppCompatActivity {
         executorService.execute(new Runnable() {
             @Override
             public void run() {
-                helper.getRecipes(new RecipeCallback() {
+                helper.getRecipes(new RecipesCallback() {
                     @Override
                     public void success(Message message, ArrayList<Recipe> recipe) {
                         recipes = recipe;
@@ -84,7 +81,7 @@ public class RecipesActivity extends AppCompatActivity {
 
                     @Override
                     public void failure(Throwable t) {
-
+                        t.printStackTrace();
                     }
                 });
             }

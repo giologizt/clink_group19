@@ -43,8 +43,8 @@ public interface RetrofitInterface {
     @GET("/getRecipes")
     Call<ArrayList<Recipe>> executeGetRecipes();
 
-    @GET("/getRecipe")
-    Call<Recipe> executeGetRecipe(@Body String id);
+    @GET("/getRecipe/{id}")
+    Call<Recipe> executeGetRecipe(@Path("id") String id);
 
     @PUT("/updateRecipe")
     Call<Recipe> executeUpdateRecipe(@Part MultipartBody.Part filePart, @PartMap Map<String, RequestBody> partMap);

@@ -2,6 +2,7 @@ package com.mobdeve.group19.clink;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,7 @@ import java.util.ArrayList;
 public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
     private ArrayList<Recipe> data;
 
-    public static final String KEY_NAME = "KEY_NAME";
-    public static final String KEY_TIME = "KEY_TIME";
-    public static final String KEY_PIC = "KEY_PIC";
-    public static final String KEY_INGREDIENTS = "KEY_INGREDIENTS";
-    public static final String KEY_STEPS = "KEY_STEPS";
-    public static final String KEY_IMAGE = "KEY_IMAGE";
+    public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
 
     private Context context;
 
@@ -41,14 +37,8 @@ public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ExpandActivity.class);
                 Recipe currentRecipe = data.get(ViewHolderRecipes.getAdapterPosition());
-
-                intent.putExtra(KEY_NAME, currentRecipe.getName());
-                intent.putExtra(KEY_TIME, currentRecipe.getPrepTime());
-                intent.putExtra(KEY_PIC, currentRecipe.getRecipeId());
-                intent.putExtra(KEY_INGREDIENTS, currentRecipe.getIngredients());
-                intent.putExtra(KEY_STEPS, currentRecipe.getSteps());
-                intent.putExtra(KEY_IMAGE, currentRecipe.getImageFile());
-
+                Log.d("Current ID", currentRecipe.getRecipeId());
+                intent.putExtra(KEY_RECIPE_ID, currentRecipe.getRecipeId());
                 v.getContext().startActivity(intent);
             }
         });
