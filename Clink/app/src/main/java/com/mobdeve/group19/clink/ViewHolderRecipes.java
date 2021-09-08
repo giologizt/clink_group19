@@ -31,7 +31,11 @@ public class ViewHolderRecipes extends RecyclerView.ViewHolder {
 
     public void bindData (Recipe data, Context context) {
         this.nameTv.setText(data.getName());
-        this.timeTv.setText(data.getPrepTime().toString());
+
+        if(data.getPrepTime() <= 1)
+            timeTv.setText(Integer.toString(data.getPrepTime()) + " minute");
+        else
+            timeTv.setText(Integer.toString(data.getPrepTime()) + " minutes");
 
         Log.d("View Holder Recipes", data.getImage());
         File file = new File("http://10.0.2.2:3000/image/" + data.getImage());
