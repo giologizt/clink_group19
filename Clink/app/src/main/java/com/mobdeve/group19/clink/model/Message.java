@@ -5,7 +5,7 @@ public class Message {
     String message;
     Integer code;
     String token = "";
-    String id;
+    String id = "";
   
     public Message(String message, Integer code, String token) {
         this.message = message;

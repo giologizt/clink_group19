@@ -103,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
                             public void success(Message message) {
                                 if(message.getCode() == 200) {
                                     editor.putString(JSON_TOKEN_KEY, message.getToken());
+                                    Log.d("ID", message.getId());
                                     editor.putString(USER_ID_KEY, message.getId());
                                     editor.apply();
 

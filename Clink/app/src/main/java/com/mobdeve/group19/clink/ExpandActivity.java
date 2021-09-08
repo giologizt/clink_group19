@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,6 +32,8 @@ import java.util.concurrent.Executors;
 
 public class ExpandActivity extends AppCompatActivity {
 
+    private static final String USER_ID_KEY = "USER_ID_KEY";
+
     private TextView expand_nameTv, expand_timeTv, expand_ingTv, expand_stepsTv;
     private ImageView expand_cocktailIv;
     private RecyclerView recyclerView;
@@ -46,6 +50,8 @@ public class ExpandActivity extends AppCompatActivity {
     ExecutorService executorService;
     ApiHelper helper;
 
+    SharedPreferences sp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,10 +63,14 @@ public class ExpandActivity extends AppCompatActivity {
         this.expand_ingTv = findViewById(R.id.expand_ingredientsTv);
         this.expand_stepsTv = findViewById(R.id.expand_stepsTv);
 
+        this.btnEditRecipe = findViewById(R.id.editrecipeBtn);
+
         Intent intent = getIntent();
 
         executorService = Executors.newSingleThreadExecutor();
         helper = new ApiHelper();
+
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         executorService.execute(new Runnable() {
             @Override
@@ -71,6 +81,9 @@ public class ExpandActivity extends AppCompatActivity {
                     @Override
                     public void success(Message message, Recipe recipe) {
                         expand_nameTv.setText(recipe.getName());
+
+                        if(!sp.getString(USER_ID_KEY, "").equals(recipe.getAuthor()))
+                            btnEditRecipe.setVisibility(View.INVISIBLE);
 
                         if(recipe.getPrepTime() <= 1)
                             expand_timeTv.setText(Integer.toString(recipe.getPrepTime()) + " minute");
@@ -157,7 +170,6 @@ public class ExpandActivity extends AppCompatActivity {
 //    );
 
     public void EditRecipe() {
-        this.btnEditRecipe = findViewById(R.id.editrecipeBtn);
         this.btnEditRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
