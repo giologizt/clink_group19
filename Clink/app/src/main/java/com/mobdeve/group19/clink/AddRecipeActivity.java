@@ -114,7 +114,8 @@ public class AddRecipeActivity extends AppCompatActivity {
                 et.setTextColor(Color.BLACK);
                 et.setHighlightColor(Color.BLACK);
                 ingredientsLayout.addView(et);
-                ingredientsLines++;
+                ingredientsLines = ingredientsLines + 1;
+                Log.d("New Ingredient", Integer.toString(ingredientsLines));
             }
         });
 
@@ -131,7 +132,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                 et.setTextColor(Color.BLACK);
                 et.setHighlightColor(Color.BLACK);
                 stepsLayout.addView(et);
-                stepsLines++;
+                stepsLines = stepsLines + 1;
             }
         });
 
@@ -191,9 +192,11 @@ public class AddRecipeActivity extends AppCompatActivity {
         });
     }
 
-    private ArrayList<Ingredients> getIngredients(){
-        ArrayList<Ingredients> ingredients = new ArrayList<>();
-        for(int i = 0; i < (this.ingredientsLines - 100); i++){
+    private ArrayList<String> getIngredients(){
+        ArrayList<String> ingredients = new ArrayList<>();
+        Log.d("Ingredient Lines", Integer.toString(ingredientsLines));
+        Log.d("Ingredient Lines", Integer.toString(this.ingredientsLines));
+        for(int i = 0; i <= (this.ingredientsLines - 100); i++){
             EditText ingredient;
 
             if(i == 0) {
@@ -202,8 +205,8 @@ public class AddRecipeActivity extends AppCompatActivity {
                 ingredient = findViewById(i + 100);
             }
 
-            Ingredients ingrdientName = new Ingredients(ingredient.getText().toString());
-            ingredients.add(ingrdientName);
+            Log.d("Ingredients", ingredient.getText().toString());
+            ingredients.add(ingredient.getText().toString());
         }
 
         return ingredients;
@@ -211,7 +214,7 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     private ArrayList<String> getSteps(){
         ArrayList<String> steps = new ArrayList<>();
-        for(int i = 0; i < (this.stepsLines - 200); i++){
+        for(int i = 0; i <= (this.stepsLines - 200); i++){
             EditText step;
 
             if(i == 0) {
@@ -221,6 +224,7 @@ public class AddRecipeActivity extends AppCompatActivity {
             }
 
             //TextView step = findViewById(Integer.parseInt("et_steps" + (i)));
+            Log.d("Steps", step.getText().toString());
             steps.add(step.getText().toString());
         }
 
@@ -234,19 +238,19 @@ public class AddRecipeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = etName.getText().toString();
                 String time = etprepTime.getText().toString();
-                ArrayList<Ingredients> ingredients =  getIngredients();
+                ArrayList<String> ingredients =  getIngredients();
                 ArrayList<String> steps = getSteps();
                 Uri image = imageUri;
 
                 Intent intent = new Intent(AddRecipeActivity.this, RecipesActivity.class);
                 Log.d("Add Recipe", "Publish was reached");
 
-                if (name.equals("") || time.equals("") || ingredients.get(0).getIngredientName().equals("") ||
+                if (name.equals("") || time.equals("") || ingredients.get(0).equals("") ||
                         steps.get(0).equals("")) {
                     Toast.makeText(getApplicationContext(), "Error: Please fill up all text fields.", Toast.LENGTH_SHORT).show();
                     Log.d("Add Recipe", name);
                     Log.d("Add Recipe", time);
-                    Log.d("Add Recipe", ingredients.get(0).getIngredientName());
+                    Log.d("Add Recipe", ingredients.get(0));
                     Log.d("Add Recipe", steps.get(0));
                 } else {
                     int prepTime = Integer.parseInt(time);

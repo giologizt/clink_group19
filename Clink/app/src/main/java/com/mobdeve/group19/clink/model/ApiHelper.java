@@ -219,7 +219,7 @@ public class ApiHelper {
         });
     }
 
-    public void postRecipe(ArrayList<String> recipesteps, ArrayList<Ingredients> recipeingredients, String recipename,
+    public void postRecipe(ArrayList<String> recipesteps, ArrayList<String> recipeingredients, String recipename,
                            Integer recipeprepTime, Uri imageUri, File imageFile, CustomCallback callback){
 
         //File file = new File(filePath);
@@ -250,7 +250,7 @@ public class ApiHelper {
 
         for(int i = 0; i < recipeingredients.size(); i++) {
             //RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), Integer.toString(recipeingredients.get(i).getQuantity()));
-            RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getIngredientName());
+            RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i));
             //map.put("ingredients[" + i + "][quantity]", quantity);
             map.put("ingredients[" + i + "][ingredientName]", ingredientName);
         }
@@ -313,7 +313,6 @@ public class ApiHelper {
                     Log.d("ApiHelper - getRecipes", image.toString());
                     Log.d("ApiHelper - getRecipes", recipes.get(0).getPrepTime().toString());
                     Log.d("ApiHelper - getRecipes", recipes.get(0).getSteps().get(0));
-                    Log.d("ApiHelper - getRecipes", recipes.get(0).getIngredients().get(0).getIngredientName());
 
                     Log.d("ApiHelper - getRecipes", recipes.get(1).getPrepTime().toString());
                     Log.d("ApiHelper - getRecipes", recipes.get(1).getSteps().get(0));

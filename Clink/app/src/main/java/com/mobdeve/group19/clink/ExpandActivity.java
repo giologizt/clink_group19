@@ -99,7 +99,7 @@ public class ExpandActivity extends AppCompatActivity {
                         StringBuilder ingredients = new StringBuilder();
 
                         for(int j = 0; j < recipe.getIngredients().size(); j++) {
-                            ingredients.append(Integer.toString(j+1) + ". " + recipe.getIngredients().get(j).getIngredientName());
+                            ingredients.append(Integer.toString(j+1) + ". " + recipe.getIngredients().get(j));
                             if(recipe.getIngredients().size() != j+1) {
                                 ingredients.append("\n");
                             }
