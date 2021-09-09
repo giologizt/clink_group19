@@ -164,7 +164,7 @@
                 android:layout_marginTop="25dp"
                 android:layout_weight="1"
                 android:backgroundTint="#DA7171"
-                android:text="CANCEL" />
+                android:text="DELETE RECIPE" />
 
         </LinearLayout>
     </ScrollView>

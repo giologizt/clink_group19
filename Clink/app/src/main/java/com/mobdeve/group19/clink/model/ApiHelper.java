@@ -455,7 +455,7 @@ public class ApiHelper {
         });
     }
 
-    public void deleteRecipe(String id){
+    public void deleteRecipe(String id, CustomCallback callback){
         Call<Recipe> call = retrofitInterface.executeDeleteRecipe(id);
 
         call.enqueue(new Callback<Recipe>() {
@@ -464,8 +464,12 @@ public class ApiHelper {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - delRecipe", "Recipe deleted");
                    //Log.d("ApiHelper - delRecipe", response.body().getMessage());
+                    Message message = new Message("Successful", response.code());
+                    callback.success(message);
                 } else {
                     Log.d("ApiHelper - delRecipe", response.errorBody().toString());
+                    Message message = new Message("Error", response.code());
+                    callback.error(message);
                 }
             }
 

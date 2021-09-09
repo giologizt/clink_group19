@@ -53,8 +53,8 @@ public interface RetrofitInterface {
     @GET("/searchRecipe/{search}")
     Call<ArrayList<Recipe>> executeSearchRecipe(@Path("search") String search);
 
-    @DELETE("/deleteRecipe")
-    Call<Recipe> executeDeleteRecipe(@Body String id);
+    @DELETE("/deleteRecipe/{id}")
+    Call<Recipe> executeDeleteRecipe(@Path("id") String id);
 
     @POST("/addReview")
     Call<Recipe> executeAddReview(@Body Recipe recipe);

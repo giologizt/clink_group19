@@ -34,6 +34,8 @@ public class ExpandActivity extends AppCompatActivity {
 
     private static final String USER_ID_KEY = "USER_ID_KEY";
 
+    private static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
+
     private TextView expand_nameTv, expand_timeTv, expand_ingTv, expand_stepsTv;
     private ImageView expand_cocktailIv;
     private RecyclerView recyclerView;
@@ -72,6 +74,19 @@ public class ExpandActivity extends AppCompatActivity {
 
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+        this.btnEditRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String id = intent.getStringExtra(AdapterRecipes.KEY_RECIPE_ID);
+
+                Intent intent = new Intent (ExpandActivity.this, EditRecipeActivity.class);
+                intent.putExtra(KEY_RECIPE_ID, id);
+
+                Launcher.launch(intent);
+            }
+        });
+
         executorService.execute(new Runnable() {
             @Override
             public void run() {
@@ -84,6 +99,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                         //Log.i("id of author", recipe.getAuthor());
                         Log.i("id of user", sp.getString(USER_ID_KEY, ""));
+                        Log.i("id of user", recipe.getAuthor());
 
                         if(!sp.getString(USER_ID_KEY, "").equals(recipe.getAuthor()))
                             btnEditRecipe.setVisibility(View.INVISIBLE);
@@ -182,14 +198,7 @@ public class ExpandActivity extends AppCompatActivity {
 //    );
 
     public void EditRecipe() {
-        this.btnEditRecipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (ExpandActivity.this, EditRecipeActivity.class);
 
-                Launcher.launch(intent);
-            }
-        });
     }
 
     public void Search() {
