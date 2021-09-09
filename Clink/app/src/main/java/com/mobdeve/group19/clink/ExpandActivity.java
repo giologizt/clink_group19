@@ -70,20 +70,25 @@ public class ExpandActivity extends AppCompatActivity {
         executorService = Executors.newSingleThreadExecutor();
         helper = new ApiHelper();
 
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         executorService.execute(new Runnable() {
             @Override
             public void run() {
                 String id = intent.getStringExtra(AdapterRecipes.KEY_RECIPE_ID);
-                Log.d("ID", id);
+
                 helper.getRecipe(id, new RecipeCallback() {
                     @Override
                     public void success(Message message, Recipe recipe) {
                         expand_nameTv.setText(recipe.getName());
 
+                        Log.i("id of author", recipe.getAuthor());
+                        Log.i("id of user", sp.getString(USER_ID_KEY, ""));
+
                         if(!sp.getString(USER_ID_KEY, "").equals(recipe.getAuthor()))
                             btnEditRecipe.setVisibility(View.INVISIBLE);
+                        else
+                            btnEditRecipe.setVisibility(View.VISIBLE);
 
                         if(recipe.getPrepTime() <= 1)
                             expand_timeTv.setText(Integer.toString(recipe.getPrepTime()) + " minute");
@@ -94,14 +99,21 @@ public class ExpandActivity extends AppCompatActivity {
                         StringBuilder ingredients = new StringBuilder();
 
                         for(int j = 0; j < recipe.getIngredients().size(); j++) {
-                            ingredients.append(Integer.toString(j+1) + ". " + recipe.getIngredients().get(j).getIngredientName() + "\n");
+                            ingredients.append(Integer.toString(j+1) + ". " + recipe.getIngredients().get(j).getIngredientName());
+                            if(recipe.getIngredients().size() != j+1) {
+                                ingredients.append("\n");
+                            }
                         }
 
                         expand_ingTv.setText(ingredients);
 
                         for(int i = 0; i < recipe.getSteps().size(); i++) {
 
-                            steps.append(Integer.toString(i+1) + ". " + recipe.getSteps().get(i) + "\n");
+                            steps.append(Integer.toString(i+1) + ". " + recipe.getSteps().get(i));
+
+                            if(recipe.getIngredients().size() != i+1) {
+                                steps.append("\n");
+                            }
 
                         }
                         expand_stepsTv.setText(steps.toString());

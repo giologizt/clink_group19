@@ -283,6 +283,7 @@ public class AddRecipeActivity extends AppCompatActivity {
     //@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == PICK_IMAGE && data != null) {
             try {
                 InputStream inputStream = getContentResolver().openInputStream(data.getData());
@@ -291,7 +292,8 @@ public class AddRecipeActivity extends AppCompatActivity {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-        } else {
+        }
+        else {
             Toast.makeText(getApplicationContext(), "Error: Image not found", Toast.LENGTH_SHORT).show();
         }
     }

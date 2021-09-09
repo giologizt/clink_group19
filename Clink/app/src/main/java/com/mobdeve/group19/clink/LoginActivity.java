@@ -101,14 +101,16 @@ public class LoginActivity extends AppCompatActivity {
                         helper.login(username, password, new CustomCallback() {
                             @Override
                             public void success(Message message) {
-                                if(message.getCode() == 200) {
+
+                                    Log.i("id of user", message.getId());
+
                                     editor.putString(JSON_TOKEN_KEY, message.getToken());
-                                    Log.d("ID", message.getId());
                                     editor.putString(USER_ID_KEY, message.getId());
                                     editor.apply();
 
+                                    Log.i("id of user shared pref", sp.getString(USER_ID_KEY, ""));
+
                                     Launcher.launch(intent);
-                                }
                             }
 
                             @Override
