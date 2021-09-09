@@ -8,10 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.FileUtils;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +29,13 @@ import com.mobdeve.group19.clink.model.CustomCallback;
 import com.mobdeve.group19.clink.model.Ingredients;
 import com.mobdeve.group19.clink.model.Message;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -241,10 +250,13 @@ public class AddRecipeActivity extends AppCompatActivity {
                     Log.d("Add Recipe", steps.get(0));
                 } else {
                     int prepTime = Integer.parseInt(time);
+
+                    File imageFile = new File(getRealPathFromURI(imageUri));
+
                     executorService.execute(new Runnable() {
                         @Override
                         public void run() {
-                            helper.postRecipe(steps, ingredients, name, prepTime, imageUri, new CustomCallback() {
+                            helper.postRecipe(steps, ingredients, name, prepTime, imageUri, imageFile, new CustomCallback() {
                                 @Override
                                 public void success(Message message) {
                                     Toast.makeText(getApplicationContext(), "Recipe added", Toast.LENGTH_SHORT).show();
@@ -272,9 +284,31 @@ public class AddRecipeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE && data != null) {
-            imageUri = data.getData();
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(data.getData());
+                imageUri = data.getData();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         } else {
             Toast.makeText(getApplicationContext(), "Error: Image not found", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+        return result;
+    }
+
+
 }
