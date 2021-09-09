@@ -5,7 +5,7 @@ public class Message {
     String message;
     Integer code;
     String token = "";
-    String id = "";
+    String id;
   
     public Message(String message, Integer code, String token) {
         this.message = message;
@@ -14,6 +14,7 @@ public class Message {
     }
 
     public Message(String id, String message, Integer code, String token) {
+        this.id = id;
         this.message = message;
         this.code = code;
         this.token = token;

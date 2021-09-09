@@ -71,7 +71,8 @@ public class ApiHelper {
                     Log.d("ApiHelper - Login", response.body().getId());
 
                     authToken = "bearer " + response.body().getAccessToken();
-                    Message message = new Message(response.body().getId(), "Login Successful", response.code(), authToken);
+                    String id = response.body().getId();
+                    Message message = new Message(id, "Login Successful", response.code(), authToken);
                     callback.success(message);
 
                 } else {

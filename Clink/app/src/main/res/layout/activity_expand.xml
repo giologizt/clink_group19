@@ -29,28 +29,29 @@
         android:id="@+id/editrecipeBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="204dp"
+        android:layout_marginStart="328dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="27dp"
         android:layout_marginBottom="5dp"
         android:clickable="true"
         app:backgroundTint="@color/main"
         app:layout_constraintBottom_toTopOf="@+id/scrollView4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.923"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView4"
+        app:layout_constraintStart_toStartOf="@+id/scrollView4"
+        app:layout_constraintTop_toBottomOf="@+id/expand_picIv"
         app:srcCompat="@drawable/edit_foreground" />
 
     <ImageView
         android:id="@+id/expand_picIv"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal|top"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/scrollView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <ScrollView
