@@ -43,6 +43,7 @@ import java.util.concurrent.Executors;
 public class AddRecipeActivity extends AppCompatActivity {
 
     public static final int PICK_IMAGE = 1;
+    private static final String USER_ID_KEY = "USER_ID_KEY";
 
     private Button btnCancel;
     private Button btnPublish;
@@ -232,6 +233,8 @@ public class AddRecipeActivity extends AppCompatActivity {
     }
 
     private void Publish() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+
         this.btnPublish = findViewById(R.id.publishBtn);
         this.btnPublish.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,11 +259,12 @@ public class AddRecipeActivity extends AppCompatActivity {
                     int prepTime = Integer.parseInt(time);
 
                     File imageFile = new File(getRealPathFromURI(imageUri));
+                    String author = sp.getString(USER_ID_KEY, "");
 
                     executorService.execute(new Runnable() {
                         @Override
                         public void run() {
-                            helper.postRecipe(steps, ingredients, name, prepTime, imageUri, imageFile, new CustomCallback() {
+                            helper.postRecipe(steps, ingredients, name, prepTime, imageUri, imageFile, author, new CustomCallback() {
                                 @Override
                                 public void success(Message message) {
                                     Toast.makeText(getApplicationContext(), "Recipe added", Toast.LENGTH_SHORT).show();

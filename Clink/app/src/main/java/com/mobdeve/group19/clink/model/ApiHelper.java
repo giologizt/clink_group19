@@ -220,7 +220,7 @@ public class ApiHelper {
     }
 
     public void postRecipe(ArrayList<String> recipesteps, ArrayList<Ingredients> recipeingredients, String recipename,
-                           Integer recipeprepTime, Uri imageUri, File imageFile, CustomCallback callback){
+                           Integer recipeprepTime, Uri imageUri, File imageFile, String authorID, CustomCallback callback){
 
         //File file = new File(filePath);
         File file = new File(imageUri.getPath());
@@ -235,13 +235,13 @@ public class ApiHelper {
 
         RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), recipename);
         RequestBody prepTime = RequestBody.create(MediaType.parse("multipart/form-data"), recipeprepTime.toString());
-        //RequestBody author = RequestBody.create(MediaType.parse("multipart/form-data"), recipeauthor);
+        RequestBody author = RequestBody.create(MediaType.parse("multipart/form-data"), authorID);
         //RequestBody steps = RequestBody.create(MediaType.parse(), recipesteps);
 
         HashMap<String, RequestBody> map = new HashMap<>();
         map.put("name", name);
         map.put("prepTime", prepTime);
-        //map.put("author", author);
+        map.put("author", author);
 
         for(int i = 0; i < recipesteps.size(); i++) {
             RequestBody steps = RequestBody.create(MediaType.parse("multipart/form-data"), recipesteps.get(i));
