@@ -341,7 +341,7 @@ public class ApiHelper {
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - getRecipe", response.body().getName());
-                    Log.d("ApiHelper - getRecipe", response.body().getAuthor());
+                    //Log.d("ApiHelper - getRecipe", response.body().getAuthor());
                     Log.d("ApiHelper - getRecipe", response.body().getPrepTime().toString());
                     Log.d("ApiHelper - getRecipe", response.body().getSteps().toString());
 

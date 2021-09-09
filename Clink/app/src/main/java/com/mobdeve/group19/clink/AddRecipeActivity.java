@@ -193,13 +193,13 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     private ArrayList<Ingredients> getIngredients(){
         ArrayList<Ingredients> ingredients = new ArrayList<>();
-        for(int i = 0; i < (ingredientsLines - 100); i++){
+        for(int i = 0; i < (this.ingredientsLines - 100); i++){
             EditText ingredient;
 
             if(i == 0) {
                 ingredient = findViewById(R.id.et_ingredient0);
             } else {
-                ingredient = findViewById(i);
+                ingredient = findViewById(i + 100);
             }
 
             Ingredients ingrdientName = new Ingredients(ingredient.getText().toString());
@@ -211,13 +211,13 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     private ArrayList<String> getSteps(){
         ArrayList<String> steps = new ArrayList<>();
-        for(int i = 0; i < (stepsLines - 200); i++){
+        for(int i = 0; i < (this.stepsLines - 200); i++){
             EditText step;
 
             if(i == 0) {
                 step = findViewById(R.id.et_steps0);
             } else {
-                step = findViewById(i);
+                step = findViewById(i + 200);
             }
 
             //TextView step = findViewById(Integer.parseInt("et_steps" + (i)));
