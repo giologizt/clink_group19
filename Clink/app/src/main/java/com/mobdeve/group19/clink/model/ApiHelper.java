@@ -219,7 +219,7 @@ public class ApiHelper {
         });
     }
 
-    public void postRecipe(ArrayList<String> recipesteps, ArrayList<String> recipeingredients, String recipename,
+    public void postRecipe(ArrayList<String> recipesteps, ArrayList<Ingredients> recipeingredients, String recipename,
                            Integer recipeprepTime, Uri imageUri, File imageFile, CustomCallback callback){
 
         //File file = new File(filePath);
@@ -250,9 +250,10 @@ public class ApiHelper {
 
         for(int i = 0; i < recipeingredients.size(); i++) {
             //RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), Integer.toString(recipeingredients.get(i).getQuantity()));
-            RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i));
+            RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getIngredientName());
             //map.put("ingredients[" + i + "][quantity]", quantity);
             map.put("ingredients[" + i + "][ingredientName]", ingredientName);
+            //map.put("ingredients[" + i + "]", ingredientName);
         }
 
         Call<Recipe> call = retrofitInterface.executePostRecipe(filePart, map);
@@ -291,6 +292,7 @@ public class ApiHelper {
             @Override
             public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response) {
                 if(response.isSuccessful()){
+
                     //String result = response.body().toString();
                     //System.out.println(result);
                     //Type dataType = new TypeToken<Collection<Recipe>>() {}.getType();
@@ -307,19 +309,24 @@ public class ApiHelper {
                     // Log.d("ApiHelper - getRecipes", recipe[0].getName());
 
                     ArrayList<Recipe> recipes = response.body();
-                    File file = new File(recipes.get(0).getImage());
-                    URI image = file.toURI();
 
-                    Log.d("ApiHelper - getRecipes", image.toString());
-                    Log.d("ApiHelper - getRecipes", recipes.get(0).getPrepTime().toString());
-                    Log.d("ApiHelper - getRecipes", recipes.get(0).getSteps().get(0));
+                    if(recipes != null) {
+                        //File file = new File(recipes.get(0).getImage());
+                        //URI image = file.toURI();
 
-                    Log.d("ApiHelper - getRecipes", recipes.get(1).getPrepTime().toString());
-                    Log.d("ApiHelper - getRecipes", recipes.get(1).getSteps().get(0));
+                        //Log.d("ApiHelper - getRecipes", image.toString());
+                        //Log.d("ApiHelper - getRecipes", recipes.get(0).getPrepTime().toString());
+                        //Log.d("ApiHelper - getRecipes", recipes.get(0).getSteps().get(0));
 
-                    Message message = new Message("Successful.", response.code());
+                        //Log.d("ApiHelper - getRecipes", recipes.get(1).getPrepTime().toString());
+                        //Log.d("ApiHelper - getRecipes", recipes.get(1).getSteps().get(0));
 
-                    callback.success(message, recipes);
+                        Message message = new Message("Successful.", response.code());
+
+                        callback.success(message, recipes);
+                    } else {
+                        Log.d("ApiHelper - getRecipes", "DB is empty");
+                    }
                 } else {
                     Log.d("ApiHelper - getRecipes", response.errorBody().toString());
                 }

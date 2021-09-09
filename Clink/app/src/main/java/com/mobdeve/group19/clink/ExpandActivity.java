@@ -82,7 +82,7 @@ public class ExpandActivity extends AppCompatActivity {
                     public void success(Message message, Recipe recipe) {
                         expand_nameTv.setText(recipe.getName());
 
-                        Log.i("id of author", recipe.getAuthor());
+                        //Log.i("id of author", recipe.getAuthor());
                         Log.i("id of user", sp.getString(USER_ID_KEY, ""));
 
                         if(!sp.getString(USER_ID_KEY, "").equals(recipe.getAuthor()))
@@ -99,7 +99,7 @@ public class ExpandActivity extends AppCompatActivity {
                         StringBuilder ingredients = new StringBuilder();
 
                         for(int j = 0; j < recipe.getIngredients().size(); j++) {
-                            ingredients.append(Integer.toString(j+1) + ". " + recipe.getIngredients().get(j));
+                            ingredients.append(Integer.toString(j+1) + ". " + recipe.getIngredients().get(j).getIngredientName());
                             if(recipe.getIngredients().size() != j+1) {
                                 ingredients.append("\n");
                             }

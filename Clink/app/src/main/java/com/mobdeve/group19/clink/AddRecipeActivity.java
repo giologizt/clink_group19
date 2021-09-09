@@ -192,8 +192,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         });
     }
 
-    private ArrayList<String> getIngredients(){
-        ArrayList<String> ingredients = new ArrayList<>();
+    private ArrayList<Ingredients> getIngredients(){
+        ArrayList<Ingredients> ingredients = new ArrayList<>();
         Log.d("Ingredient Lines", Integer.toString(ingredientsLines));
         Log.d("Ingredient Lines", Integer.toString(this.ingredientsLines));
         for(int i = 0; i <= (this.ingredientsLines - 100); i++){
@@ -206,7 +206,7 @@ public class AddRecipeActivity extends AppCompatActivity {
             }
 
             Log.d("Ingredients", ingredient.getText().toString());
-            ingredients.add(ingredient.getText().toString());
+            ingredients.add(new Ingredients(ingredient.getText().toString()));
         }
 
         return ingredients;
@@ -238,19 +238,19 @@ public class AddRecipeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = etName.getText().toString();
                 String time = etprepTime.getText().toString();
-                ArrayList<String> ingredients =  getIngredients();
+                ArrayList<Ingredients> ingredients =  getIngredients();
                 ArrayList<String> steps = getSteps();
                 Uri image = imageUri;
 
                 Intent intent = new Intent(AddRecipeActivity.this, RecipesActivity.class);
                 Log.d("Add Recipe", "Publish was reached");
 
-                if (name.equals("") || time.equals("") || ingredients.get(0).equals("") ||
+                if (name.equals("") || time.equals("") || ingredients.get(0).getIngredientName().equals("") ||
                         steps.get(0).equals("")) {
                     Toast.makeText(getApplicationContext(), "Error: Please fill up all text fields.", Toast.LENGTH_SHORT).show();
                     Log.d("Add Recipe", name);
                     Log.d("Add Recipe", time);
-                    Log.d("Add Recipe", ingredients.get(0));
+                    Log.d("Add Recipe", ingredients.get(0).getIngredientName());
                     Log.d("Add Recipe", steps.get(0));
                 } else {
                     int prepTime = Integer.parseInt(time);

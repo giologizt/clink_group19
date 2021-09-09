@@ -8,7 +8,7 @@ public class Recipe {
 
     ArrayList<String> steps;
     ArrayList<Review> reviews;
-    ArrayList<String> ingredients;
+    ArrayList<Ingredients> ingredients;
 
     Review review;
 
@@ -24,7 +24,7 @@ public class Recipe {
 
     String message;
 
-    public Recipe(ArrayList<String> steps, ArrayList<Review> reviews, ArrayList<String> ingredients, String name, Integer prepTime, String author, String id, String image) {
+    public Recipe(ArrayList<String> steps, ArrayList<Review> reviews, ArrayList<Ingredients> ingredients, String name, Integer prepTime, String author, String id, String image) {
         this.steps = steps;
         this.reviews = reviews;
         this.ingredients = ingredients;
@@ -38,7 +38,7 @@ public class Recipe {
         this.imageFile = file.toURI();
     }
 
-    public Recipe(ArrayList<String> steps, ArrayList<String> ingredients, String name, Integer prepTime, String author, String recipeId, String message, String image) {
+    public Recipe(ArrayList<String> steps, ArrayList<Ingredients> ingredients, String name, Integer prepTime, String author, String recipeId, String message, String image) {
         this.steps = steps;
         this.reviews = new ArrayList<>();
         this.ingredients = ingredients;
@@ -72,7 +72,7 @@ public class Recipe {
         return reviews;
     }
 
-    public ArrayList<String> getIngredients() {
+    public ArrayList<Ingredients> getIngredients() {
         return ingredients;
     }
 
