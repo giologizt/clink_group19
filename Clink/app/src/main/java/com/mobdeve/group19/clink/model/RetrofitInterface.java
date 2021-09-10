@@ -57,7 +57,7 @@ public interface RetrofitInterface {
     Call<Recipe> executeDeleteRecipe(@Path("id") String id);
 
     @POST("/addReview")
-    Call<Recipe> executeAddReview(@Body Recipe recipe);
+    Call<Review> executeAddReview(@Body Review review);
 
     @PUT("/editReview")
     Call<Recipe> executeEditReview(@Body Recipe recipe);

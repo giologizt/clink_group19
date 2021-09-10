@@ -1,13 +1,17 @@
 package com.mobdeve.group19.clink.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Review {
 
     String userId;
     String body;
+    public String recipeId;
 
-    public Review(String reviewId, String review) {
+    public Review(String reviewId, String review, String recipeId) {
         this.userId = reviewId;
         this.body = review;
+        this.recipeId = recipeId;
     }
 
     public Review(String review) {
@@ -30,5 +34,9 @@ public class Review {
 
     public String getReview() {
         return body;
+    }
+
+    public String getRecipeId() {
+        return recipeId;
     }
 }

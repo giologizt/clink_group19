@@ -481,22 +481,26 @@ public class ApiHelper {
         });
     }
 
-    public void addReview(Review review, String recipeId){
-        Recipe recipe = new Recipe(review, recipeId);
-        Call<Recipe> call = retrofitInterface.executeAddReview(recipe);
+    public void addReview(Review review, String recipeId, CustomCallback callback){
+        //Review recipe = new Review(review, recipeId);
+        Call<Review> call = retrofitInterface.executeAddReview(review);
 
-        call.enqueue(new Callback<Recipe>() {
+        call.enqueue(new Callback<Review>() {
             @Override
-            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
+            public void onResponse(Call<Review> call, Response<Review> response) {
                 if(response.isSuccessful()){
                     Log.d("ApiHelper - addReview", "Review added");
+                    Message message = new Message("Review added", response.code());
+                    callback.success(message);
                 } else {
                     Log.d("ApiHelper - addReview", response.errorBody().toString());
+                    Message message = new Message("Review not added", response.code());
+                    callback.error(message);
                 }
             }
 
             @Override
-            public void onFailure(Call<Recipe> call, Throwable t) {
+            public void onFailure(Call<Review> call, Throwable t) {
                 Log.d("ApiHelper - addReview", "Something went wrong");
                 t.printStackTrace();
             }

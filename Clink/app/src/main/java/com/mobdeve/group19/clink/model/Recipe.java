@@ -55,8 +55,7 @@ public class Recipe {
     }
 
     public Recipe(Review review, String recipeId) {
-        this.review.reviewId = review.getReviewId();
-        this.review.review = review.getReview();
+        this.reviews.add(review);
         this._id = recipeId;
     }
 

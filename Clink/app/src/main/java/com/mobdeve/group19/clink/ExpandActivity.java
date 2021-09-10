@@ -83,6 +83,7 @@ public class ExpandActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String id = intent.getStringExtra(AdapterRecipes.KEY_RECIPE_ID);
+                Log.d("ID", id);
 
                 Intent intent = new Intent (ExpandActivity.this, AddReviewActivity.class);
                 intent.putExtra(KEY_RECIPE_ID, id);
