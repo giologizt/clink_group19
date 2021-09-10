@@ -13,6 +13,7 @@ public class Review {
     public Review(String review) {
         this.userId = "";
         this.body = review;
+
     }
 
     public void setUserId(String userId) {
