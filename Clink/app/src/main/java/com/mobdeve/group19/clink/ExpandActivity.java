@@ -54,6 +54,8 @@ public class ExpandActivity extends AppCompatActivity {
 
     SharedPreferences sp;
 
+    String recipeId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,22 @@ public class ExpandActivity extends AppCompatActivity {
 
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+
+        this.tvFeedback = findViewById(R.id.leavereviewTv);
+        this.tvFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String id = intent.getStringExtra(AdapterRecipes.KEY_RECIPE_ID);
+
+                Intent intent = new Intent (ExpandActivity.this, AddReviewActivity.class);
+                intent.putExtra(KEY_RECIPE_ID, id);
+
+                Launcher.launch(intent);
+            }
+        });
+
+
         this.btnEditRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,10 +105,15 @@ public class ExpandActivity extends AppCompatActivity {
             }
         });
 
+        this.recyclerView = findViewById(R.id.feedbackRv);
+        this.MyManager = new LinearLayoutManager(this);
+        this.recyclerView.setLayoutManager(this.MyManager);
+
         executorService.execute(new Runnable() {
             @Override
             public void run() {
                 String id = intent.getStringExtra(AdapterRecipes.KEY_RECIPE_ID);
+                recipeId = intent.getStringExtra(AdapterRecipes.KEY_RECIPE_ID);
 
                 helper.getRecipe(id, new RecipeCallback() {
                     @Override
@@ -137,6 +160,9 @@ public class ExpandActivity extends AppCompatActivity {
                         File file = new File("http://10.0.2.2:3000/image/" + recipe.getImage());
                         Picasso.with(getApplicationContext()).load("http://10.0.2.2:3000/image/" + recipe.getImage()).into(expand_cocktailIv);
 
+                        // recyclerView.setAdapter(new AdapterFeedback());
+
+
                     }
 
                     @Override
@@ -150,22 +176,17 @@ public class ExpandActivity extends AppCompatActivity {
                     }
                 });
             }
-        });
 
-        this.recyclerView = findViewById(R.id.feedbackRv);
-        this.MyManager = new LinearLayoutManager(this);
-        this.recyclerView.setLayoutManager(this.MyManager);
+
+        });
 
 //        this.Adapter = new AdapterFeedback(this.dataFeedback);
 //        this.recyclerView.setAdapter(this.Adapter);
-
-        this.recyclerView.setAdapter(new AdapterFeedback(DataHelperFeedback.initializeData()));
 
         this.Recipes();
         this.Search();
         this.Profile();
         this.EditRecipe();
-        this.WriteFeedback();
         //this.EditFeedback();
     }
 
@@ -233,19 +254,6 @@ public class ExpandActivity extends AppCompatActivity {
                 Intent intent = new Intent (ExpandActivity.this, RecipesActivity.class);
 
                 Launcher.launch(intent);
-            }
-        });
-    }
-
-    private void WriteFeedback() {
-        this.tvFeedback = findViewById(R.id.leavereviewTv);
-        this.tvFeedback.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (ExpandActivity.this, AddReviewActivity.class);
-
-                Launcher.launch(intent);
-                //Launcher2.launch(intent);
             }
         });
     }
