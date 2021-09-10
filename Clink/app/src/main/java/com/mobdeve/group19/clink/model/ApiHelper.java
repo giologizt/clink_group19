@@ -434,8 +434,8 @@ public class ApiHelper {
                 if (response.isSuccessful()) {
 
                     ArrayList<Recipe> recipes = response.body();
-                    File file = new File(recipes.get(0).getImage());
-                    URI image = file.toURI();
+                    //File file = new File(recipes.get(0).getImage());
+                    //URI image = file.toURI();
 
                     Log.d("ApiHelper - search", "Recipes not collected");
                     Message message = new Message("Successful.", response.code());

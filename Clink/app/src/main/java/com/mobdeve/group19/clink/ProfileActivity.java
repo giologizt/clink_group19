@@ -10,19 +10,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mobdeve.group19.clink.model.ApiHelper;
 import com.mobdeve.group19.clink.model.Message;
 import com.mobdeve.group19.clink.model.Profile;
 import com.mobdeve.group19.clink.model.ProfileCallback;
 
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -34,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private LinearLayout llRecipes;
     private LinearLayout llPassword;
+    private LinearLayout fabRecipe;
 
     private Button btnEdit, btnLogout;
 
@@ -59,6 +57,8 @@ public class ProfileActivity extends AppCompatActivity {
         this.tvName = findViewById(R.id.tv_profileName);
         this.tvEmail = findViewById(R.id.tv_profileEmail);
         this.tvBirthday = findViewById(R.id.tv_profileBirthday);
+
+        this.fabRecipe = findViewById(R.id.addrecipeFab_profile);
 
         executorService.execute(new Runnable() {
             @Override
@@ -107,6 +107,7 @@ public class ProfileActivity extends AppCompatActivity {
         // For button actions
         this.recipes();
         this.password();
+        this.addRecipe();
         this.editProfile();
     }
 
@@ -150,6 +151,16 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent (ProfileActivity.this, EditProfileActivity.class);
 
+                Launcher.launch(intent);
+            }
+        });
+    }
+
+    public void addRecipe() {
+        this.fabRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent (ProfileActivity.this, AddRecipeActivity.class);
                 Launcher.launch(intent);
             }
         });
