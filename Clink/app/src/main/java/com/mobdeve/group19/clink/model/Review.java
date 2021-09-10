@@ -11,7 +11,6 @@ public class Review {
     }
 
     public Review(String review) {
-        this.reviewId = "";
         this.review = review;
     }
 
