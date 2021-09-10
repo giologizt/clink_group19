@@ -47,6 +47,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                     @Override
                     public void success(Message message) {
                         Intent intent = new Intent(EditRecipeActivity.this, RecipesActivity.class);
+                        Launcher.launch(intent);
                     }
 
                     @Override

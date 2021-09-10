@@ -262,6 +262,7 @@ public class AddRecipeActivity extends AppCompatActivity {
 
                     File imageFile = new File(getRealPathFromURI(imageUri));
                     String author = sp.getString(JSON_TOKEN_KEY, "");
+                    Log.d("Author", author);
 
                     executorService.execute(new Runnable() {
                         @Override
