@@ -99,7 +99,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                         //Log.i("id of author", recipe.getAuthor());
                         Log.i("id of user", sp.getString(USER_ID_KEY, ""));
-                        Log.i("id of user", recipe.getAuthor());
+                        //Log.i("id of user", recipe.getAuthor());
 
                         if(!sp.getString(USER_ID_KEY, "").equals(recipe.getAuthor()))
                             btnEditRecipe.setVisibility(View.INVISIBLE);
