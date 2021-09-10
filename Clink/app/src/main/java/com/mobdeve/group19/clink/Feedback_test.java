@@ -1,10 +1,10 @@
 package com.mobdeve.group19.clink;
 
-public class Feedback {
+public class Feedback_test {
     private String username, comment;
     //private int imageId;
 
-    public Feedback(String username, String comment) {
+    public Feedback_test(String username, String comment) {
         //this.imageId = imageId;
         this.username = username;
         this.comment = comment;

@@ -47,7 +47,7 @@ public class ExpandActivity extends AppCompatActivity {
     private TextView tvFeedback;
     private TextView tvEditFeedback;
     private AdapterFeedback Adapter;
-    private ArrayList<Feedback> dataFeedback;
+    private ArrayList<Feedback_test> dataFeedback;
 
     ExecutorService executorService;
     ApiHelper helper;
@@ -160,7 +160,7 @@ public class ExpandActivity extends AppCompatActivity {
                         File file = new File("http://10.0.2.2:3000/image/" + recipe.getImage());
                         Picasso.with(getApplicationContext()).load("http://10.0.2.2:3000/image/" + recipe.getImage()).into(expand_cocktailIv);
 
-                        // recyclerView.setAdapter(new AdapterFeedback());
+                        recyclerView.setAdapter(new AdapterFeedback(recipe.getReviews()));
 
 
                     }

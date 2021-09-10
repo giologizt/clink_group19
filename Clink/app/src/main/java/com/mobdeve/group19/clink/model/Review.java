@@ -2,32 +2,32 @@ package com.mobdeve.group19.clink.model;
 
 public class Review {
 
-    String reviewId;
-    String review;
+    String userId;
+    String body;
 
     public Review(String reviewId, String review) {
-        this.reviewId = reviewId;
-        this.review = review;
+        this.userId = reviewId;
+        this.body = review;
     }
 
     public Review(String review) {
-        this.reviewId = "";
-        this.review = review;
+        this.userId = "";
+        this.body = review;
     }
 
-    public void setReviewId(String reviewId) {
-        this.reviewId = reviewId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public void setReview(String review) {
-        this.review = review;
+        this.body = review;
     }
 
-    public String getReviewId() {
-        return reviewId;
+    public String getUserId() {
+        return userId;
     }
 
     public String getReview() {
-        return review;
+        return body;
     }
 }
