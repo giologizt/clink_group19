@@ -44,6 +44,8 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     public static final int PICK_IMAGE = 1;
     private static final String USER_ID_KEY = "USER_ID_KEY";
+    private static final String JSON_TOKEN_KEY = "JSON_TOKEN_KEY";
+
 
     private Button btnCancel;
     private Button btnPublish;
@@ -259,7 +261,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                     int prepTime = Integer.parseInt(time);
 
                     File imageFile = new File(getRealPathFromURI(imageUri));
-                    String author = sp.getString(USER_ID_KEY, "");
+                    String author = sp.getString(JSON_TOKEN_KEY, "");
 
                     executorService.execute(new Runnable() {
                         @Override
