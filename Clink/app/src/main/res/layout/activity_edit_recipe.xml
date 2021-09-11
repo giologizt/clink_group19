@@ -78,7 +78,7 @@
                 android:textSize="16sp" />
 
             <LinearLayout
-                android:id="@+id/ll_ingredients"
+                android:id="@+id/ll_ingredients_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -99,6 +99,13 @@
                 android:text="Add Ingredient"
                 android:visibility="gone" />
 
+            <Button
+                android:id="@+id/btn_addIngredient_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Add Ingredient" />
+
             <TextView
                 android:id="@+id/textView18"
                 android:layout_width="wrap_content"
@@ -108,7 +115,7 @@
                 android:textSize="16sp" />
 
             <LinearLayout
-                android:id="@+id/ll_steps"
+                android:id="@+id/ll_steps_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
@@ -122,6 +129,13 @@
                     android:inputType="textPersonName"
                     android:textSize="14sp" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_steps_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="add step" />
 
             <Button
                 android:layout_width="wrap_content"

@@ -8,10 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.mobdeve.group19.clink.model.ApiHelper;
@@ -24,6 +29,12 @@ public class EditRecipeActivity extends AppCompatActivity {
 
     private Button btnCancel, btnUpdate, btnDelete;
 
+    private Button btnIngredients;
+    private Button btnSteps;
+
+    private int ingredientsLines;
+    private int stepsLines;
+
     ApiHelper helper;
     SharedPreferences sp;
 
@@ -33,6 +44,12 @@ public class EditRecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_recipe);
 
         this.btnDelete = findViewById(R.id.deleteBtn);
+
+        this.ingredientsLines = 100;
+        this.stepsLines = 200;
+
+        this.btnIngredients = findViewById(R.id.btn_addIngredient_edit);
+        this.btnSteps = findViewById(R.id.btn_steps_edit);
 
         this.helper = new ApiHelper();
         this.sp = PreferenceManager.getDefaultSharedPreferences(this);
@@ -61,6 +78,41 @@ public class EditRecipeActivity extends AppCompatActivity {
                         t.printStackTrace();
                     }
                 });
+            }
+        });
+
+        btnIngredients.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout ingredientsLayout = findViewById(R.id.ll_ingredients_edit);
+                ingredientsLayout.setOrientation(LinearLayout.VERTICAL);
+                EditText et = new EditText(getApplicationContext());
+                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                et.setLayoutParams(p);
+                et.setId(ingredientsLines + 1);
+                et.setTextColor(Color.BLACK);
+                et.setHighlightColor(Color.BLACK);
+                ingredientsLayout.addView(et);
+                ingredientsLines = ingredientsLines + 1;
+                Log.d("New Ingredient", Integer.toString(ingredientsLines));
+            }
+        });
+
+        btnSteps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayout stepsLayout = findViewById(R.id.ll_steps_edit);
+                stepsLayout.setOrientation(LinearLayout.VERTICAL);
+                EditText et = new EditText(getApplicationContext());
+                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                et.setLayoutParams(p);
+                et.setId(stepsLines + 1);
+                et.setTextColor(Color.BLACK);
+                et.setHighlightColor(Color.BLACK);
+                stepsLayout.addView(et);
+                stepsLines = stepsLines + 1;
             }
         });
 
