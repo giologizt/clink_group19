@@ -161,6 +161,29 @@ public class ApiHelper {
         });
     }
 
+    public void getUsername(String id, ProfileCallback callback) {
+        Call<Profile> call = retrofitInterface.executeGetUsername(id);
+
+        call.enqueue(new Callback<Profile>() {
+            @Override
+            public void onResponse(Call<Profile> call, Response<Profile> response) {
+                if(response.isSuccessful()) {
+                    Message message = new Message("Successfully retrieved username.", response.code());
+                    Profile profile = new Profile(response.body().getUsername());
+                    callback.success(message, profile);
+                } else {
+                    Message message = new Message("Error retrieving username.", response.code());
+                    callback.error(message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Profile> call, Throwable t) {
+                callback.failure(t);
+            }
+        });
+    }
+
     public void editProfile(String email, String fullName, String birthday, String authToken, CustomCallback callback) {
         Profile profileInformation = new Profile(email, fullName, birthday);
         Call<Profile> call = retrofitInterface.executeEditProfile(authToken, profileInformation);

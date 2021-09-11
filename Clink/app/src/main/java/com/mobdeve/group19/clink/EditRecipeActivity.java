@@ -48,6 +48,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                     public void success(Message message) {
                         Intent intent = new Intent(EditRecipeActivity.this, RecipesActivity.class);
                         Launcher.launch(intent);
+                        finish();
                     }
 
                     @Override
@@ -83,8 +84,8 @@ public class EditRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (EditRecipeActivity.this, RecipesActivity.class);
-
                 Launcher.launch(intent);
+                finish();
             }
         });
     }

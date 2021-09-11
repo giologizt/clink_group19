@@ -41,6 +41,9 @@ public interface RetrofitInterface {
     //@Part("reviews") RequestBody reviews,
     //@Part("ingredients") RequestBody ingredients);
 
+    @GET("/username/{id}")
+    Call<Profile> executeGetUsername(@Path("id") String id);
+
     @GET("/getRecipes")
     Call<ArrayList<Recipe>> executeGetRecipes();
 

@@ -7,6 +7,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mobdeve.group19.clink.model.ApiHelper;
+import com.mobdeve.group19.clink.model.Message;
+import com.mobdeve.group19.clink.model.Profile;
+import com.mobdeve.group19.clink.model.ProfileCallback;
 import com.mobdeve.group19.clink.model.Review;
 
 import org.jetbrains.annotations.NotNull;
@@ -15,8 +19,12 @@ import java.util.ArrayList;
 
 public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
     private ArrayList<Review> data;
+    private ApiHelper helper;
 
-    public AdapterFeedback(ArrayList<Review> data) {this.data = data; }
+    public AdapterFeedback(ArrayList<Review> data) {
+        helper = new ApiHelper();
+        this.data = data;
+    }
 
     @NonNull
     @NotNull
@@ -30,8 +38,26 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolderFeedback holder, int position) {
-        holder.setUsernameTv(data.get(position).getUserId());
-        holder.setCommentTv(data.get(position).getReview());
+
+        helper.getUsername(data.get(position).getUserId(), new ProfileCallback() {
+            @Override
+            public void success(Message message, Profile profile) {
+                holder.setUsernameTv(profile.getUsername());
+                holder.setCommentTv(data.get(position).getReview());
+            }
+
+            @Override
+            public void error(Message message) {
+                holder.setUsernameTv(data.get(position).getUserId());
+                holder.setCommentTv(data.get(position).getReview());
+            }
+
+            @Override
+            public void failure(Throwable t) {
+                t.printStackTrace();
+            }
+        });
+
     }
 
     @Override

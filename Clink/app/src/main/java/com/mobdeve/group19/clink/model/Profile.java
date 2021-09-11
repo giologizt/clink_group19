@@ -32,6 +32,10 @@ public class Profile {
         this.oldpassword = oldpassword;
     }
 
+    public Profile (String username) {
+        this.username = username;
+    }
+
     public String getUsername () {
         return this.username;
     }

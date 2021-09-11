@@ -99,8 +99,8 @@ public class ProfileActivity extends AppCompatActivity {
                 editor.putString(JSON_TOKEN_KEY, "");
                 editor.putString(USER_ID_KEY, "");
                 editor.apply();
-
                 Launcher.launch(intent);
+                finish();
             }
         });
 

@@ -78,8 +78,8 @@ public class AddReviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (AddReviewActivity.this, RecipesActivity.class);
-
                 Launcher.launch(intent);
+                finish();
             }
         });
     }
@@ -112,6 +112,7 @@ public class AddReviewActivity extends AppCompatActivity {
                                 public void success(Message message) {
                                     Intent intent = new Intent(AddReviewActivity.this, ExpandActivity.class);
                                     Launcher.launch(intent);
+                                    finish();
                                 }
 
                                 @Override

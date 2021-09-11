@@ -109,8 +109,8 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.apply();
 
                                     Log.i("id of user shared pref", sp.getString(USER_ID_KEY, ""));
-
                                     Launcher.launch(intent);
+                                    finish();
                             }
 
                             @Override

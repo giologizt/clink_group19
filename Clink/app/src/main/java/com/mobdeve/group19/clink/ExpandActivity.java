@@ -201,23 +201,6 @@ public class ExpandActivity extends AppCompatActivity {
             }
     );
 
-//    public ActivityResultLauncher Launcher2 = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(),
-//            new ActivityResultCallback<ActivityResult>() {
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                    if (result.getData() != null) {
-//                        Intent intent = result.getData();
-//                        String feedback = intent.getStringExtra(AddReviewActivity.KEY_FEEDBACK);
-//
-//                        dataFeedback.add(0, new Feedback(R.drawable.dua, "Dua Lipa", feedback));
-//
-//                        Adapter.notifyItemChanged(0);
-//                        Adapter.notifyItemRangeChanged(0, Adapter.getItemCount());
-//                    }
-//                }
-//            }
-//    );
 
     public void EditRecipe() {
 
