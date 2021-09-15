@@ -454,6 +454,8 @@ public class ApiHelper {
                     callback.success(message);
                 } else {
                     Log.d("ApiHelper - upRecipe", response.errorBody().toString());
+                    Message message = new Message("Error", response.code());
+                    callback.error(message);
                 }
             }
 
@@ -461,6 +463,7 @@ public class ApiHelper {
             public void onFailure(Call<Recipe> call, Throwable t) {
                 Log.d("ApiHelper - upRecipe", "Something went wrong");
                 t.printStackTrace();
+                callback.failure(t);
             }
         });
     }
@@ -490,12 +493,14 @@ public class ApiHelper {
                     callback.success(message);
                 } else {
                     Log.d("ApiHelper - upImage", response.errorBody().toString());
+                    Message message = new Message("Error", response.code());
+                    callback.error(message);
                 }
             }
 
             @Override
             public void onFailure(Call<Recipe> call, Throwable t) {
-
+                callback.failure(t);
             }
         });
     }
