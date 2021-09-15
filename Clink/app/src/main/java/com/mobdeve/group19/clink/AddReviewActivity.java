@@ -111,6 +111,7 @@ public class AddReviewActivity extends AppCompatActivity {
                                 @Override
                                 public void success(Message message) {
                                     Intent intent = new Intent(AddReviewActivity.this, ExpandActivity.class);
+                                    intent.putExtra(KEY_RECIPE_ID, idRecipe);
                                     Launcher.launch(intent);
                                     finish();
                                 }

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -53,7 +54,6 @@ public class ExpandActivity extends AppCompatActivity {
     private FloatingActionButton btnEditRecipe;
     private TextView tvFeedback;
     private TextView tvEditFeedback;
-    private AdapterFeedback Adapter;
 
     private Recipe currentRecipe;
 
@@ -97,6 +97,7 @@ public class ExpandActivity extends AppCompatActivity {
                 intent.putExtra(KEY_RECIPE_ID, id);
 
                 Launcher.launch(intent);
+                finish();
             }
         });
 
@@ -199,11 +200,7 @@ public class ExpandActivity extends AppCompatActivity {
                 });
             }
 
-
         });
-
-//        this.Adapter = new AdapterFeedback(this.dataFeedback);
-//        this.recyclerView.setAdapter(this.Adapter);
 
         this.Recipes();
         this.Search();

@@ -552,7 +552,7 @@ public class ApiHelper {
             @Override
             public void onFailure(Call<Recipe> call, Throwable t) {
                 Log.d("ApiHelper - delRecipe", "Something went wrong");
-                t.printStackTrace();
+                callback.failure(t);
             }
         });
     }
@@ -635,15 +635,19 @@ public class ApiHelper {
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 if(response.isSuccessful()){
                     Log.d("ApiHelper - delReview", "Review deleted");
+                    Message message = new Message("Successful", response.code());
+                    callback.success(message);
                 } else {
                     Log.d("ApiHelper - delReview", "Review not deleted");
+                    Message message = new Message("Error", response.code());
+                    callback.success(message);
                 }
             }
 
             @Override
             public void onFailure(Call<Recipe> call, Throwable t) {
                 Log.d("ApiHelper - editReview", "Something went wrong");
-                t.printStackTrace();
+                callback.failure(t);
             }
         });
     }
