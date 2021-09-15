@@ -59,13 +59,16 @@ public interface RetrofitInterface {
     @DELETE("/deleteRecipe/{id}")
     Call<Recipe> executeDeleteRecipe(@Path("id") String id);
 
+    @GET("/getReviews/{recipeId}")
+    Call<Review> executeGetReviews(@Path("recipeId") String recipeId);
+
     @POST("/addReview")
     Call<Review> executeAddReview(@Body Review review);
 
     @PUT("/editReview")
     Call<Recipe> executeEditReview(@Body Recipe recipe);
 
-    @DELETE("/deleteReview")
-    Call<Recipe> executeDeleteReview(@Body Recipe recipe);
+    @DELETE("/deleteReview/{recipeId}/{reviewId}")
+    Call<Recipe> executeDeleteReview(@Header("Authorization") String authToken, @Path("recipeId") String recipeId, @Path("reviewId") String reivewId);
 
 }

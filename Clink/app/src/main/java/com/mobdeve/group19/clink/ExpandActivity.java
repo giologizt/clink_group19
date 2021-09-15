@@ -33,7 +33,7 @@ import java.util.concurrent.Executors;
 public class ExpandActivity extends AppCompatActivity {
 
     private static final String USER_ID_KEY = "USER_ID_KEY";
-
+    private static final String JSON_TOKEN_KEY = "JSON_TOKEN_KEY";
     private static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
 
     private TextView expand_nameTv, expand_timeTv, expand_ingTv, expand_stepsTv;
@@ -47,7 +47,6 @@ public class ExpandActivity extends AppCompatActivity {
     private TextView tvFeedback;
     private TextView tvEditFeedback;
     private AdapterFeedback Adapter;
-    private ArrayList<Feedback_test> dataFeedback;
 
     ExecutorService executorService;
     ApiHelper helper;
@@ -161,8 +160,8 @@ public class ExpandActivity extends AppCompatActivity {
                         File file = new File("http://10.0.2.2:3000/image/" + recipe.getImage());
                         Picasso.with(getApplicationContext()).load("http://10.0.2.2:3000/image/" + recipe.getImage()).into(expand_cocktailIv);
 
-                        recyclerView.setAdapter(new AdapterFeedback(recipe.getReviews()));
-
+                        String authToken = sp.getString(JSON_TOKEN_KEY, "");
+                        recyclerView.setAdapter(new AdapterFeedback(recipe.getReviews(), recipe.getRecipeId(), authToken));
 
                     }
 

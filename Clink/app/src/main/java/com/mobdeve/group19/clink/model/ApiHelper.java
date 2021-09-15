@@ -504,6 +504,27 @@ public class ApiHelper {
         });
     }
 
+    public void getReviews(String recipeId, ReviewCallback callback) {
+        Gson gson = new Gson();
+        Call<Review> call = retrofitInterface.executeGetReviews(recipeId);
+
+        call.enqueue(new Callback<ArrayList<Review>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Review>> call, Response<ArrayList<Review>> response) {
+                if(response.isSuccessful()) {
+                    Message message = new Message("Review Loaded", response.code());
+                    ArrayList<Review> reviews = response.body();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Review> call, Throwable t) {
+                callback.failure(t);
+            }
+        });
+
+    }
+
     public void addReview(Review review, String recipeId, CustomCallback callback){
         //Review recipe = new Review(review, recipeId);
         Call<Review> call = retrofitInterface.executeAddReview(review);
@@ -553,9 +574,8 @@ public class ApiHelper {
 
     }
 
-    public void deleteReview(Review review, String recipeId){
-        Recipe recipe = new Recipe(review, recipeId);
-        Call<Recipe> call = retrofitInterface.executeDeleteReview(recipe);
+    public void deleteReview(String recipeId, String reviewId, String authToken, CustomCallback callback){
+        Call<Recipe> call = retrofitInterface.executeDeleteReview(authToken, recipeId, reviewId);
 
         call.enqueue(new Callback<Recipe>() {
             @Override

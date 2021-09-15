@@ -7,14 +7,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mobdeve.group19.clink.model.ApiHelper;
+
 public class ViewHolderFeedback extends RecyclerView.ViewHolder {
     private TextView usernameTv, commentTv;
+    private TextView editTv, deleteTv;
     //private ImageView userIv;
+
+    private String reviewId;
+    private ApiHelper helper;
 
     public ViewHolderFeedback (@NonNull View itemView) {
         super(itemView);
         this.usernameTv = itemView.findViewById(R.id.namefbTv);
         this.commentTv = itemView.findViewById(R.id.commentfbTv);
+
+        this.editTv = itemView.findViewById(R.id.editreviewTv);
+        this.deleteTv = itemView.findViewById(R.id.deletereviewTv);
+
+        helper = new ApiHelper();
+
         //this.userIv = itemView.findViewById(R.id.profpicIv);
     }
 
@@ -22,5 +34,10 @@ public class ViewHolderFeedback extends RecyclerView.ViewHolder {
 
     public void setCommentTv (String time) {this.commentTv.setText(time);}
 
-    //public void setUserIv (int cocktailIv) {this.userIv.setImageResource(cocktailIv);}
+    public void setReviewId (String id) {this.reviewId = id;}
+
+
+    public void setDeleteButtonOnClickListener(View.OnClickListener onClickListener) {
+        this.deleteTv.setOnClickListener(onClickListener);
+    }
 }

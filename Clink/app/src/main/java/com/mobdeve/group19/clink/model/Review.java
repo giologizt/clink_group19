@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class Review {
 
+    String _id;
     String userId;
     String body;
     public String recipeId;
@@ -34,6 +35,10 @@ public class Review {
 
     public String getReview() {
         return body;
+    }
+
+    public String getId() {
+        return _id;
     }
 
     public String getRecipeId() {
