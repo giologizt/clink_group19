@@ -406,31 +406,39 @@ public class ApiHelper {
         //RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
         //MultipartBody.Part filePart = MultipartBody.Part.createFormData("recipe-image", imageFile.getName(), requestBody);
 
-        RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), recipename);
-        RequestBody prepTime = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(recipeprepTime));
-        RequestBody id = RequestBody.create(MediaType.parse("multipart/form-data"), ID);
+        //RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), recipename);
+        //RequestBody prepTime = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(recipeprepTime));
+        //RequestBody id = RequestBody.create(MediaType.parse("multipart/form-data"), ID);
         //RequestBody steps = RequestBody.create(MediaType.parse(), recipesteps);
 
-        HashMap<String, RequestBody> map = new HashMap<>();
-        map.put("name", name);
-        map.put("prepTime", prepTime);
-        map.put("id", id);
+        //HashMap<String, RequestBody> map = new HashMap<>();
+        //map.put("name", name);
+        //map.put("prepTime", prepTime);
+        //map.put("id", id);
 
-        for(int i = 0; i < recipesteps.size(); i++) {
-            RequestBody steps = RequestBody.create(MediaType.parse("multipart/form-data"), recipesteps.get(i));
-            map.put("steps[" + i + "]", steps);
-        }
+        //Log.d("Api Helper", name.toString());
+        //Log.d("Api Helper", String.valueOf(recipeprepTime));
+        //Log.d("Api Helper", recipeingredients.get(0).getIngredientName());
+        //Log.d("Api Helper", recipesteps.get(0));
 
-        for(int i = 0; i < recipeingredients.size(); i++) {
+        //for(int i = 0; i < recipesteps.size(); i++) {
+        //    RequestBody steps = RequestBody.create(MediaType.parse("multipart/form-data"), recipesteps.get(i));
+        //    map.put("steps[" + i + "]", steps);
+        //}
+
+        //for(int i = 0; i < recipeingredients.size(); i++) {
             //RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), Integer.toString(recipeingredients.get(i).getQuantity()));
-            RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getIngredientName());
+        //    RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getIngredientName());
             //map.put("ingredients[" + i + "][quantity]", quantity);
-            map.put("ingredients[" + i + "][ingredientName]", ingredientName);
+        //    map.put("ingredients[" + i + "][ingredientName]", ingredientName);
             //map.put("ingredients[" + i + "]", ingredientName);
-        }
+        //}
+
+        Recipe recipe = new Recipe(recipesteps, recipeingredients, recipename, recipeprepTime, ID);
 
         //filepart
-        Call<Recipe> call = retrofitInterface.executeUpdateRecipe(map);
+        //Call<Recipe> call = retrofitInterface.executeUpdateRecipe(authToken, map);
+        Call<Recipe> call = retrofitInterface.executeUpdateRecipe(authToken, recipe);
 
         call.enqueue(new Callback<Recipe>() {
             @Override
@@ -438,10 +446,12 @@ public class ApiHelper {
                 if(response.isSuccessful()) {
                     Log.d("ApiHelper - upRecipe", "Recipe updated");
                     //Log.d("ApiHelper - upRecipe", response.body().getAuthor());
-                    Log.d("ApiHelper - upRecipe", response.body().getName());
-                    Log.d("ApiHelper - upRecipe", response.body().getPrepTime().toString());
+                    //Log.d("ApiHelper - upRecipe", response.body().getName());
+                    //Log.d("ApiHelper - upRecipe", response.body().getPrepTime().toString());
                     //Log.d("ApiHelper - upRecipe", response.body().getSteps().toString());
                     //Log.d("ApiHelper - upRecipe", response.body().getIngredients().toString());
+                    Message message = new Message("Successful", response.code());
+                    callback.success(message);
                 } else {
                     Log.d("ApiHelper - upRecipe", response.errorBody().toString());
                 }
@@ -453,8 +463,41 @@ public class ApiHelper {
                 t.printStackTrace();
             }
         });
+    }
 
+    public void updateImage(Uri imageUri, File imageFile, String authToken, String ID, CustomCallback callback){
+        File file = new File(imageUri.getPath());
+        String fileName = file.getName();
 
+        Log.d("New Image", file.getName());
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("recipe-image", imageFile.getName(), requestBody);
+
+        RequestBody _id = RequestBody.create(MediaType.parse("multipart/form-data"), ID);
+
+        HashMap<String, RequestBody> map = new HashMap<>();
+        map.put("_id", _id);
+
+        Call<Recipe> call = retrofitInterface.executeUpdateImage(authToken, filePart, map);
+
+        call.enqueue(new Callback<Recipe>() {
+            @Override
+            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
+                if(response.isSuccessful()) {
+                    Log.d("ApiHelper - upImage", "Image updated");
+                    Message message = new Message("Successful", response.code());
+                    callback.success(message);
+                } else {
+                    Log.d("ApiHelper - upImage", response.errorBody().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Recipe> call, Throwable t) {
+
+            }
+        });
     }
 
     public void searchRecipe(String searchQuery, RecipesCallback callback){

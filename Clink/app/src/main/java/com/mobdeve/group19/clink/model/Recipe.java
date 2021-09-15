@@ -54,6 +54,14 @@ public class Recipe {
         this.imageFile = file.toURI();
     }
 
+    public Recipe(ArrayList<String> steps, ArrayList<Ingredients> ingredients, String name, Integer prepTime, String _id) {
+        this.steps = steps;
+        this.ingredients = ingredients;
+        this.name = name;
+        this.prepTime = prepTime;
+        this._id = _id;
+    }
+
     public Recipe(Review review, String recipeId) {
         this.reviews.add(review);
         this._id = recipeId;

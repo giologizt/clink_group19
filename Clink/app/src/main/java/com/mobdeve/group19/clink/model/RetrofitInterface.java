@@ -50,10 +50,15 @@ public interface RetrofitInterface {
     @GET("/getRecipe/{id}")
     Call<Recipe> executeGetRecipe(@Path("id") String id);
 
-    @Multipart
-    @PUT("/updateRecipe")
-    Call<Recipe> executeUpdateRecipe(@PartMap Map<String, RequestBody> partMap);
+    //@Multipart
+    @POST("/updateRecipe")
+    Call<Recipe> executeUpdateRecipe(@Header("Authorization") String accessToken, @Body Recipe recipe);
+    //Call<Recipe> executeUpdateRecipe(@Header("Authorization") String accessToken, @PartMap Map<String, RequestBody> partMap);
     //@Part MultipartBody.Part filePart,
+
+    @Multipart
+    @POST("/updateImage")
+    Call<Recipe> executeUpdateImage(@Header("Authorization") String accessToken, @Part MultipartBody.Part filePart, @PartMap Map<String, RequestBody> partMap);
 
     @GET("/searchRecipe/{search}")
     Call<ArrayList<Recipe>> executeSearchRecipe(@Path("search") String search);

@@ -37,7 +37,10 @@ public class ExpandActivity extends AppCompatActivity {
     private static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
     private static final String KEY_PREPTIME = "KEY_PREPTIME";
     private static final String KEY_IMAGE = "KEY_IMAGE";
-
+    private static final String KEY_STEPS = "KEY_STEPS";
+    private static final String KEY_INGREDIENTS = "KEY_INGRDIENTS";
+    private static final String KEY_INGREDIENTS_SIZE = "KEY_INGREDIENTS_SIZE";
+    private static final String KEY_NAME = "KEY_NAME";
 
 
     private TextView expand_nameTv, expand_timeTv, expand_ingTv, expand_stepsTv;
@@ -107,7 +110,17 @@ public class ExpandActivity extends AppCompatActivity {
                 Intent intent = new Intent (ExpandActivity.this, EditRecipeActivity.class);
                 intent.putExtra(KEY_RECIPE_ID, id);
                 intent.putExtra(KEY_PREPTIME, currentRecipe.getPrepTime());
-                intent.putExtra(KEY_IMAGE, currentRecipe.getImage());
+                intent.putExtra(KEY_STEPS, currentRecipe.getSteps());
+                intent.putExtra(KEY_NAME, currentRecipe.getName());
+                intent.putExtra(KEY_INGREDIENTS_SIZE, currentRecipe.getIngredients().size());
+
+                Log.d("Ingredients Size", String.valueOf(currentRecipe.getIngredients().size()));
+
+                for(int i = 0; i< currentRecipe.getIngredients().size(); i++){
+                    intent.putExtra(KEY_INGREDIENTS + i, currentRecipe.getIngredients().get(i).getIngredientName());
+                }
+
+                //intent.putExtra(KEY_IMAGE, currentRecipe.getImage());
 
                 Launcher.launch(intent);
             }

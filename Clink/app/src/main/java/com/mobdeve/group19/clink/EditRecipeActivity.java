@@ -42,7 +42,10 @@ public class EditRecipeActivity extends AppCompatActivity {
     private static final String JSON_TOKEN_KEY = "JSON_TOKEN_KEY";
     private static final String KEY_PREPTIME = "KEY_PREPTIME";
     private static final String KEY_IMAGE = "KEY_IMAGE";
-
+    private static final String KEY_STEPS = "KEY_STEPS";
+    private static final String KEY_INGREDIENTS = "KEY_INGRDIENTS";
+    private static final String KEY_NAME = "KEY_NAME";
+    private static final String KEY_INGREDIENTS_SIZE = "KEY_INGREDIENTS_SIZE";
 
     private Button btnCancel, btnUpdate, btnDelete;
 
@@ -54,6 +57,7 @@ public class EditRecipeActivity extends AppCompatActivity {
 
     private int ingredientsLines;
     private int stepsLines;
+    private int imageExist;
 
     ApiHelper helper;
     SharedPreferences sp;
@@ -71,6 +75,7 @@ public class EditRecipeActivity extends AppCompatActivity {
 
         this.ingredientsLines = 100;
         this.stepsLines = 200;
+        this.imageExist = 0;
 
         this.imageUri = null;
 
@@ -112,6 +117,8 @@ public class EditRecipeActivity extends AppCompatActivity {
                 });
             }
         });
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,52 +211,135 @@ public class EditRecipeActivity extends AppCompatActivity {
                 ArrayList<String> steps = getSteps();
                 Uri image = imageUri;
 
-                Log.d("Add Recipe", name);
-                Log.d("Add Recipe", time);
-                Log.d("Add Recipe", ingredients.get(0).getIngredientName());
-                Log.d("Add Recipe", steps.get(0));
-
                 if (name.equals("") && time.equals("") && ingredients.get(0).getIngredientName().equals("") &&
-                        steps.get(0).equals("")) {
+                        steps.get(0).equals("") && imageExist == 0) {
                     Toast.makeText(getApplicationContext(), "Error: Please fill up at least one text field.", Toast.LENGTH_SHORT).show();
                 } else {
+
                     Intent intent = getIntent();
 
+
+
                     String id = intent.getStringExtra(KEY_RECIPE_ID);
+                    String currentName = intent.getStringExtra(KEY_NAME);
                     int prepTime = intent.getIntExtra(KEY_PREPTIME, 0);
+                    int ingExists = 0;
+                    ArrayList<Ingredients> finalIngredients = new ArrayList<>();
+                    ArrayList<Ingredients> ing = new ArrayList<>();
+
+                    if(steps.get(0).equals("")) {
+                        steps = intent.getStringArrayListExtra(KEY_STEPS);
+                    }
+
+                    if(ingredients.get(0).getIngredientName().equals("")){
+                        for(int i = 0; i < intent.getIntExtra(KEY_INGREDIENTS_SIZE, 0); i++){
+                            Log.d("Ingredient", intent.getStringExtra(KEY_INGREDIENTS + i));
+                            ing.add(new Ingredients(intent.getStringExtra(KEY_INGREDIENTS + i)));
+                        }
+                        ingExists = 1;
+                    }
 
                     if(!time.equals("")){
                         prepTime = Integer.parseInt(time);
+                    }
+
+                    if(name.equals("")){
+                       name = currentName;
                     }
 
                     String author = sp.getString(JSON_TOKEN_KEY, "");
                     Log.d("Author", author);
 
                     int finalPrepTime = prepTime;
-                    executorService.execute(new Runnable() {
-                        @Override
-                        //imageUri, imageFile,
-                        public void run() {
-                            helper.updateRecipe(id, steps, ingredients, name, finalPrepTime, author, new CustomCallback() {
-                                @Override
-                                public void success(Message message) {
-                                    Intent intent = new Intent (EditRecipeActivity.this, RecipesActivity.class);
-                                    Toast.makeText(getApplicationContext(), "Recipe edited", Toast.LENGTH_SHORT).show();
-                                    Launcher.launch(intent);
-                                }
+                    ArrayList<String> finalSteps = steps;
 
-                                @Override
-                                public void error(Message message) {
+                    if(ingExists == 0){
+                        finalIngredients = ingredients;
+                    } else {
+                        finalIngredients = ing;
+                    }
 
-                                }
+                    Log.d("Add Recipe", name);
+                    Log.d("Add Recipe", String.valueOf(finalPrepTime));
+                    Log.d("Add Recipe", finalSteps.get(0));
+                    Log.d("Add Recipe", finalIngredients.get(0).getIngredientName());
 
-                                @Override
-                                public void failure(Throwable t) {
+                    ArrayList<Ingredients> finalIngredients1 = finalIngredients;
+                    String finalName = name;
 
-                                }
-                            });
-                        }
-                    });
+                    if(imageExist == 1) {
+                        Log.d("ImageExist", String.valueOf(imageExist));
+                        File imageFile = new File(getRealPathFromURI(imageUri));
+
+                        executorService.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                helper.updateImage(imageUri, imageFile, author, id, new CustomCallback() {
+                                    @Override
+                                    public void success(Message message) {
+                                        Toast.makeText(getApplicationContext(), "Image edited", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                    @Override
+                                    public void error(Message message) {
+
+                                    }
+
+                                    @Override
+                                    public void failure(Throwable t) {
+
+                                    }
+                                });
+
+                                helper.updateRecipe(id, finalSteps, finalIngredients1, finalName, finalPrepTime, author, new CustomCallback() {
+                                    @Override
+                                    public void success(Message message) {
+                                        Intent intent = new Intent (EditRecipeActivity.this, RecipesActivity.class);
+                                        Toast.makeText(getApplicationContext(), "Recipe edited", Toast.LENGTH_SHORT).show();
+                                        Launcher.launch(intent);
+                                    }
+
+                                    @Override
+                                    public void error(Message message) {
+
+                                    }
+
+                                    @Override
+                                    public void failure(Throwable t) {
+
+                                    }
+                                });
+
+                            }
+                        });
+                    } else {
+                        executorService.execute(new Runnable() {
+                            @Override
+                            //imageUri, imageFile,
+                            public void run() {
+                                helper.updateRecipe(id, finalSteps, finalIngredients1, finalName, finalPrepTime, author, new CustomCallback() {
+                                    @Override
+                                    public void success(Message message) {
+                                        Intent intent = new Intent (EditRecipeActivity.this, RecipesActivity.class);
+                                        Toast.makeText(getApplicationContext(), "Recipe edited", Toast.LENGTH_SHORT).show();
+                                        Launcher.launch(intent);
+                                    }
+
+                                    @Override
+                                    public void error(Message message) {
+
+                                    }
+
+                                    @Override
+                                    public void failure(Throwable t) {
+
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+
                 }
 
 
@@ -303,13 +393,13 @@ public class EditRecipeActivity extends AppCompatActivity {
             try {
                 InputStream inputStream = getContentResolver().openInputStream(data.getData());
                 imageUri = data.getData();
+                imageExist = 1;
 
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
         else {
-            imageUri = data.getData();
             Toast.makeText(getApplicationContext(), "Error: Image not found", Toast.LENGTH_SHORT).show();
         }
     }
