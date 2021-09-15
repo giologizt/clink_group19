@@ -50,8 +50,10 @@ public interface RetrofitInterface {
     @GET("/getRecipe/{id}")
     Call<Recipe> executeGetRecipe(@Path("id") String id);
 
+    @Multipart
     @PUT("/updateRecipe")
-    Call<Recipe> executeUpdateRecipe(@Part MultipartBody.Part filePart, @PartMap Map<String, RequestBody> partMap);
+    Call<Recipe> executeUpdateRecipe(@PartMap Map<String, RequestBody> partMap);
+    //@Part MultipartBody.Part filePart,
 
     @GET("/searchRecipe/{search}")
     Call<ArrayList<Recipe>> executeSearchRecipe(@Path("search") String search);
@@ -60,7 +62,7 @@ public interface RetrofitInterface {
     Call<Recipe> executeDeleteRecipe(@Path("id") String id);
 
     @GET("/getReviews/{recipeId}")
-    Call<Review> executeGetReviews(@Path("recipeId") String recipeId);
+    Call<ArrayList<Review>> executeGetReviews(@Path("recipeId") String recipeId);
 
     @POST("/addReview")
     Call<Review> executeAddReview(@Body Review review);

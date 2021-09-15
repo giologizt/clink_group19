@@ -30,6 +30,7 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/et_editname"
                 android:layout_width="333dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
@@ -46,6 +47,7 @@
                 android:textSize="16sp" />
 
             <Button
+                android:id="@+id/btn_image"
                 android:layout_width="200dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
@@ -61,6 +63,7 @@
                 android:textSize="16sp" />
 
             <EditText
+                android:id="@+id/et_editpreptime"
                 android:layout_width="333dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_horizontal"
@@ -85,6 +88,7 @@
                 android:orientation="vertical">
 
                 <EditText
+                    android:id="@+id/et_ingredient0"
                     android:layout_width="333dp"
                     android:layout_height="40dp"
                     android:ems="10"
@@ -122,6 +126,7 @@
                 android:orientation="vertical">
 
                 <EditText
+                    android:id="@+id/et_steps0"
                     android:layout_width="333dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"

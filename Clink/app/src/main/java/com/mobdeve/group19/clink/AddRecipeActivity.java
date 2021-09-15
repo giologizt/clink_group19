@@ -12,7 +12,6 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.FileUtils;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -21,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobdeve.group19.clink.model.ApiHelper;
@@ -31,11 +29,8 @@ import com.mobdeve.group19.clink.model.Message;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -82,7 +77,7 @@ public class AddRecipeActivity extends AppCompatActivity {
 
         this.btnImage = findViewById(R.id.btn_addImage);
 
-        this.etName = findViewById(R.id.et_name);
+        this.etName = findViewById(R.id.et_editname);
         this.etprepTime = findViewById(R.id.et_prepTime);
 
         btnImage.setOnClickListener(new View.OnClickListener() {

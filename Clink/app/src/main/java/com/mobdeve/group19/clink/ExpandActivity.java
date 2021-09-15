@@ -35,6 +35,10 @@ public class ExpandActivity extends AppCompatActivity {
     private static final String USER_ID_KEY = "USER_ID_KEY";
     private static final String JSON_TOKEN_KEY = "JSON_TOKEN_KEY";
     private static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
+    private static final String KEY_PREPTIME = "KEY_PREPTIME";
+    private static final String KEY_IMAGE = "KEY_IMAGE";
+
+
 
     private TextView expand_nameTv, expand_timeTv, expand_ingTv, expand_stepsTv;
     private ImageView expand_cocktailIv;
@@ -47,6 +51,8 @@ public class ExpandActivity extends AppCompatActivity {
     private TextView tvFeedback;
     private TextView tvEditFeedback;
     private AdapterFeedback Adapter;
+
+    private Recipe currentRecipe;
 
     ExecutorService executorService;
     ApiHelper helper;
@@ -100,6 +106,8 @@ public class ExpandActivity extends AppCompatActivity {
 
                 Intent intent = new Intent (ExpandActivity.this, EditRecipeActivity.class);
                 intent.putExtra(KEY_RECIPE_ID, id);
+                intent.putExtra(KEY_PREPTIME, currentRecipe.getPrepTime());
+                intent.putExtra(KEY_IMAGE, currentRecipe.getImage());
 
                 Launcher.launch(intent);
             }
@@ -119,6 +127,7 @@ public class ExpandActivity extends AppCompatActivity {
                     @Override
                     public void success(Message message, Recipe recipe) {
                         expand_nameTv.setText(recipe.getName());
+                        currentRecipe = recipe;
 
                         //Log.i("id of author", recipe.getAuthor());
                         Log.i("id of user", sp.getString(USER_ID_KEY, ""));
