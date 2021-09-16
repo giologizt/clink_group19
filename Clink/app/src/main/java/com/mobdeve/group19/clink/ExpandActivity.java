@@ -85,9 +85,7 @@ public class ExpandActivity extends AppCompatActivity {
                         expand_nameTv.setText(recipe.getName());
                         currentRecipe = recipe;
 
-                        //Log.i("id of author", recipe.getAuthor());
                         Log.i("id of user", sp.getString(USER_ID_KEY, ""));
-                        //Log.i("id of user", recipe.getAuthor());
 
                         if(!sp.getString(USER_ID_KEY, "").equals(recipe.getAuthor()))
                             btnEditRecipe.setVisibility(View.INVISIBLE);
@@ -114,8 +112,6 @@ public class ExpandActivity extends AppCompatActivity {
                         for(int i = 0; i < recipe.getSteps().size(); i++) {
 
                             steps.append(Integer.toString(i+1) + ". " + recipe.getSteps().get(i));
-                            //Log.d("Steps", String.valueOf(i));
-                            //Log.d("Steps", String.valueOf(recipe.getSteps().size() != (i+1)));
                             if(recipe.getSteps().size() != (i+1)) {
                                 steps.append("\n");
                             }
