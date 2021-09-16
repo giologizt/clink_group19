@@ -15,6 +15,13 @@ public class Review {
         this.recipeId = recipeId;
     }
 
+    public Review(String reviewId, String review, String recipeId, String userId) {
+        this._id = reviewId;
+        this.body = review;
+        this.recipeId = recipeId;
+        this.userId = userId;
+    }
+
     public Review(String review) {
         this.userId = "";
         this.body = review;

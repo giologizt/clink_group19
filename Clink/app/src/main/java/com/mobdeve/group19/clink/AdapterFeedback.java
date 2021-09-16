@@ -53,6 +53,7 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
         this.recipeId = recipeId;
 
         this.executorService = Executors.newSingleThreadExecutor();
+
     }
 
     @NonNull
@@ -121,7 +122,7 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
             public void success(Message message, Profile profile) {
                 holder.setUsernameTv(profile.getUsername());
                 holder.setCommentTv(data.get(position).getReview());
-                holder.setReviewId(data.get(position).getRecipeId());
+                holder.setReviewId(data.get(position).getId());
             }
 
             @Override
