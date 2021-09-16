@@ -304,10 +304,7 @@ public class ExpandActivity extends AppCompatActivity {
         });
 
         this.Recipes();
-        this.Search();
         this.Profile();
-        this.EditRecipe();
-        //this.EditFeedback();
     }
 
     public ActivityResultLauncher Launcher = registerForActivityResult(
@@ -320,22 +317,6 @@ public class ExpandActivity extends AppCompatActivity {
             }
     );
 
-
-    public void EditRecipe() {
-
-    }
-
-    public void Search() {
-        this.llSearch = findViewById(R.id.searchLl_expand);
-        this.llSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (ExpandActivity.this, SearchActivity.class);
-
-                Launcher.launch(intent);
-            }
-        });
-    }
 
     public void Profile() {
         this.llProfile = findViewById(R.id.profileLl);
@@ -360,18 +341,5 @@ public class ExpandActivity extends AppCompatActivity {
             }
         });
     }
-
-//    private void EditFeedback() {
-//        this.tvEditFeedback = findViewById(R.id.editreviewTv);
-//        this.tvEditFeedback.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent (ExpandActivity.this, EditReviewActivity.class);
-//
-//                Launcher.launch(intent);
-//                //Launcher2.launch(intent);
-//            }
-//        });
-//    }
-
+    
 }
