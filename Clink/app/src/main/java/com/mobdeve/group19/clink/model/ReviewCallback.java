@@ -9,10 +9,10 @@ public interface ReviewCallback {
     //function to call when server receives a successful status (e.g. 200)
     void success(Message message, ArrayList<Review> reviews);
 
-    //function to call when server receives an error
+    //function to call when server receives a unsuccessful status (e.g. 404)
     void error(Message message);
 
-    //function to call when server receives a unsuccessful status (e.g. 404)
+    //function to call when server receives an error
     void failure(Throwable t);
 
 }
