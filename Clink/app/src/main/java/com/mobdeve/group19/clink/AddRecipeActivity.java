@@ -83,21 +83,21 @@ public class AddRecipeActivity extends AppCompatActivity {
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                //startActivity(intent);
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivity(intent);
 
-                //Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                //getIntent.setType("image/*");
+                Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                getIntent.setType("image/*");
 
-                //Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                //pickIntent.setType("image/*");
+                Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                pickIntent.setType("image/*");
 
-                //Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
-                //chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
+                Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
 
-                //startActivityForResult(chooserIntent, PICK_IMAGE);
+                startActivityForResult(chooserIntent, PICK_IMAGE);
 
-                openFileChooser();
+                //openFileChooser();
             }
         });
 
