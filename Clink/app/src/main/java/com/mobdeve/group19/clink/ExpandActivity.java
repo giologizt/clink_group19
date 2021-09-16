@@ -311,5 +311,4 @@ public class ExpandActivity extends AppCompatActivity {
             }
     );
 
-
 }
