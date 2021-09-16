@@ -32,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
+        /*
+            Checks if the user is logged in. If the user is logged in, redirect to Recipes Activity,
+            else redirect to the Login Activity.
+         */
         if(sp.getString(JSON_TOKEN_KEY, "").equals("")) {
             Intent intent = new Intent (MainActivity.this, LoginActivity.class);
             Launcher.launch(intent);
