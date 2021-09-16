@@ -48,12 +48,10 @@ public class ExpandActivity extends AppCompatActivity {
     private ImageView expand_cocktailIv;
     private RecyclerView recyclerView;
     private LinearLayoutManager MyManager;
-    private LinearLayout llSearch;
     private LinearLayout llProfile;
     private LinearLayout llRecipes;
     private FloatingActionButton btnEditRecipe;
     private TextView tvFeedback;
-    private TextView tvEditFeedback;
 
     private TextView tvError;
 
@@ -146,7 +144,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                     @Override
                     public void failure(Throwable t) {
-
+                        t.printStackTrace();
                     }
                 });
             }
@@ -212,9 +210,6 @@ public class ExpandActivity extends AppCompatActivity {
                 for(int i = 0; i< currentRecipe.getIngredients().size(); i++){
                     intent.putExtra(KEY_INGREDIENTS + i, currentRecipe.getIngredients().get(i).getIngredientName());
                 }
-
-                //intent.putExtra(KEY_IMAGE, currentRecipe.getImage());
-
                 Launcher.launch(intent);
             }
         });
@@ -296,7 +291,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                     @Override
                     public void failure(Throwable t) {
-
+                        t.printStackTrace();
                     }
                 });
             }
@@ -304,10 +299,7 @@ public class ExpandActivity extends AppCompatActivity {
         });
 
         this.Recipes();
-        this.Search();
         this.Profile();
-        this.EditRecipe();
-        //this.EditFeedback();
     }
 
     public ActivityResultLauncher Launcher = registerForActivityResult(
@@ -321,6 +313,7 @@ public class ExpandActivity extends AppCompatActivity {
     );
 
 
+<<<<<<< HEAD
     public void EditRecipe() {
 
     }
@@ -337,6 +330,8 @@ public class ExpandActivity extends AppCompatActivity {
         });
     }
 
+=======
+>>>>>>> 6e6021f75436ffd1a17a8db0a104c7c7546b056f
     public void Profile() {
         this.llProfile = findViewById(R.id.profileLl);
         this.llProfile.setOnClickListener(new View.OnClickListener() {
@@ -360,18 +355,5 @@ public class ExpandActivity extends AppCompatActivity {
             }
         });
     }
-
-//    private void EditFeedback() {
-//        this.tvEditFeedback = findViewById(R.id.editreviewTv);
-//        this.tvEditFeedback.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent (ExpandActivity.this, EditReviewActivity.class);
-//
-//                Launcher.launch(intent);
-//                //Launcher2.launch(intent);
-//            }
-//        });
-//    }
 
 }
