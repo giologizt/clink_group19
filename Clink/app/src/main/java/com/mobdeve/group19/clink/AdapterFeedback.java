@@ -42,15 +42,17 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
 
     private String authToken;
     private String recipeId;
+    private String username;
 
     ExecutorService executorService;
 
-    public AdapterFeedback(ArrayList<Review> data, String recipeId, String authToken) {
+    public AdapterFeedback(ArrayList<Review> data, String recipeId, String authToken, String userId) {
 
         helper = new ApiHelper();
         this.data = data;
         this.authToken = authToken;
         this.recipeId = recipeId;
+        this.username = userId;
 
         this.executorService = Executors.newSingleThreadExecutor();
 
@@ -124,6 +126,14 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
                 holder.setUsernameTv(profile.getUsername());
                 holder.setCommentTv(data.get(position).getReview());
                 holder.setReviewId(data.get(position).getId());
+
+                Log.d("Username of user", username);
+
+                if(!username.equals(data.get(position).getUserId())) {
+                    holder.setEditDeleteTv(false);
+                } else {
+                    holder.setEditDeleteTv(true);
+                }
             }
 
             @Override

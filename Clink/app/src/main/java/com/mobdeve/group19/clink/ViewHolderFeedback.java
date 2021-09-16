@@ -43,4 +43,14 @@ public class ViewHolderFeedback extends RecyclerView.ViewHolder {
     public void setDeleteButtonOnClickListener(View.OnClickListener onClickListener) {
         this.deleteTv.setOnClickListener(onClickListener);
     }
+
+    public void setEditDeleteTv(Boolean b) {
+        if(b == false) {
+            this.deleteTv.setVisibility(View.GONE);
+            this.editTv.setVisibility(View.GONE);
+        } else {
+            this.deleteTv.setVisibility(View.VISIBLE);
+            this.editTv.setVisibility(View.VISIBLE);
+        }
+    }
 }

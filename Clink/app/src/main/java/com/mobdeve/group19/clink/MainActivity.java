@@ -35,9 +35,11 @@ public class MainActivity extends AppCompatActivity {
         if(sp.getString(JSON_TOKEN_KEY, "").equals("")) {
             Intent intent = new Intent (MainActivity.this, LoginActivity.class);
             Launcher.launch(intent);
+            finish();
         } else {
             Intent intent = new Intent (MainActivity.this, RecipesActivity.class);
             Launcher.launch(intent);
+            finish();
         }
 
     }
