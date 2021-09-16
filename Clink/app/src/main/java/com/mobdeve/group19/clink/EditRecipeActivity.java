@@ -58,6 +58,7 @@ public class EditRecipeActivity extends AppCompatActivity {
     private int ingredientsLines;
     private int stepsLines;
     private int imageExist;
+    private int Stepctr = 2;
 
     ApiHelper helper;
     SharedPreferences sp;
@@ -149,6 +150,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                 et.setTextColor(Color.BLACK);
                 et.setHighlightColor(Color.BLACK);
                 et.setTextSize(14);
+                et.setHint("add ingredient here");
                 ingredientsLayout.addView(et);
                 ingredientsLines = ingredientsLines + 1;
                 Log.d("New Ingredient", Integer.toString(ingredientsLines));
@@ -168,6 +170,8 @@ public class EditRecipeActivity extends AppCompatActivity {
                 et.setTextColor(Color.BLACK);
                 et.setHighlightColor(Color.BLACK);
                 et.setTextSize(14);
+                et.setHint(Stepctr + ". Add step here.");
+                Stepctr++;
                 stepsLayout.addView(et);
                 stepsLines = stepsLines + 1;
             }
