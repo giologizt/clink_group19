@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mobdeve.group19.clink.model.ApiHelper;
@@ -33,6 +34,8 @@ import java.util.concurrent.Executors;
 
 public class ExpandActivity extends AppCompatActivity {
 
+
+    // Tokens for SharedPreferences and Intents
     private static final String USER_ID_KEY = "USER_ID_KEY";
     private static final String JSON_TOKEN_KEY = "JSON_TOKEN_KEY";
     private static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
@@ -48,11 +51,8 @@ public class ExpandActivity extends AppCompatActivity {
     private ImageView expand_cocktailIv;
     private RecyclerView recyclerView;
     private LinearLayoutManager MyManager;
-    private LinearLayout llProfile;
-    private LinearLayout llRecipes;
     private FloatingActionButton btnEditRecipe;
     private TextView tvFeedback;
-
     private TextView tvError;
 
     private Recipe currentRecipe;
@@ -61,9 +61,12 @@ public class ExpandActivity extends AppCompatActivity {
     ApiHelper helper;
 
     SharedPreferences sp;
-
     String recipeId;
 
+    /*
+        The onResume function is used to reload the page and take the updated data from the API after edits. The function has similar code to the onCreate function
+        found below.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -139,7 +142,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                     @Override
                     public void error(Message message) {
-
+                        Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -191,7 +194,7 @@ public class ExpandActivity extends AppCompatActivity {
             }
         });
 
-
+        // Opens the EditRecipe Acitivty and passes current recipe data via an Intent.
         this.btnEditRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,6 +221,7 @@ public class ExpandActivity extends AppCompatActivity {
         this.MyManager = new LinearLayoutManager(this);
         this.recyclerView.setLayoutManager(this.MyManager);
 
+        // Thread to take data from the API.
         executorService.execute(new Runnable() {
             @Override
             public void run() {
@@ -229,10 +233,6 @@ public class ExpandActivity extends AppCompatActivity {
                     public void success(Message message, Recipe recipe) {
                         expand_nameTv.setText(recipe.getName());
                         currentRecipe = recipe;
-
-                        //Log.i("id of author", recipe.getAuthor());
-                        Log.i("id of user", sp.getString(USER_ID_KEY, ""));
-                        //Log.i("id of user", recipe.getAuthor());
 
                         if(!sp.getString(USER_ID_KEY, "").equals(recipe.getAuthor()))
                             btnEditRecipe.setVisibility(View.INVISIBLE);
@@ -267,6 +267,7 @@ public class ExpandActivity extends AppCompatActivity {
                         }
                         expand_stepsTv.setText(steps.toString());
 
+                        // Takes the image from the API using Picasso and presents it to the application.
                         File file = new File("http://10.0.2.2:3000/image/" + recipe.getImage());
                         Picasso.with(getApplicationContext()).load("http://10.0.2.2:3000/image/" + recipe.getImage()).into(expand_cocktailIv);
 
@@ -286,7 +287,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                     @Override
                     public void error(Message message) {
-
+                        Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -298,8 +299,6 @@ public class ExpandActivity extends AppCompatActivity {
 
         });
 
-        this.Recipes();
-        this.Profile();
     }
 
     public ActivityResultLauncher Launcher = registerForActivityResult(
@@ -312,29 +311,5 @@ public class ExpandActivity extends AppCompatActivity {
             }
     );
 
-
-    public void Profile() {
-        this.llProfile = findViewById(R.id.profileLl);
-        this.llProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (ExpandActivity.this, ProfileActivity.class);
-
-                Launcher.launch(intent);
-            }
-        });
-    }
-
-    private void Recipes() {
-        this.llRecipes = findViewById(R.id.recipesLl_search);
-        this.llRecipes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent (ExpandActivity.this, RecipesActivity.class);
-
-                Launcher.launch(intent);
-            }
-        });
-    }
 
 }
