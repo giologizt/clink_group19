@@ -48,12 +48,10 @@ public class ExpandActivity extends AppCompatActivity {
     private ImageView expand_cocktailIv;
     private RecyclerView recyclerView;
     private LinearLayoutManager MyManager;
-    private LinearLayout llSearch;
     private LinearLayout llProfile;
     private LinearLayout llRecipes;
     private FloatingActionButton btnEditRecipe;
     private TextView tvFeedback;
-    private TextView tvEditFeedback;
 
     private TextView tvError;
 
@@ -146,7 +144,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                     @Override
                     public void failure(Throwable t) {
-
+                        t.printStackTrace();
                     }
                 });
             }
@@ -212,9 +210,6 @@ public class ExpandActivity extends AppCompatActivity {
                 for(int i = 0; i< currentRecipe.getIngredients().size(); i++){
                     intent.putExtra(KEY_INGREDIENTS + i, currentRecipe.getIngredients().get(i).getIngredientName());
                 }
-
-                //intent.putExtra(KEY_IMAGE, currentRecipe.getImage());
-
                 Launcher.launch(intent);
             }
         });
@@ -296,7 +291,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                     @Override
                     public void failure(Throwable t) {
-
+                        t.printStackTrace();
                     }
                 });
             }
@@ -341,5 +336,5 @@ public class ExpandActivity extends AppCompatActivity {
             }
         });
     }
-    
+
 }
