@@ -36,7 +36,6 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
     private ArrayList<Review> data;
     private ApiHelper helper;
 
-    private static final String JSON_TOKEN_KEY = "JSON_TOKEN_KEY";
     private static final String REVIEW_ID_KEY = "REVIEW_ID_KEY";
     private static final String RECIPE_ID_KEY = "RECIPE_ID_KEY";
 
@@ -48,7 +47,7 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
 
     public AdapterFeedback(ArrayList<Review> data, String recipeId, String authToken, String userId) {
 
-        helper = new ApiHelper();
+        this.helper = new ApiHelper();
         this.data = data;
         this.authToken = authToken;
         this.recipeId = recipeId;
@@ -99,7 +98,7 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
 
                             @Override
                             public void error(Message message) {
-
+                                Toast.makeText(v.getContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
@@ -119,7 +118,6 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolderFeedback holder, int position) {
 
-        //Log.d("USERNAME", data.get(position).getUserId());
         helper.getUsername(data.get(position).getUserId(), new ProfileCallback() {
             @Override
             public void success(Message message, Profile profile) {
@@ -150,10 +148,6 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
 
 
 
-    }
-
-    public void refresh () {
-        notifyDataSetChanged();
     }
 
     @Override
