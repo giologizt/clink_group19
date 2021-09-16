@@ -10,7 +10,7 @@ public class Review {
     public String recipeId;
 
     public Review(String reviewId, String review, String recipeId) {
-        this.userId = reviewId;
+        this._id = reviewId;
         this.body = review;
         this.recipeId = recipeId;
     }

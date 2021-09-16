@@ -67,7 +67,7 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), EditReviewActivity.class);
-
+                Log.d("Review id", data.get(ViewHolderFeedback.getAdapterPosition()).getId());
                 intent.putExtra(REVIEW_ID_KEY, data.get(ViewHolderFeedback.getAdapterPosition()).getId());
                 intent.putExtra(RECIPE_ID_KEY, recipeId);
                 v.getContext().startActivity(intent);
