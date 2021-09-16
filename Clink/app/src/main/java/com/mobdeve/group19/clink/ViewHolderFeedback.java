@@ -14,10 +14,8 @@ public class ViewHolderFeedback extends RecyclerView.ViewHolder {
     private TextView usernameTv, commentTv;
     private TextView editTv, deleteTv;
     private LinearLayout llModify;
-    //private ImageView userIv;
 
     private String reviewId;
-    private ApiHelper helper;
 
     public ViewHolderFeedback (@NonNull View itemView) {
         super(itemView);
@@ -28,25 +26,29 @@ public class ViewHolderFeedback extends RecyclerView.ViewHolder {
         this.deleteTv = itemView.findViewById(R.id.deletereviewTv);
         this.llModify = itemView.findViewById(R.id.ll_modify);
 
-        helper = new ApiHelper();
-
-        //this.userIv = itemView.findViewById(R.id.profpicIv);
     }
 
+    // Sets the Username TextView
     public void setUsernameTv (String name) {this.usernameTv.setText(name);}
 
+    // Sets the Review TextView
     public void setCommentTv (String time) {this.commentTv.setText(time);}
 
+    // Sets the Review ID
     public void setReviewId (String id) {this.reviewId = id;}
 
+    // Sets the Edit Button Listener
     public void setEditButtonOnClickListenen(View.OnClickListener onClickListener) {
         this.editTv.setOnClickListener(onClickListener);
     }
 
+    // Sets the Delete Button Listener
     public void setDeleteButtonOnClickListener(View.OnClickListener onClickListener) {
         this.deleteTv.setOnClickListener(onClickListener);
     }
 
+    // Sets the visibility of the edit and delete review buttons depending if the user is the one who posted
+    // the review.
     public void setEditDeleteTv(Boolean b) {
         if(b == false) {
             this.deleteTv.setVisibility(View.GONE);
