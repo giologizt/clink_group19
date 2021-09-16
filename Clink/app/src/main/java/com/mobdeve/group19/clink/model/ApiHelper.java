@@ -58,7 +58,7 @@ public class ApiHelper {
 
     }
 
-
+    //API Helper for login which calls the login function on the server side
     public void login(String username, String password, CustomCallback callback) {
         Login loginInformation = new Login(username, password);
         Call<Login> call = retrofitInterface.executeLogin(loginInformation);
@@ -89,6 +89,7 @@ public class ApiHelper {
 
     }
 
+    //API Helper for register which calls the register function on the server side
     public void register(String username, String fullname, String email, String birthday,
                          String password, CustomCallback callback) {
         Register registerInformation = new Register(username, fullname, email, birthday, password);
@@ -117,6 +118,7 @@ public class ApiHelper {
         });
     }
 
+    //API Helper for getting a specific user profile which calls the getProfile function on the server side
     public void getProfile(String authToken, ProfileCallback callback) {
 
         Call<Profile> call = retrofitInterface.executeGetProfile(authToken);
@@ -149,6 +151,7 @@ public class ApiHelper {
         });
     }
 
+    //API Helper for getting the username of a user which calls the getUsername function on the server side
     public void getUsername(String id, ProfileCallback callback) {
         Call<Profile> call = retrofitInterface.executeGetUsername(id);
 
@@ -172,6 +175,7 @@ public class ApiHelper {
         });
     }
 
+    //API Helper for editing a profile which calls the editProfile function on the server side
     public void editProfile(String email, String fullName, String birthday, String authToken, CustomCallback callback) {
         Profile profileInformation = new Profile(email, fullName, birthday);
         Call<Profile> call = retrofitInterface.executeEditProfile(authToken, profileInformation);
@@ -198,6 +202,7 @@ public class ApiHelper {
         });
     }
 
+    //API Helper for changing password which calls the changePassword function on the server side
     public void changePassword(String newpassword, String oldpassword, String authToken, CustomCallback callback) {
         Profile passwordInformation = new Profile(newpassword, oldpassword);
         Call<Profile> call = retrofitInterface.executeChangePassword(authToken, passwordInformation);
@@ -223,6 +228,7 @@ public class ApiHelper {
         });
     }
 
+    //API Helper for posting a recipe which calls the postRecipe function on the server side
     public void postRecipe(ArrayList<String> recipesteps, ArrayList<Ingredients> recipeingredients, String recipename,
                            Integer recipeprepTime, Uri imageUri, File imageFile, String authToken, CustomCallback callback){
 
@@ -234,7 +240,6 @@ public class ApiHelper {
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
         MultipartBody.Part filePart = MultipartBody.Part.createFormData("recipe-image", imageFile.getName(), requestBody);
-
 
         RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), recipename);
         RequestBody prepTime = RequestBody.create(MediaType.parse("multipart/form-data"), recipeprepTime.toString());
@@ -262,24 +267,24 @@ public class ApiHelper {
                     Log.d("ApiHelper - postRecipe", "Recipe added");
                     Message message = new Message("Recipe added", response.code());
                     callback.success(message);
-                    Log.d("ApiHelper - postRecipe", response.body().getName());
-                    Log.d("ApiHelper - postRecipe", response.body().getPrepTime().toString());
-                    Log.d("ApiHelper - postRecipe", response.body().getSteps().toString());
-                    Log.d("ApiHelper - postRecipe", response.body().getIngredients().toString());
                 } else {
                     Log.d("ApiHelper - postRecipe", response.errorBody().toString());
+                    Message message = new Message("Recipe not added", response.code());
+                    callback.error(message);
                 }
             }
 
             @Override
             public void onFailure(Call<Recipe> call, Throwable t) {
                 Log.d("ApiHelper - postRecipe", "Something went wrong");
+                callback.failure(t);
                 t.printStackTrace();
             }
         });
 
     }
 
+    //API Helper for getting all recipes which calls the getRecipes function on the server side
     public void getRecipes(RecipesCallback callback){
         Gson gson = new Gson();
         Call<ArrayList<Recipe>> call = retrofitInterface.executeGetRecipes();
@@ -296,9 +301,13 @@ public class ApiHelper {
                         callback.success(message, recipes);
                     } else {
                         Log.d("ApiHelper - getRecipes", "DB is empty");
+                        Message message = new Message("Unsucessful.", response.code());
+                        callback.error(message);
                     }
                 } else {
                     Log.d("ApiHelper - getRecipes", response.errorBody().toString());
+                    Message message = new Message("Unsucessful.", response.code());
+                    callback.error(message);
                 }
             }
 
@@ -310,6 +319,7 @@ public class ApiHelper {
 
     }
 
+    //API Helper for getting a recipe which calls the getRecipe function on the server side
     public void getRecipe(String id, RecipeCallback callback) {
         Call<Recipe> call = retrofitInterface.executeGetRecipe(id);
 
@@ -325,6 +335,8 @@ public class ApiHelper {
                     callback.success(message, recipe);
                 } else {
                     Log.d("ApiHelper - getRecipe", response.errorBody().toString());
+                    Message message = new Message("Unsuccessful", response.code());
+                    callback.error(message);
                 }
             }
 
@@ -332,10 +344,12 @@ public class ApiHelper {
             public void onFailure(Call<Recipe> call, Throwable t) {
                 Log.d("ApiHelper - getRecipe", "Something went wrong");
                 t.printStackTrace();
+                callback.failure(t);
             }
         });
     }
 
+    //API Helper for updating a recipe which calls the updateRecipe function on the server side
     public void updateRecipe(String ID, ArrayList<String> recipesteps, ArrayList<Ingredients> recipeingredients, String recipename,
                              int recipeprepTime, String authToken, CustomCallback callback){ //Uri imageUri, File imageFile,
 
@@ -367,6 +381,7 @@ public class ApiHelper {
         });
     }
 
+    //API Helper for updating an image of a recipe which calls the updateImage function on the server side
     public void updateImage(Uri imageUri, File imageFile, String authToken, String ID, CustomCallback callback){
         File file = new File(imageUri.getPath());
         String fileName = file.getName();
@@ -404,6 +419,7 @@ public class ApiHelper {
         });
     }
 
+    //API Helper for search all recipes given a query which calls the searchRecipe function on the server side
     public void searchRecipe(String searchQuery, RecipesCallback callback){
         Gson gson = new Gson();
         Call<ArrayList<Recipe>> call = retrofitInterface.executeSearchRecipe(searchQuery);
@@ -432,6 +448,7 @@ public class ApiHelper {
         });
     }
 
+    //API Helper for deleting a recipe which calls the deleteRecipe function on the server side
     public void deleteRecipe(String id, CustomCallback callback){
         Call<Recipe> call = retrofitInterface.executeDeleteRecipe(id);
 
@@ -457,6 +474,7 @@ public class ApiHelper {
         });
     }
 
+    //API Helper for getting all reviews of a recipe which calls the getReviews function on the server side
     public void getReviews(String recipeId, ReviewCallback callback) {
         Gson gson = new Gson();
         Call<ArrayList<Review>> call = retrofitInterface.executeGetReviews(recipeId);
@@ -478,6 +496,7 @@ public class ApiHelper {
 
     }
 
+    //API Helper for adding a review on a recipe which calls the addReview function on the server side
     public void addReview(Review review, String recipeId, CustomCallback callback){
         Call<Review> call = retrofitInterface.executeAddReview(review);
 
@@ -499,10 +518,12 @@ public class ApiHelper {
             public void onFailure(Call<Review> call, Throwable t) {
                 Log.d("ApiHelper - addReview", "Something went wrong");
                 t.printStackTrace();
+                callback.failure(t);
             }
         });
     }
 
+    //API Helper for editing a review on a recipe which calls the editReview function on the server side
     public void editReview(String recipeId, String reviewId, String review, CustomCallback callback){
         Review reviewObj = new Review(reviewId, review, recipeId, "1");
         Call<Review> call = retrofitInterface.executeEditReview(reviewObj);
@@ -530,6 +551,7 @@ public class ApiHelper {
 
     }
 
+    //API Helper for deleting a review on a recipe which calls the deleteReview function on the server side
     public void deleteReview(String recipeId, String reviewId, String authToken, CustomCallback callback){
         Call<Recipe> call = retrofitInterface.executeDeleteReview(authToken, recipeId, reviewId);
 
