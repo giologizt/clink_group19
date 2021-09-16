@@ -132,7 +132,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                         }
                         else {
-                            recyclerView.setAdapter(new AdapterFeedback(recipe.getReviews(), recipe.getRecipeId(), authToken));
+                            recyclerView.setAdapter(new AdapterFeedback(recipe.getReviews(), recipe.getRecipeId(), authToken, sp.getString(USER_ID_KEY, "")));
                         }
 
 
@@ -282,7 +282,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                         }
                         else {
-                            recyclerView.setAdapter(new AdapterFeedback(recipe.getReviews(), recipe.getRecipeId(), authToken));
+                            recyclerView.setAdapter(new AdapterFeedback(recipe.getReviews(), recipe.getRecipeId(), authToken, sp.getString(USER_ID_KEY, "")));
                         }
 
 
