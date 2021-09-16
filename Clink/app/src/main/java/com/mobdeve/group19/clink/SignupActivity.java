@@ -81,6 +81,7 @@ public class SignupActivity extends AppCompatActivity {
                 email = etEmail.getText().toString();
                 username = etUsername.getText().toString();
 
+                //validate to ensure all text fields contains a value
                 if (fullname.equals("") || password.equals("") || email.equals("") || username.equals("") || etBirthDay.getText().toString().equals("")
                         || etBirthMonth.getText().toString().equals("") || etBirthYear.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Error: Please fill up all text fields.", Toast.LENGTH_SHORT).show();
@@ -90,6 +91,7 @@ public class SignupActivity extends AppCompatActivity {
                     month = Integer.parseInt(etBirthMonth.getText().toString());
                     year = Integer.parseInt(etBirthYear.getText().toString());
 
+                    //check whether the user inputted a valid date
                     if (year < 0 || month < 1 || month > 12 || day < 1 || ((month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) &&
                             day > 31) || ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) || (month == 2 && day > 29)) {
                         Toast.makeText(getApplicationContext(), "Error: Please input a valid date.", Toast.LENGTH_SHORT).show();
@@ -109,11 +111,12 @@ public class SignupActivity extends AppCompatActivity {
                         Log.d("MainActivity", now.toString());
 
                         try {
-                            //today = dateFormat.parse(now.toString());
                             legal = dateFormat.parse(legalDate);
                             birth = dateFormat.parse(birthday);
+                            //check whether the user is of legal age
                             if (legal.compareTo(now) > 0) {
                                 Toast.makeText(getApplicationContext(), "Error: You're not legally allowed to use this app.", Toast.LENGTH_SHORT).show();
+                            //check whether the birthdate is valid
                             } else if(birth.compareTo(now) > 0) {
                                 Toast.makeText(getApplicationContext(), "Error: You entered an invalid birthdate.", Toast.LENGTH_SHORT).show();
                             } else {
@@ -121,6 +124,7 @@ public class SignupActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         helper.register(username, fullname, email, birthday, password, new CustomCallback() {
+                                            //successfully registed
                                             @Override
                                             public void success(Message message) {
                                                 if (message.getCode() == 201) {
@@ -129,6 +133,7 @@ public class SignupActivity extends AppCompatActivity {
                                                 }
                                             }
 
+                                            //unsuccessfully registered
                                             @Override
                                             public void error(Message message) {
                                                 if (message.getCode() == 400) {
