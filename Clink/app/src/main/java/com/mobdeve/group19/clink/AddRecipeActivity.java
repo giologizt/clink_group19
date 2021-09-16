@@ -86,8 +86,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                startActivity(intent);
+                //Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                //startActivity(intent);
 
                 Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 getIntent.setType("image/*");
