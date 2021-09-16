@@ -101,6 +101,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                 String id = intent.getStringExtra(KEY_RECIPE_ID);
                 helper.deleteRecipe(id, new CustomCallback() {
                     @Override
+                    //Successfully deleted recipe
                     public void success(Message message) {
                         Intent intent = new Intent(EditRecipeActivity.this, RecipesActivity.class);
                         Launcher.launch(intent);
@@ -108,10 +109,12 @@ public class EditRecipeActivity extends AppCompatActivity {
                     }
 
                     @Override
+                    //Unsuccessfully deleted recipe
                     public void error(Message message) {
                         Toast.makeText(getApplicationContext(), "An Error Occurred.", Toast.LENGTH_SHORT).show();
                     }
 
+                    //error on the server side
                     @Override
                     public void failure(Throwable t) {
                         t.printStackTrace();
@@ -285,16 +288,19 @@ public class EditRecipeActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 helper.updateImage(imageUri, imageFile, author, id, new CustomCallback() {
+                                    //Successfully edited recipe image
                                     @Override
                                     public void success(Message message) {
                                         Toast.makeText(getApplicationContext(), "Image edited", Toast.LENGTH_SHORT).show();
                                     }
 
+                                    //Unsuccessfully edited recipe image
                                     @Override
                                     public void error(Message message) {
                                         Toast.makeText(getApplicationContext(), "Image not edited", Toast.LENGTH_SHORT).show();
                                     }
 
+                                    //error on the server side
                                     @Override
                                     public void failure(Throwable t) {
                                         t.printStackTrace();
@@ -303,17 +309,20 @@ public class EditRecipeActivity extends AppCompatActivity {
 
                                 helper.updateRecipe(id, finalSteps, finalIngredients1, finalName, finalPrepTime, author, new CustomCallback() {
                                     @Override
+                                    //Successfully edited recipe
                                     public void success(Message message) {
                                         Intent intent = new Intent (EditRecipeActivity.this, RecipesActivity.class);
                                         Toast.makeText(getApplicationContext(), "Recipe edited", Toast.LENGTH_SHORT).show();
                                         Launcher.launch(intent);
                                     }
 
+                                    //Unsuccessfully edited recipe
                                     @Override
                                     public void error(Message message) {
                                         Toast.makeText(getApplicationContext(), "Recipe not edited", Toast.LENGTH_SHORT).show();
                                     }
 
+                                    //error on the server side
                                     @Override
                                     public void failure(Throwable t) {
                                         t.printStackTrace();
@@ -327,6 +336,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 helper.updateRecipe(id, finalSteps, finalIngredients1, finalName, finalPrepTime, author, new CustomCallback() {
+                                    //Successfully edited recipe
                                     @Override
                                     public void success(Message message) {
                                         Intent intent = new Intent (EditRecipeActivity.this, RecipesActivity.class);
@@ -334,11 +344,13 @@ public class EditRecipeActivity extends AppCompatActivity {
                                         Launcher.launch(intent);
                                     }
 
+                                    //Unsuccessfully edited recipe
                                     @Override
                                     public void error(Message message) {
                                         Toast.makeText(getApplicationContext(), "Recipe not edited", Toast.LENGTH_SHORT).show();
                                     }
 
+                                    //error on the server side
                                     @Override
                                     public void failure(Throwable t) {
                                         t.printStackTrace();

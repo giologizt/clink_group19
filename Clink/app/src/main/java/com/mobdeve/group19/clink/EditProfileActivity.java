@@ -71,6 +71,7 @@ public class EditProfileActivity extends AppCompatActivity {
             }
     );
 
+    //function to edit the profile of the user
     private void Update() {
         this.btnEdit = findViewById(R.id.updateprofileBtn);
         this.btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -83,15 +84,17 @@ public class EditProfileActivity extends AppCompatActivity {
                 birthdate = "";
                 Integer error = 0;
 
+                //check whether there is at least one text field that is not empty
                 if (fullname.equals("") && email.equals("") && etBirthDay.getText().toString().equals("")
                         && etBirthMonth.getText().toString().equals("") && etBirthYear.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "Error: Please fill up at least one text field.", Toast.LENGTH_SHORT).show();
                 } else {
-
-                    if(!(etBirthDay.getText().toString().equals("") && etBirthMonth.getText().toString().equals("") && etBirthYear.getText().toString().equals(""))) {
+                    //check to ensure that all text fields about the birthdate is complete
+                    if(!(etBirthDay.getText().toString().equals("") || etBirthMonth.getText().toString().equals("") || etBirthYear.getText().toString().equals(""))) {
                         day = Integer.parseInt(etBirthDay.getText().toString());
                         month = Integer.parseInt(etBirthMonth.getText().toString());
                         year = Integer.parseInt(etBirthYear.getText().toString());
+                        //check to ensure the given date is valid
                         if (year < 0 || month < 1 || month > 12 || day < 1 || ((month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) &&
                                 day > 31) || ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30) || (month == 2 && day > 29)) {
                             Toast.makeText(getApplicationContext(), "Error: Please input a valid date.", Toast.LENGTH_SHORT).show();
@@ -111,9 +114,11 @@ public class EditProfileActivity extends AppCompatActivity {
                             try {
                                 legal = dateFormat.parse(legalDate);
                                 birth = dateFormat.parse(birthdate);
+                                //check whether date given is legal
                                 if (legal.compareTo(now) > 0) {
                                     Toast.makeText(getApplicationContext(), "Error: Please enter a legal birthdate.", Toast.LENGTH_SHORT).show();
                                     error = 1;
+                                //check whether date given is valid
                                 } else if(birth.compareTo(now) > 0) {
                                     Toast.makeText(getApplicationContext(), "Error: You entered an invalid birthdate.", Toast.LENGTH_SHORT).show();
                                     error = 1;
@@ -125,6 +130,9 @@ public class EditProfileActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Error: Incomplete date", Toast.LENGTH_SHORT);
+                        error = 1;
                     }
 
                     if(error == 0) {
@@ -133,12 +141,14 @@ public class EditProfileActivity extends AppCompatActivity {
                             public void run() {
                                 String authToken = sp.getString(JSON_TOKEN_KEY, "");
                                 helper.editProfile(email, fullname, birthdate, authToken, new CustomCallback() {
+                                    //Successfully edited profile
                                     @Override
                                     public void success(Message message) {
                                         Toast.makeText(getApplicationContext(), "Successfully changed your profile", Toast.LENGTH_SHORT).show();
                                         Launcher.launch(intent);
                                     }
 
+                                    //Unsuccessfully edited profile
                                     @Override
                                     public void error(Message message) {
                                         if(message.getCode() == 404) {
@@ -146,6 +156,7 @@ public class EditProfileActivity extends AppCompatActivity {
                                         }
                                     }
 
+                                    //error on the server side 
                                     @Override
                                     public void failure(Throwable t) {
                                         t.printStackTrace();
@@ -154,7 +165,6 @@ public class EditProfileActivity extends AppCompatActivity {
                             }
                         });
                     }
-
                 }
             }
         });

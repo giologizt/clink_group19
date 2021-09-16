@@ -258,16 +258,19 @@ public class AddRecipeActivity extends AppCompatActivity {
                         public void run() {
                             helper.postRecipe(steps, ingredients, name, prepTime, imageUri, imageFile, author, new CustomCallback() {
                                 @Override
+                                //Successfully added recipe
                                 public void success(Message message) {
                                     Toast.makeText(getApplicationContext(), "Recipe added", Toast.LENGTH_SHORT).show();
                                     Launcher.launch(intent);
                                 }
 
+                                //Unsuccessfully added recipe
                                 @Override
                                 public void error(Message message) {
                                     Toast.makeText(getApplicationContext(), "Error: Something went wrong", Toast.LENGTH_SHORT).show();
                                 }
 
+                                //error on the server side
                                 @Override
                                 public void failure(Throwable t) {
                                     t.printStackTrace();

@@ -124,7 +124,7 @@ public class SignupActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         helper.register(username, fullname, email, birthday, password, new CustomCallback() {
-                                            //successfully registed
+                                            //successfully registered
                                             @Override
                                             public void success(Message message) {
                                                 if (message.getCode() == 201) {
@@ -141,6 +141,7 @@ public class SignupActivity extends AppCompatActivity {
                                                 }
                                             }
 
+                                            //error on the server side
                                             @Override
                                             public void failure(Throwable t) {
                                                 t.printStackTrace();
