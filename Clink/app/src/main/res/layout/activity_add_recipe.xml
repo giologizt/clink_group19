@@ -129,7 +129,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
                     android:ems="10"
-                    android:hint="1. Add step here."
+                    android:hint="Add step here."
                     android:inputType="textPersonName"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -145,6 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="200dp"
                 android:orientation="horizontal">
 
                 <Button

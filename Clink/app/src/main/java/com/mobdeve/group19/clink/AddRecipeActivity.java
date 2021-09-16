@@ -54,7 +54,7 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     private int ingredientsLines;
     private int stepsLines;
-    private int Stepctr = 2;
+    //private int Stepctr = 2;
 
     private ApiHelper helper;
     private ExecutorService executorService;
@@ -138,8 +138,9 @@ public class AddRecipeActivity extends AppCompatActivity {
                 et.setHighlightColor(Color.BLACK);
                 stepsLayout.addView(et);
                 et.setTextSize(14);
-                et.setHint(Stepctr + ". Add step here.");
-                Stepctr++;
+                et.setHint("Add step here.");
+                //et.setHint(Stepctr + ". Add step here.");
+                //Stepctr++;
                 stepsLines = stepsLines + 1;
 
             }
