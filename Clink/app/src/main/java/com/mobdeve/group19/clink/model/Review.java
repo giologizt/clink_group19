@@ -9,8 +9,8 @@ public class Review {
     String body;
     public String recipeId;
 
-    public Review(String reviewId, String review, String recipeId) {
-        this._id = reviewId;
+    public Review(String userId, String review, String recipeId) {
+        this.userId = userId;
         this.body = review;
         this.recipeId = recipeId;
     }
@@ -25,7 +25,6 @@ public class Review {
     public Review(String review) {
         this.userId = "";
         this.body = review;
-
     }
 
     public void setUserId(String userId) {

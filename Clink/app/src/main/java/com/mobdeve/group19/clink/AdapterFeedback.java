@@ -117,6 +117,7 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolderFeedback holder, int position) {
 
+        //Log.d("USERNAME", data.get(position).getUserId());
         helper.getUsername(data.get(position).getUserId(), new ProfileCallback() {
             @Override
             public void success(Message message, Profile profile) {

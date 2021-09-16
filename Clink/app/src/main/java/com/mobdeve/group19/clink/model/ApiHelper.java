@@ -612,7 +612,7 @@ public class ApiHelper {
     }
 
     public void editReview(String recipeId, String reviewId, String review, CustomCallback callback){
-        Review reviewObj = new Review(reviewId, review, recipeId);
+        Review reviewObj = new Review(reviewId, review, recipeId, "1");
         Call<Review> call = retrofitInterface.executeEditReview(reviewObj);
 
         call.enqueue(new Callback<Review>() {
