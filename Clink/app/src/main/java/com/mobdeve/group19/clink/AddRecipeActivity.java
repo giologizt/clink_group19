@@ -60,6 +60,8 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     private Uri imageUri;
 
+    private static final String TAG = "AddRecipeActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -246,6 +248,7 @@ public class AddRecipeActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(AddRecipeActivity.this, RecipesActivity.class);
                 Log.d("Add Recipe", "Publish was reached");
+                Log.d(TAG, "Recipe Name: " + name);
 
                 if (name.equals("") || time.equals("") || ingredients.get(0).getIngredientName().equals("") ||
                         steps.get(0).equals("")) {
