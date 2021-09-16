@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,8 +53,8 @@ public class ExpandActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private LinearLayoutManager MyManager;
     private FloatingActionButton btnEditRecipe;
-    private TextView tvFeedback;
     private TextView tvError;
+    private Button btnFeedback;
 
     private Recipe currentRecipe;
 
@@ -174,8 +175,8 @@ public class ExpandActivity extends AppCompatActivity {
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
 
-        this.tvFeedback = findViewById(R.id.leavereviewTv);
-        this.tvFeedback.setOnClickListener(new View.OnClickListener() {
+        this.btnFeedback = findViewById(R.id.leavereviewBtn);
+        this.btnFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
