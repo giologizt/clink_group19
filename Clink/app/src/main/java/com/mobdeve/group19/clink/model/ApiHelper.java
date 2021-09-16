@@ -59,7 +59,6 @@ public class ApiHelper {
     }
 
 
-
     public void login(String username, String password, CustomCallback callback) {
         Login loginInformation = new Login(username, password);
         Call<Login> call = retrofitInterface.executeLogin(loginInformation);

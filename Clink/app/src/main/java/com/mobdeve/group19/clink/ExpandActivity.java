@@ -330,7 +330,7 @@ public class ExpandActivity extends AppCompatActivity {
         this.llSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent (ExpandActivity.this, SearchActivity.class);
+                Intent intent = new Intent (ExpandActivity.this, RecipesActivity.class);
 
                 Launcher.launch(intent);
             }
