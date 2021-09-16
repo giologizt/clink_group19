@@ -14,7 +14,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Clink">
+        android:theme="@style/Theme.Clink"
+        >
         <activity android:name=".EditReviewActivity"></activity>
         <activity android:name=".AddReviewActivity" />
         <activity android:name=".EditRecipeActivity" />

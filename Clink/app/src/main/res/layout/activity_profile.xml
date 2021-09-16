@@ -6,10 +6,22 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="176dp"
+        android:layout_height="211dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
+
+    <ImageView
         android:id="@+id/imageView5"
         android:layout_width="161dp"
         android:layout_height="150dp"
         android:layout_marginTop="40dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

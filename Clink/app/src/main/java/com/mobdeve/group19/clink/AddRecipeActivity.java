@@ -54,11 +54,14 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     private int ingredientsLines;
     private int stepsLines;
+    //private int Stepctr = 2;
 
     private ApiHelper helper;
     private ExecutorService executorService;
 
     private Uri imageUri;
+
+    private static final String TAG = "AddRecipeActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,8 +86,8 @@ public class AddRecipeActivity extends AppCompatActivity {
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                //startActivity(intent);
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                startActivity(intent);
 
                 Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 getIntent.setType("image/*");
@@ -96,6 +99,8 @@ public class AddRecipeActivity extends AppCompatActivity {
                 chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
 
                 startActivityForResult(chooserIntent, PICK_IMAGE);
+
+                //openFileChooser();
             }
         });
 
@@ -111,6 +116,8 @@ public class AddRecipeActivity extends AppCompatActivity {
                 et.setId(ingredientsLines + 1);
                 et.setTextColor(Color.BLACK);
                 et.setHighlightColor(Color.BLACK);
+                et.setTextSize(14);
+                et.setHint("add ingredient here");
                 ingredientsLayout.addView(et);
                 ingredientsLines = ingredientsLines + 1;
                 Log.d("New Ingredient", Integer.toString(ingredientsLines));
@@ -130,7 +137,12 @@ public class AddRecipeActivity extends AppCompatActivity {
                 et.setTextColor(Color.BLACK);
                 et.setHighlightColor(Color.BLACK);
                 stepsLayout.addView(et);
+                et.setTextSize(14);
+                et.setHint("Add step here.");
+                //et.setHint(Stepctr + ". Add step here.");
+                //Stepctr++;
                 stepsLines = stepsLines + 1;
+
             }
         });
 
@@ -244,6 +256,7 @@ public class AddRecipeActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(AddRecipeActivity.this, RecipesActivity.class);
                 Log.d("Add Recipe", "Publish was reached");
+                Log.d(TAG, "Recipe Name: " + name);
 
                 if (name.equals("") || time.equals("") || ingredients.get(0).getIngredientName().equals("") ||
                         steps.get(0).equals("")) {
@@ -290,7 +303,8 @@ public class AddRecipeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE && data != null) {
+        if (requestCode == PICK_IMAGE && data != null && resultCode == RESULT_OK
+            && data.getData() != null) {
             try {
                 InputStream inputStream = getContentResolver().openInputStream(data.getData());
                 imageUri = data.getData();
@@ -317,6 +331,15 @@ public class AddRecipeActivity extends AppCompatActivity {
         }
         return result;
     }
+
+    private void openFileChooser(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE);
+    }
+
 
 
 }
