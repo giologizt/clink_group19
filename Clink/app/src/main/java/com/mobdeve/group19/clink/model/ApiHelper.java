@@ -43,7 +43,6 @@ public class ApiHelper {
 
     Message message;
     String filePath = "";
-    //ArrayList<Recipe> recipes = new ArrayList<>();
 
     public ApiHelper() {
 
@@ -70,19 +69,15 @@ public class ApiHelper {
             public void onResponse(Call<Login> call, Response<Login> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - Login", response.body().getMessage());
-                    //Log.d("ApiHelper - Login", response.body().getId());
                     Log.d("ApiHelper - Login", response.body().getId());
-
                     authToken = "bearer " + response.body().getAccessToken();
                     String id = response.body().getId();
                     Message message = new Message(id, "Login Successful", response.code(), authToken);
                     callback.success(message);
-
                 } else {
                     Log.d("ApiHelper - Login", "Invalid Credentials Given");
                     Message message = new Message("Login Failed", response.code());
                     callback.error(message);
-
                 }
             }
 
@@ -90,7 +85,6 @@ public class ApiHelper {
             public void onFailure(Call<Login> call, Throwable t) {
                 Log.d("ApiHelper - Login", "Something went wrong");
                 callback.failure(t);
-
             }
         });
 
@@ -108,13 +102,10 @@ public class ApiHelper {
                     Log.d("ApiHelper - Register", response.body().getUsername());
                     Message message = new Message(response.code());
                     callback.success(message);
-                    //System.out.println(response.body().getMessage());
-                    //System.out.println(response.body().getUsername());
                 } else {
                     Log.d("ApiHelper - Register", response.errorBody().toString());
                     Message message = new Message(response.code());
                     callback.error(message);
-                    //System.out.println(response.errorBody());
                 }
             }
 
@@ -143,11 +134,6 @@ public class ApiHelper {
                     Profile profile = new Profile(response.body().getId(), response.body().getUsername(), response.body().getEmail(),
                             response.body().getFullName(), response.body().getBirthday(), response.body().getPassword());
                     callback.success(message, profile);
-
-                    //System.out.println(response.body().getUsername());
-                    //System.out.println(response.body().getEmail());
-                    //System.out.println(response.body().getFullName());
-                    //System.out.println(response.body().getBirthday());
                 } else {
                     Log.d("ApiHelper - getProfile", "Cannot find profile");
                     Message message = new Message(response.code());
@@ -196,11 +182,6 @@ public class ApiHelper {
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - editProfile", "Profile edited");
-                    //Log.d("ApiHelper - editProfile", response.body().getEmail());
-                    //Log.d("ApiHelper - editProfile", response.body().getUsername());
-                    //Log.d("ApiHelper - editProfile", response.body().getFullName());
-                    //Log.d("ApiHelper - editProfile", response.body().getBirthday());
-                    //System.out.println("Profile Edited.");
                     Message message = new Message("Profile edited", response.code());
                     callback.success(message);
                 } else {
@@ -226,10 +207,8 @@ public class ApiHelper {
             public void onResponse(Call<Profile> call, Response<Profile> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - changePass", "Password changed");
-                    //Log.d("ApiHelper - changePass", response.body().getNewpassword());
                     Message message = new Message("Password changed", response.code());
                     callback.success(message);
-                    //System.out.println("Password Changed.");
                 } else {
                     Message message = new Message("Password not changed", response.code());
                     callback.error(message);
@@ -248,7 +227,6 @@ public class ApiHelper {
     public void postRecipe(ArrayList<String> recipesteps, ArrayList<Ingredients> recipeingredients, String recipename,
                            Integer recipeprepTime, Uri imageUri, File imageFile, String authToken, CustomCallback callback){
 
-        //File file = new File(filePath);
         File file = new File(imageUri.getPath());
         String fileName = file.getName();
 
@@ -261,13 +239,10 @@ public class ApiHelper {
 
         RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), recipename);
         RequestBody prepTime = RequestBody.create(MediaType.parse("multipart/form-data"), recipeprepTime.toString());
-        //RequestBody author = RequestBody.create(MediaType.parse("multipart/form-data"), recipeauthor);
-        //RequestBody steps = RequestBody.create(MediaType.parse(), recipesteps);
 
         HashMap<String, RequestBody> map = new HashMap<>();
         map.put("name", name);
         map.put("prepTime", prepTime);
-        //map.put("author", author);
 
         for(int i = 0; i < recipesteps.size(); i++) {
             RequestBody steps = RequestBody.create(MediaType.parse("multipart/form-data"), recipesteps.get(i));
@@ -275,11 +250,8 @@ public class ApiHelper {
         }
 
         for(int i = 0; i < recipeingredients.size(); i++) {
-            //RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), Integer.toString(recipeingredients.get(i).getQuantity()));
             RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getIngredientName());
-            //map.put("ingredients[" + i + "][quantity]", quantity);
             map.put("ingredients[" + i + "][ingredientName]", ingredientName);
-            //map.put("ingredients[" + i + "]", ingredientName);
         }
 
         Call<Recipe> call = retrofitInterface.executePostRecipe(authToken, filePart, map);
@@ -291,7 +263,6 @@ public class ApiHelper {
                     Log.d("ApiHelper - postRecipe", "Recipe added");
                     Message message = new Message("Recipe added", response.code());
                     callback.success(message);
-                    //Log.d("ApiHelper - postRecipe", response.body().getAuthor());
                     Log.d("ApiHelper - postRecipe", response.body().getName());
                     Log.d("ApiHelper - postRecipe", response.body().getPrepTime().toString());
                     Log.d("ApiHelper - postRecipe", response.body().getSteps().toString());
@@ -318,37 +289,11 @@ public class ApiHelper {
             @Override
             public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response) {
                 if(response.isSuccessful()){
-
-                    //String result = response.body().toString();
-                    //System.out.println(result);
-                    //Type dataType = new TypeToken<Collection<Recipe>>() {}.getType();
-                    //Collection<Recipe> enums = gson.fromJson(response.body().toString(), dataType);
-                    // Recipe[] recipe = enums.toArray(new Recipe[enums.size()]);
-                    //recipe[0].getAuthor()
-                    //add callback method for recipe arraylist
                     Log.d("ApiHelper - getRecipes", "Recipes collected");
-                    //for(Recipe recipe: enums){
-                    //    Log.d("ApiHelper - getRecipes", recipe.toString());
-                    //}
-                    // Log.d("ApiHelper - getRecipes", recipe[0].getAuthor());
-                    // Log.d("ApiHelper - getRecipes", recipe[0].getIngredients().toString());
-                    // Log.d("ApiHelper - getRecipes", recipe[0].getName());
-
                     ArrayList<Recipe> recipes = response.body();
 
                     if(recipes != null) {
-                        //File file = new File(recipes.get(0).getImage());
-                        //URI image = file.toURI();
-
-                        //Log.d("ApiHelper - getRecipes", image.toString());
-                        //Log.d("ApiHelper - getRecipes", recipes.get(0).getPrepTime().toString());
-                        //Log.d("ApiHelper - getRecipes", recipes.get(0).getSteps().get(0));
-
-                        //Log.d("ApiHelper - getRecipes", recipes.get(1).getPrepTime().toString());
-                        //Log.d("ApiHelper - getRecipes", recipes.get(1).getSteps().get(0));
-
                         Message message = new Message("Successful.", response.code());
-
                         callback.success(message, recipes);
                     } else {
                         Log.d("ApiHelper - getRecipes", "DB is empty");
@@ -374,13 +319,10 @@ public class ApiHelper {
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - getRecipe", response.body().getName());
-                    //Log.d("ApiHelper - getRecipe", response.body().getAuthor());
                     Log.d("ApiHelper - getRecipe", response.body().getPrepTime().toString());
                     Log.d("ApiHelper - getRecipe", response.body().getSteps().toString());
-
                     Recipe recipe = response.body();
                     Message message = new Message("Successful.", response.code());
-
                     callback.success(message, recipe);
                 } else {
                     Log.d("ApiHelper - getRecipe", response.errorBody().toString());
@@ -398,48 +340,9 @@ public class ApiHelper {
     public void updateRecipe(String ID, ArrayList<String> recipesteps, ArrayList<Ingredients> recipeingredients, String recipename,
                              int recipeprepTime, String authToken, CustomCallback callback){ //Uri imageUri, File imageFile,
 
-        //File file = new File(filePath);
-        //File file = new File(imageUri.getPath());
-        //String fileName = file.getName();
-
         Log.d("ApiHelper - ID", ID);
-        //Log.d("ApiHelper - postRecipe", imageUri.getPath());
-
-        //RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
-        //MultipartBody.Part filePart = MultipartBody.Part.createFormData("recipe-image", imageFile.getName(), requestBody);
-
-        //RequestBody name = RequestBody.create(MediaType.parse("multipart/form-data"), recipename);
-        //RequestBody prepTime = RequestBody.create(MediaType.parse("multipart/form-data"), String.valueOf(recipeprepTime));
-        //RequestBody id = RequestBody.create(MediaType.parse("multipart/form-data"), ID);
-        //RequestBody steps = RequestBody.create(MediaType.parse(), recipesteps);
-
-        //HashMap<String, RequestBody> map = new HashMap<>();
-        //map.put("name", name);
-        //map.put("prepTime", prepTime);
-        //map.put("id", id);
-
-        //Log.d("Api Helper", name.toString());
-        //Log.d("Api Helper", String.valueOf(recipeprepTime));
-        //Log.d("Api Helper", recipeingredients.get(0).getIngredientName());
-        //Log.d("Api Helper", recipesteps.get(0));
-
-        //for(int i = 0; i < recipesteps.size(); i++) {
-        //    RequestBody steps = RequestBody.create(MediaType.parse("multipart/form-data"), recipesteps.get(i));
-        //    map.put("steps[" + i + "]", steps);
-        //}
-
-        //for(int i = 0; i < recipeingredients.size(); i++) {
-            //RequestBody quantity = RequestBody.create(MediaType.parse("multipart/form-data"), Integer.toString(recipeingredients.get(i).getQuantity()));
-        //    RequestBody ingredientName = RequestBody.create(MediaType.parse("multipart/form-data"), recipeingredients.get(i).getIngredientName());
-            //map.put("ingredients[" + i + "][quantity]", quantity);
-        //    map.put("ingredients[" + i + "][ingredientName]", ingredientName);
-            //map.put("ingredients[" + i + "]", ingredientName);
-        //}
-
         Recipe recipe = new Recipe(recipesteps, recipeingredients, recipename, recipeprepTime, ID);
 
-        //filepart
-        //Call<Recipe> call = retrofitInterface.executeUpdateRecipe(authToken, map);
         Call<Recipe> call = retrofitInterface.executeUpdateRecipe(authToken, recipe);
 
         call.enqueue(new Callback<Recipe>() {
@@ -447,11 +350,6 @@ public class ApiHelper {
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 if(response.isSuccessful()) {
                     Log.d("ApiHelper - upRecipe", "Recipe updated");
-                    //Log.d("ApiHelper - upRecipe", response.body().getAuthor());
-                    //Log.d("ApiHelper - upRecipe", response.body().getName());
-                    //Log.d("ApiHelper - upRecipe", response.body().getPrepTime().toString());
-                    //Log.d("ApiHelper - upRecipe", response.body().getSteps().toString());
-                    //Log.d("ApiHelper - upRecipe", response.body().getIngredients().toString());
                     Message message = new Message("Successful", response.code());
                     callback.success(message);
                 } else {
@@ -517,9 +415,6 @@ public class ApiHelper {
                 if (response.isSuccessful()) {
 
                     ArrayList<Recipe> recipes = response.body();
-                    //File file = new File(recipes.get(0).getImage());
-                    //URI image = file.toURI();
-
                     Log.d("ApiHelper - search", "Recipes not collected");
                     Message message = new Message("Successful.", response.code());
                     callback.success(message, recipes);
@@ -546,7 +441,6 @@ public class ApiHelper {
             public void onResponse(Call<Recipe> call, Response<Recipe> response) {
                 if (response.isSuccessful()) {
                     Log.d("ApiHelper - delRecipe", "Recipe deleted");
-                   //Log.d("ApiHelper - delRecipe", response.body().getMessage());
                     Message message = new Message("Successful", response.code());
                     callback.success(message);
                 } else {
@@ -586,7 +480,6 @@ public class ApiHelper {
     }
 
     public void addReview(Review review, String recipeId, CustomCallback callback){
-        //Review recipe = new Review(review, recipeId);
         Call<Review> call = retrofitInterface.executeAddReview(review);
 
         call.enqueue(new Callback<Review>() {
