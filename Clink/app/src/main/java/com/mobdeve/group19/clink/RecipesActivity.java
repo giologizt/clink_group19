@@ -79,7 +79,6 @@ public class RecipesActivity extends AppCompatActivity {
                         if(recipes.size() >= 1) {
                             recyclerView.setAdapter(new AdapterRecipes(recipes, getApplicationContext()));
                         }
-                            //System.out.println(recipes.get(0).getName());
                     }
 
                     @Override
@@ -147,7 +146,6 @@ public class RecipesActivity extends AppCompatActivity {
                                 public void success(Message message, ArrayList<Recipe> recipe) {
                                     recipes = recipe;
                                     recyclerView.setAdapter(new AdapterRecipes(recipes, getApplicationContext()));
-                                    //System.out.println(recipes.get(0).getName());
                                 }
 
                                 @Override
