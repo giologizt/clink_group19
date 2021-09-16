@@ -115,6 +115,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                 et.setId(ingredientsLines + 1);
                 et.setTextColor(Color.BLACK);
                 et.setHighlightColor(Color.BLACK);
+                et.setTextSize(14);
                 ingredientsLayout.addView(et);
                 ingredientsLines = ingredientsLines + 1;
                 Log.d("New Ingredient", Integer.toString(ingredientsLines));
@@ -134,6 +135,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                 et.setTextColor(Color.BLACK);
                 et.setHighlightColor(Color.BLACK);
                 stepsLayout.addView(et);
+                et.setTextSize(14);
                 stepsLines = stepsLines + 1;
             }
         });
