@@ -136,10 +136,18 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/review_emptyTv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="No reviews listed."
+                android:visibility="gone" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/feedbackRv"
                 android:layout_width="match_parent"
-                android:layout_height="162dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="6dp">
 
             </androidx.recyclerview.widget.RecyclerView>

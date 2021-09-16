@@ -16,6 +16,7 @@
         tools:context=".AddReviewActivity">
 
         <EditText
+            android:id="@+id/editReviewTv"
             android:layout_width="343dp"
             android:layout_height="67dp"
             android:layout_gravity="center"

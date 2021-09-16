@@ -55,6 +55,8 @@ public class ExpandActivity extends AppCompatActivity {
     private TextView tvFeedback;
     private TextView tvEditFeedback;
 
+    private TextView tvError;
+
     private Recipe currentRecipe;
 
     ExecutorService executorService;
@@ -76,6 +78,8 @@ public class ExpandActivity extends AppCompatActivity {
         this.expand_stepsTv = findViewById(R.id.expand_stepsTv);
 
         this.btnEditRecipe = findViewById(R.id.editrecipeBtn);
+
+        this.tvError = findViewById(R.id.review_emptyTv);
 
         Intent intent = getIntent();
 
@@ -184,7 +188,16 @@ public class ExpandActivity extends AppCompatActivity {
                         Picasso.with(getApplicationContext()).load("http://10.0.2.2:3000/image/" + recipe.getImage()).into(expand_cocktailIv);
 
                         String authToken = sp.getString(JSON_TOKEN_KEY, "");
-                        recyclerView.setAdapter(new AdapterFeedback(recipe.getReviews(), recipe.getRecipeId(), authToken));
+
+                        if(recipe.getReviews().size() == 0) {
+                            recyclerView.setVisibility(View.GONE);
+                            tvError.setVisibility(View.VISIBLE);
+
+                        }
+                        else {
+                            recyclerView.setAdapter(new AdapterFeedback(recipe.getReviews(), recipe.getRecipeId(), authToken));
+                        }
+
 
                     }
 

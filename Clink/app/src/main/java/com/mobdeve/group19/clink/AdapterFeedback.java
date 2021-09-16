@@ -1,6 +1,7 @@
 package com.mobdeve.group19.clink;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -9,6 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +37,8 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
     private ApiHelper helper;
 
     private static final String JSON_TOKEN_KEY = "JSON_TOKEN_KEY";
+    private static final String REVIEW_ID_KEY = "REVIEW_ID_KEY";
+    private static final String RECIPE_ID_KEY = "RECIPE_ID_KEY";
 
     private String authToken;
     private String recipeId;
@@ -55,6 +62,17 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.feedback_layout, parent, false);
         ViewHolderFeedback ViewHolderFeedback = new ViewHolderFeedback(v);
+
+        ViewHolderFeedback.setEditButtonOnClickListenen(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), EditReviewActivity.class);
+
+                intent.putExtra(REVIEW_ID_KEY, data.get(ViewHolderFeedback.getAdapterPosition()).getId());
+                intent.putExtra(RECIPE_ID_KEY, recipeId);
+                v.getContext().startActivity(intent);
+            }
+        });
 
         ViewHolderFeedback.setDeleteButtonOnClickListener(new View.OnClickListener() {
             @Override

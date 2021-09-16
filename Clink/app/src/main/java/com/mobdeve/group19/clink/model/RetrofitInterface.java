@@ -73,7 +73,7 @@ public interface RetrofitInterface {
     Call<Review> executeAddReview(@Body Review review);
 
     @PUT("/editReview")
-    Call<Recipe> executeEditReview(@Body Recipe recipe);
+    Call<Review> executeEditReview(@Body Review review);
 
     @DELETE("/deleteReview/{recipeId}/{reviewId}")
     Call<Recipe> executeDeleteReview(@Header("Authorization") String authToken, @Path("recipeId") String recipeId, @Path("reviewId") String reivewId);

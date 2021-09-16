@@ -36,6 +36,9 @@ public class ViewHolderFeedback extends RecyclerView.ViewHolder {
 
     public void setReviewId (String id) {this.reviewId = id;}
 
+    public void setEditButtonOnClickListenen(View.OnClickListener onClickListener) {
+        this.editTv.setOnClickListener(onClickListener);
+    }
 
     public void setDeleteButtonOnClickListener(View.OnClickListener onClickListener) {
         this.deleteTv.setOnClickListener(onClickListener);

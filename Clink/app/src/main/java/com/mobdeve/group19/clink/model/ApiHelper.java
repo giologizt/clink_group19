@@ -35,6 +35,8 @@ public class ApiHelper {
 
     private Retrofit retrofit;
     private RetrofitInterface retrofitInterface;
+
+    // You can use the heroku version of the API. Change the base URL to https://clink19.herokuapp.com
     private static final String BASE_URL = "http://10.0.2.2:3000";
     private static String authToken;
 
@@ -604,24 +606,28 @@ public class ApiHelper {
         });
     }
 
-    public void editReview(Review review, String recipeId){
-        Recipe recipe = new Recipe(review, recipeId);
-        Call<Recipe> call = retrofitInterface.executeEditReview(recipe);
+    public void editReview(String recipeId, String reviewId, String review, CustomCallback callback){
+        Review reviewObj = new Review(reviewId, review, recipeId);
+        Call<Review> call = retrofitInterface.executeEditReview(reviewObj);
 
-        call.enqueue(new Callback<Recipe>() {
+        call.enqueue(new Callback<Review>() {
             @Override
-            public void onResponse(Call<Recipe> call, Response<Recipe> response) {
+            public void onResponse(Call<Review> call, Response<Review> response) {
                 if(response.isSuccessful()){
                     Log.d("ApiHelper - editReview", "Review edited");
+                    Message message = new Message("Review edited successfully.", response.code());
+                    callback.success(message);
                 } else {
                     Log.d("ApiHelper - editReview", "Review not edited");
+                    Message message = new Message("An error occurred.", response.code());
+                    callback.error(message);
                 }
             }
 
             @Override
-            public void onFailure(Call<Recipe> call, Throwable t) {
+            public void onFailure(Call<Review> call, Throwable t) {
                 Log.d("ApiHelper - editReview", "Something went wrong");
-                t.printStackTrace();
+                callback.failure(t);
             }
         });
 
