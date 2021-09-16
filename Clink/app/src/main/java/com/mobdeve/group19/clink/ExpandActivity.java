@@ -103,7 +103,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                         for(int j = 0; j < recipe.getIngredients().size(); j++) {
                             ingredients.append(Integer.toString(j+1) + ". " + recipe.getIngredients().get(j).getIngredientName());
-                            if(recipe.getIngredients().size() != j+1) {
+                            if(recipe.getIngredients().size() != (j+1)) {
                                 ingredients.append("\n");
                             }
                         }
@@ -113,8 +113,9 @@ public class ExpandActivity extends AppCompatActivity {
                         for(int i = 0; i < recipe.getSteps().size(); i++) {
 
                             steps.append(Integer.toString(i+1) + ". " + recipe.getSteps().get(i));
-
-                            if(recipe.getSteps().size() != i+1) {
+                            //Log.d("Steps", String.valueOf(i));
+                            //Log.d("Steps", String.valueOf(recipe.getSteps().size() != (i+1)));
+                            if(recipe.getSteps().size() != (i+1)) {
                                 steps.append("\n");
                             }
 
