@@ -114,7 +114,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                             steps.append(Integer.toString(i+1) + ". " + recipe.getSteps().get(i));
 
-                            if(recipe.getIngredients().size() != i+1) {
+                            if(recipe.getSteps().size() != i+1) {
                                 steps.append("\n");
                             }
 

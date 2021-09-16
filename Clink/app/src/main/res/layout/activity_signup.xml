@@ -131,11 +131,12 @@
         <EditText
             android:id="@+id/et_signupUsername"
             android:layout_width="303dp"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginStart="48dp"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:inputType="textPassword"
+            android:inputType="textPersonName"
+            android:textAllCaps="true"
             android:textSize="14sp" />
 
         <TextView
