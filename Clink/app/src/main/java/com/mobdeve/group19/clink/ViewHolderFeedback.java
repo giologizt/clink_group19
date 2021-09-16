@@ -2,6 +2,7 @@ package com.mobdeve.group19.clink;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import com.mobdeve.group19.clink.model.ApiHelper;
 public class ViewHolderFeedback extends RecyclerView.ViewHolder {
     private TextView usernameTv, commentTv;
     private TextView editTv, deleteTv;
+    private LinearLayout llModify;
     //private ImageView userIv;
 
     private String reviewId;
@@ -24,6 +26,7 @@ public class ViewHolderFeedback extends RecyclerView.ViewHolder {
 
         this.editTv = itemView.findViewById(R.id.editreviewTv);
         this.deleteTv = itemView.findViewById(R.id.deletereviewTv);
+        this.llModify = itemView.findViewById(R.id.ll_modify);
 
         helper = new ApiHelper();
 
@@ -48,9 +51,11 @@ public class ViewHolderFeedback extends RecyclerView.ViewHolder {
         if(b == false) {
             this.deleteTv.setVisibility(View.GONE);
             this.editTv.setVisibility(View.GONE);
+            this.llModify.setVisibility(View.GONE);
         } else {
             this.deleteTv.setVisibility(View.VISIBLE);
             this.editTv.setVisibility(View.VISIBLE);
+            this.llModify.setVisibility(View.VISIBLE);
         }
     }
 }
