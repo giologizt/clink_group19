@@ -33,6 +33,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
+    // Dynamic copy of Feedback data
     private ArrayList<Review> data;
     private ApiHelper helper;
 
@@ -45,6 +46,7 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
 
     ExecutorService executorService;
 
+    // a reference to the ArrayList, helper, data, authToken, recipeId, userId and executorService when starting AddReviewActivity
     public AdapterFeedback(ArrayList<Review> data, String recipeId, String authToken, String userId) {
 
         this.helper = new ApiHelper();
@@ -61,10 +63,11 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
     @NotNull
     @Override
     public ViewHolderFeedback onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-
+        // Inflate the item's layout and create a ViewHolderFeedback object.
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.feedback_layout, parent, false);
         ViewHolderFeedback ViewHolderFeedback = new ViewHolderFeedback(v);
 
+        // Logic for performing the edit operation.
         ViewHolderFeedback.setEditButtonOnClickListenen(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,9 +79,11 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
             }
         });
 
+        // Logic for performing the edit operation.
         ViewHolderFeedback.setDeleteButtonOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Run the DB operation on a separate thread from the UI/main thread.
                 executorService.execute(new Runnable() {
                     @Override
                     public void run() {

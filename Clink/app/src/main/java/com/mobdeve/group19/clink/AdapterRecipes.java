@@ -15,12 +15,14 @@ import com.mobdeve.group19.clink.model.Recipe;
 import java.util.ArrayList;
 
 public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
+    // Dynamic copy of Recipe data
     private ArrayList<Recipe> data;
 
     public static final String KEY_RECIPE_ID = "KEY_RECIPE_ID";
 
     private Context context;
 
+    // a reference to the ArrayList and context when starting AddRecipeActivity
     public AdapterRecipes(ArrayList<Recipe> data, Context context) {
         this.data = data;
         this.context = context;
@@ -29,6 +31,7 @@ public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
     @NonNull
     @Override
     public ViewHolderRecipes onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate the item's layout and create a ViewHolderRecipes object.
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cocktail_layout, parent, false);
         ViewHolderRecipes ViewHolderRecipes  = new ViewHolderRecipes(v);
 
