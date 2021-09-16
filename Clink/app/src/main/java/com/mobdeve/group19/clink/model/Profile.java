@@ -12,6 +12,7 @@ public class Profile {
     String newpassword;
     String oldpassword;
 
+    //Constructors
     public Profile(String id, String username, String email, String fullname, String birthday, String password) {
         this.id = id;
         this.username = username;
@@ -36,34 +37,28 @@ public class Profile {
         this.username = username;
     }
 
+    //Getters
     public String getUsername () {
         return this.username;
     }
-
     public String getEmail () {
         return this.email;
     }
-
     public String getFullName () {
         return this.fullname;
     }
-
     public String getBirthday () {
         return this.birthday;
     }
-
     public String getOldpassword () {
         return this.oldpassword;
     }
-
     public String getNewpassword () {
         return this.newpassword;
     }
-
     public String getId() {
         return id;
     }
-
     public String getPassword() {
         return password;
     }

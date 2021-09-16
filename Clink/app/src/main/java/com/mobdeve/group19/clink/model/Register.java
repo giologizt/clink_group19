@@ -10,11 +10,8 @@ public class Register {
     // Return Messages
     String message;
 
-    public Register (String username,
-                     String fullname,
-                     String email,
-                     String birthday,
-                     String password) {
+    //Constructor
+    public Register (String username, String fullname, String email, String birthday, String password) {
         this.username = username;
         this.fullname = fullname;
         this.email = email;
@@ -22,10 +19,10 @@ public class Register {
         this.password = password;
     }
 
+    //Getters
     public String getMessage() {
         return this.message;
     }
-
     public String getUsername() {
         return this.username;
     }

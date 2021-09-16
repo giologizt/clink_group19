@@ -6,7 +6,8 @@ public class Message {
     Integer code;
     String token = "";
     String id;
-  
+
+    //Constructors
     public Message(String message, Integer code, String token) {
         this.message = message;
         this.code = code;
@@ -35,18 +36,16 @@ public class Message {
         this.code = code;
     }
 
+    //Getters
     public String getId() {
         return id;
     }
-
     public String getMessage() {
         return message;
     }
-
     public Integer getCode() {
         return code;
     }
-
     public String getToken() {
         return token;
     }

@@ -24,6 +24,7 @@ public class Recipe {
 
     String message;
 
+    //Constructors
     public Recipe(ArrayList<String> steps, ArrayList<Review> reviews, ArrayList<Ingredients> ingredients, String name, Integer prepTime, String author, String id, String image) {
         this.steps = steps;
         this.reviews = reviews;
@@ -71,42 +72,34 @@ public class Recipe {
         this._id = recipeId;
     }
 
+    //Getters
     public ArrayList<String> getSteps() {
         return steps;
     }
-
     public ArrayList<Review> getReviews() {
         return reviews;
     }
-
     public ArrayList<Ingredients> getIngredients() {
         return ingredients;
     }
-
     public String getName() {
         return name;
     }
-
     public Integer getPrepTime() {
         return prepTime;
     }
-
     public String getAuthor() {
         return author;
     }
-
     public String getRecipeId() {
         return _id;
     }
-
     public String getMessage() {
         return this.message;
     }
-
     public String getImage() {
         return  this.image;
     }
-
     public URI getImageFile() {
         return imageFile;
     }

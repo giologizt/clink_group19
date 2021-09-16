@@ -4,10 +4,12 @@ public class Ingredients {
 
     String ingredientName;
 
+    //Constructor
     public Ingredients(String ingredientName) {
         this.ingredientName = ingredientName;
     }
 
+    //Getter
     public String getIngredientName() {
         return ingredientName;
     }

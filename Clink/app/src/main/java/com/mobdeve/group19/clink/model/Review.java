@@ -9,6 +9,7 @@ public class Review {
     String body;
     public String recipeId;
 
+    //Constructor
     public Review(String userId, String review, String recipeId) {
         this.userId = userId;
         this.body = review;
@@ -27,26 +28,24 @@ public class Review {
         this.body = review;
     }
 
+    //Setters
     public void setUserId(String userId) {
         this.userId = userId;
     }
-
     public void setReview(String review) {
         this.body = review;
     }
 
+    //Getters
     public String getUserId() {
         return userId;
     }
-
     public String getReview() {
         return body;
     }
-
     public String getId() {
         return _id;
     }
-
     public String getRecipeId() {
         return recipeId;
     }

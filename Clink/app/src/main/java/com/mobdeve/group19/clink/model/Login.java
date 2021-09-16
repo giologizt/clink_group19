@@ -9,21 +9,19 @@ public class Login {
     private String accessToken;
     private String message;
 
+    //Constructor
     Login (String username, String password) {
-
         this.username = username;
         this.password = password;
-
     }
 
+    //Getters
     public String getId () {
         return this.id;
     }
-
     public String getMessage () {
         return this.message;
     }
-
     public String getAccessToken () {
         return this.accessToken;
     }
