@@ -94,6 +94,7 @@ public class EditRecipeActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
+        //Button to delete a recipe
         this.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,6 +122,7 @@ public class EditRecipeActivity extends AppCompatActivity {
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
+        //Button to get image from gallery
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,6 +139,7 @@ public class EditRecipeActivity extends AppCompatActivity {
             }
         });
 
+        //Button to add more edit text for ingredients
         btnIngredients.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +160,7 @@ public class EditRecipeActivity extends AppCompatActivity {
             }
         });
 
+        //Button to add more edit text for steps
         btnSteps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,8 +175,6 @@ public class EditRecipeActivity extends AppCompatActivity {
                 et.setHighlightColor(Color.BLACK);
                 et.setTextSize(14);
                 et.setHint("Add step here.");
-                //et.setHint(Stepctr + ". Add step here.");
-                //Stepctr++;
                 stepsLayout.addView(et);
                 stepsLines = stepsLines + 1;
             }
@@ -192,6 +194,7 @@ public class EditRecipeActivity extends AppCompatActivity {
             }
     );
 
+    //Function for cancelling a recipe edit
     public void Cancel() {
         this.btnCancel = findViewById(R.id.cancelBtn_er);
         this.btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -204,6 +207,7 @@ public class EditRecipeActivity extends AppCompatActivity {
         });
     }
 
+    //Function for updating a recipe post
     public void Update() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -218,14 +222,13 @@ public class EditRecipeActivity extends AppCompatActivity {
                 ArrayList<String> steps = getSteps();
                 Uri image = imageUri;
 
+                //Check whether there is at least one text field with an input
                 if (name.equals("") && time.equals("") && ingredients.get(0).getIngredientName().equals("") &&
                         steps.get(0).equals("") && imageExist == 0) {
                     Toast.makeText(getApplicationContext(), "Error: Please fill up at least one text field.", Toast.LENGTH_SHORT).show();
                 } else {
 
                     Intent intent = getIntent();
-
-
 
                     String id = intent.getStringExtra(KEY_RECIPE_ID);
                     String currentName = intent.getStringExtra(KEY_NAME);
@@ -289,12 +292,12 @@ public class EditRecipeActivity extends AppCompatActivity {
 
                                     @Override
                                     public void error(Message message) {
-
+                                        Toast.makeText(getApplicationContext(), "Image not edited", Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
                                     public void failure(Throwable t) {
-
+                                        t.printStackTrace();
                                     }
                                 });
 
@@ -308,12 +311,12 @@ public class EditRecipeActivity extends AppCompatActivity {
 
                                     @Override
                                     public void error(Message message) {
-
+                                        Toast.makeText(getApplicationContext(), "Recipe not edited", Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
                                     public void failure(Throwable t) {
-
+                                        t.printStackTrace();
                                     }
                                 });
 
@@ -322,7 +325,6 @@ public class EditRecipeActivity extends AppCompatActivity {
                     } else {
                         executorService.execute(new Runnable() {
                             @Override
-                            //imageUri, imageFile,
                             public void run() {
                                 helper.updateRecipe(id, finalSteps, finalIngredients1, finalName, finalPrepTime, author, new CustomCallback() {
                                     @Override
@@ -334,26 +336,23 @@ public class EditRecipeActivity extends AppCompatActivity {
 
                                     @Override
                                     public void error(Message message) {
-
+                                        Toast.makeText(getApplicationContext(), "Recipe not edited", Toast.LENGTH_SHORT).show();
                                     }
 
                                     @Override
                                     public void failure(Throwable t) {
-
+                                        t.printStackTrace();
                                     }
                                 });
                             }
                         });
                     }
-
-
                 }
-
-
             }
         });
     }
 
+    //Function to have all ingredients inputs into a single array list
     private ArrayList<Ingredients> getIngredients(){
         ArrayList<Ingredients> ingredients = new ArrayList<>();
         Log.d("Ingredient Lines", Integer.toString(ingredientsLines));
@@ -374,6 +373,7 @@ public class EditRecipeActivity extends AppCompatActivity {
         return ingredients;
     }
 
+    //Function to have all steps inputs into a single array list
     private ArrayList<String> getSteps(){
         ArrayList<String> steps = new ArrayList<>();
         for(int i = 0; i <= (this.stepsLines - 200); i++){
@@ -385,7 +385,6 @@ public class EditRecipeActivity extends AppCompatActivity {
                 step = findViewById(i + 200);
             }
 
-            //TextView step = findViewById(Integer.parseInt("et_steps" + (i)));
             Log.d("Steps", step.getText().toString());
             steps.add(step.getText().toString());
         }
@@ -393,6 +392,7 @@ public class EditRecipeActivity extends AppCompatActivity {
         return steps;
     }
 
+    //Function to get image from the gallery
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -411,6 +411,7 @@ public class EditRecipeActivity extends AppCompatActivity {
         }
     }
 
+    //Function to get the file path of image based on the Uri
     private String getRealPathFromURI(Uri contentURI) {
         String result;
         Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);

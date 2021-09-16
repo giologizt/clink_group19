@@ -54,7 +54,6 @@ public class AddRecipeActivity extends AppCompatActivity {
 
     private int ingredientsLines;
     private int stepsLines;
-    //private int Stepctr = 2;
 
     private ApiHelper helper;
     private ExecutorService executorService;
@@ -86,9 +85,11 @@ public class AddRecipeActivity extends AppCompatActivity {
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Camera
                 //Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
                 //startActivity(intent);
 
+                //Access image from gallery
                 Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
                 getIntent.setType("image/*");
 
@@ -96,14 +97,14 @@ public class AddRecipeActivity extends AppCompatActivity {
                 pickIntent.setType("image/*");
 
                 Intent chooserIntent = Intent.createChooser(getIntent, "Select Image");
-                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent});
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[]{pickIntent});
 
                 startActivityForResult(chooserIntent, PICK_IMAGE);
 
-                //openFileChooser();
             }
         });
 
+        //Button to create more edit text for ingredients
         btnIngredients.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,6 +125,7 @@ public class AddRecipeActivity extends AppCompatActivity {
             }
         });
 
+        //Button to create more edit text for steps
         btnSteps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -139,8 +141,6 @@ public class AddRecipeActivity extends AppCompatActivity {
                 stepsLayout.addView(et);
                 et.setTextSize(14);
                 et.setHint("Add step here.");
-                //et.setHint(Stepctr + ". Add step here.");
-                //Stepctr++;
                 stepsLines = stepsLines + 1;
 
             }
@@ -149,36 +149,13 @@ public class AddRecipeActivity extends AppCompatActivity {
         ArrayList<Ingredients> ingredients = new ArrayList<>();
         ArrayList<String> steps = new ArrayList<>();
 
-        //String name = etName.getText().toString();
         int prepTime;
 
         this.Cancel();
 
-        //prepTime = Integer.parseInt(etprepTime.getText().toString());
-        //Log.d("AddRecipe", "this.Publish was reached");
         this.Publish();
 
     }
-
-//    private OnClickListener onClick() {
-//        return new OnClickListener() {
-//
-//            @Override
-//            public void onClick(View v) {
-//                mLayout.addView(createNewTextView(mEditText.getText().toString()));
-//            }
-//        };
-//    }
-//
-//    private TextView createNewTextView(String text) {
-//        final LayoutParams lparams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-//        final TextView textView = new TextView(this);
-//        textView.setLayoutParams(lparams);
-//        textView.setText("New text: " + text);
-//        return textView;
-//    }
-
-
 
     private ActivityResultLauncher Launcher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -190,6 +167,7 @@ public class AddRecipeActivity extends AppCompatActivity {
             }
     );
 
+    //Function for cancelling a recipe post
     private void Cancel() {
         this.btnCancel = findViewById(R.id.cancelBtn);
         this.btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -202,6 +180,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         });
     }
 
+    //Function to have all ingredient inputs into a single array list
     private ArrayList<Ingredients> getIngredients(){
         ArrayList<Ingredients> ingredients = new ArrayList<>();
         Log.d("Ingredient Lines", Integer.toString(ingredientsLines));
@@ -222,6 +201,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         return ingredients;
     }
 
+    //Function to have all steps inputs into a single array list
     private ArrayList<String> getSteps(){
         ArrayList<String> steps = new ArrayList<>();
         for(int i = 0; i <= (this.stepsLines - 200); i++){
@@ -233,7 +213,6 @@ public class AddRecipeActivity extends AppCompatActivity {
                 step = findViewById(i + 200);
             }
 
-            //TextView step = findViewById(Integer.parseInt("et_steps" + (i)));
             Log.d("Steps", step.getText().toString());
             steps.add(step.getText().toString());
         }
@@ -241,6 +220,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         return steps;
     }
 
+    //Function for posting a recipe
     private void Publish() {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -258,6 +238,7 @@ public class AddRecipeActivity extends AppCompatActivity {
                 Log.d("Add Recipe", "Publish was reached");
                 Log.d(TAG, "Recipe Name: " + name);
 
+                //Check whether all text fields have inputs
                 if (name.equals("") || time.equals("") || ingredients.get(0).getIngredientName().equals("") ||
                         steps.get(0).equals("")) {
                     Toast.makeText(getApplicationContext(), "Error: Please fill up all text fields.", Toast.LENGTH_SHORT).show();
@@ -284,12 +265,12 @@ public class AddRecipeActivity extends AppCompatActivity {
 
                                 @Override
                                 public void error(Message message) {
-
+                                    Toast.makeText(getApplicationContext(), "Error: Something went wrong", Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
                                 public void failure(Throwable t) {
-
+                                    t.printStackTrace();
                                 }
                             });
                         }
@@ -299,7 +280,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         });
     }
 
-    //@Override
+    //Function to get the image from the gallery
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -318,6 +299,7 @@ public class AddRecipeActivity extends AppCompatActivity {
         }
     }
 
+    //Function for getting the file path from Uri
     private String getRealPathFromURI(Uri contentURI) {
         String result;
         Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
@@ -331,15 +313,5 @@ public class AddRecipeActivity extends AppCompatActivity {
         }
         return result;
     }
-
-    private void openFileChooser(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, PICK_IMAGE);
-    }
-
-
 
 }
