@@ -103,6 +103,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                     @Override
                     //Successfully deleted recipe
                     public void success(Message message) {
+                        Toast.makeText(getApplicationContext(), "Recipe deleted.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(EditRecipeActivity.this, RecipesActivity.class);
                         Launcher.launch(intent);
                         finish();
@@ -117,6 +118,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                     //error on the server side
                     @Override
                     public void failure(Throwable t) {
+                        Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                         t.printStackTrace();
                     }
                 });
@@ -303,6 +305,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                                     //error on the server side
                                     @Override
                                     public void failure(Throwable t) {
+                                        Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                                         t.printStackTrace();
                                     }
                                 });
@@ -325,6 +328,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                                     //error on the server side
                                     @Override
                                     public void failure(Throwable t) {
+                                        Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                                         t.printStackTrace();
                                     }
                                 });
@@ -353,6 +357,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                                     //error on the server side
                                     @Override
                                     public void failure(Throwable t) {
+                                        Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                                         t.printStackTrace();
                                     }
                                 });

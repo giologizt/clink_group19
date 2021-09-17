@@ -152,13 +152,14 @@ public class EditProfileActivity extends AppCompatActivity {
                                     @Override
                                     public void error(Message message) {
                                         if(message.getCode() == 404) {
-                                            Toast.makeText(getApplicationContext(), "Error: User not found.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "Error: An error occurred.", Toast.LENGTH_SHORT).show();
                                         }
                                     }
 
                                     //error on the server side 
                                     @Override
                                     public void failure(Throwable t) {
+                                        Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                                         t.printStackTrace();
                                     }
                                 });
