@@ -123,6 +123,7 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
     @Override
     public void onBindViewHolder(@NonNull @NotNull ViewHolderFeedback holder, int position) {
 
+        // Calls the get Username function to convert the User ID into a username.
         helper.getUsername(data.get(position).getUserId(), new ProfileCallback() {
             @Override
             public void success(Message message, Profile profile) {
@@ -150,8 +151,6 @@ public class AdapterFeedback extends RecyclerView.Adapter<ViewHolderFeedback> {
                 t.printStackTrace();
             }
         });
-
-
 
     }
 

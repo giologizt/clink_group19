@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                 username = loginUsername.getText().toString();
                 password = loginPassword.getText().toString();
 
+                // Calls the API Helper using a Thread
                 executorService.execute(new Runnable() {
                     @Override
                     public void run() {
@@ -101,14 +102,11 @@ public class LoginActivity extends AppCompatActivity {
                         helper.login(username, password, new CustomCallback() {
                             @Override
                             public void success(Message message) {
-
-                                    Log.i("id of user", message.getId());
-
+                                    // Places the TOKENS and USER ID inside a SharedPreferences File
                                     editor.putString(JSON_TOKEN_KEY, message.getToken());
                                     editor.putString(USER_ID_KEY, message.getId());
                                     editor.apply();
 
-                                    Log.i("id of user shared pref", sp.getString(USER_ID_KEY, ""));
                                     Launcher.launch(intent);
                                     finish();
                             }
@@ -140,7 +138,7 @@ public class LoginActivity extends AppCompatActivity {
     private void Signup() {
         this.tvSignup = findViewById(R.id.signupTv);
 
-        // When the signup button is pressed
+        // When the signup button is pressed, redirect to signup page
         this.tvSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -21,6 +21,7 @@ public class ViewHolderRecipes extends RecyclerView.ViewHolder {
     private ImageView cocktailIv;
     private LinearLayout boxLl;
 
+    // Intializes the View Holder with the Data
     public ViewHolderRecipes (@NonNull View itemView) {
         super(itemView);
         this.nameTv = itemView.findViewById(R.id.cocktail_nameTv);
@@ -29,15 +30,17 @@ public class ViewHolderRecipes extends RecyclerView.ViewHolder {
         this.boxLl = itemView.findViewById(R.id.boxLl);
     }
 
+    // Binds the data into the View Holder
     public void bindData (Recipe data, Context context) {
         this.nameTv.setText(data.getName());
 
+        // Checks if the Preparation time is less than or equal to 1 minute. Minute if 1 minute or less, minutes if more.
         if(data.getPrepTime() <= 1)
             timeTv.setText(Integer.toString(data.getPrepTime()) + " minute");
         else
             timeTv.setText(Integer.toString(data.getPrepTime()) + " minutes");
 
-        Log.d("View Holder Recipes", data.getImage());
+        // Gets the image from the server using Picasso
         File file = new File("http://10.0.2.2:3000/image/" + data.getImage());
         Picasso.with(context).load("http://10.0.2.2:3000/image/" + data.getImage()).into(this.cocktailIv);
 

@@ -17,6 +17,8 @@ public class ViewHolderFeedback extends RecyclerView.ViewHolder {
 
     private String reviewId;
 
+
+    // Initializes the View Holder
     public ViewHolderFeedback (@NonNull View itemView) {
         super(itemView);
         this.usernameTv = itemView.findViewById(R.id.namefbTv);

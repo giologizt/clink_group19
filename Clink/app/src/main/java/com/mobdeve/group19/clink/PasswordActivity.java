@@ -50,20 +50,28 @@ public class PasswordActivity extends AppCompatActivity {
 
         Intent intent = new Intent(PasswordActivity.this, ProfileActivity.class);
 
+        // When the Update Password is Pressed
         this.btnUpdate.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
+                // Convert Text to String
                 String newPassword = etNewPassword.getText().toString();
                 String oldPassword = etOldPassword.getText().toString();
+
+                // Chceks if the new password or old password are empty fields.
                 if(newPassword.equals("") || oldPassword.equals(""))
                     Toast.makeText(getApplicationContext(), "Error: You left a field blank.", Toast.LENGTH_SHORT).show();
                 else {
+
+                    // Runs the API Helper through a Thread.
                     executorService.execute(new Runnable() {
                         @Override
                         public void run() {
                             String authToken = sp.getString(JSON_TOKEN_KEY, "");
+
+                            // Calls the API Helper
                             helper.changePassword(newPassword, oldPassword, authToken, new CustomCallback() {
                                 @Override
                                 public void success(Message message) {
@@ -73,6 +81,7 @@ public class PasswordActivity extends AppCompatActivity {
 
                                 @Override
                                 public void error(Message message) {
+                                    // Shows error if the server returns an error code.
                                     if(message.getCode() == 401) {
                                         Toast.makeText(getApplicationContext(), "Error: Old password does not match.", Toast.LENGTH_SHORT).show();
                                     } else if(message.getCode() == 404) {
@@ -80,9 +89,9 @@ public class PasswordActivity extends AppCompatActivity {
 
                                     }
                                 }
-
                                 @Override
                                 public void failure(Throwable t) {
+                                    Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                                     t.printStackTrace();
                                 }
                             });
@@ -93,7 +102,7 @@ public class PasswordActivity extends AppCompatActivity {
         });
 
     }
-
+    // For the use of intent.
     private ActivityResultLauncher Launcher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {

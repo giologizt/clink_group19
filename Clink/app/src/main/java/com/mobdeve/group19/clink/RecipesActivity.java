@@ -15,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mobdeve.group19.clink.model.ApiHelper;
 import com.mobdeve.group19.clink.model.Message;
@@ -29,11 +30,15 @@ import java.util.concurrent.Executors;
 
 public class RecipesActivity extends AppCompatActivity {
 
+    // For the navigation bar
     private LinearLayout fabRecipe;
     private LinearLayout llProfile;
+
+    // Recycler View
     private RecyclerView recyclerView;
     private LinearLayoutManager MyManager;
 
+    // Search Bar
     private TextView etSearch;
 
     // Recipes Array
@@ -69,6 +74,7 @@ public class RecipesActivity extends AppCompatActivity {
 
         executorService = Executors.newSingleThreadExecutor();
 
+        // This Thread takes all the Recipes from the server and populates the Recycler View.
         executorService.execute(new Runnable() {
             @Override
             public void run() {
@@ -83,17 +89,23 @@ public class RecipesActivity extends AppCompatActivity {
 
                     @Override
                     public void error(Message message) {
-
+                        Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
+
                     public void failure(Throwable t) {
+                        Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                         t.printStackTrace();
                     }
                 });
             }
         });
 
+        /*
+            The search bar makes use of a Dynamic Text Changed Listener. Everytime the Search field is modified,
+            an API call is made to search for the specific recipe.
+         */
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -104,10 +116,10 @@ public class RecipesActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
-
+            // Calls the function after the text changed.
             @Override
             public void afterTextChanged(Editable s) {
-
+                // When the Search Field is blank, get all the recipes
                 if(etSearch.getText().toString().equals("")) {
                     executorService.execute(new Runnable() {
                         @Override
@@ -125,17 +137,19 @@ public class RecipesActivity extends AppCompatActivity {
 
                                 @Override
                                 public void error(Message message) {
-
+                                    Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
                                 public void failure(Throwable t) {
+                                    Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                                     t.printStackTrace();
                                 }
                             });
                         }
                     });
                 }
+                // When the search field is not blank, get recipes with the given name
                 else {
                     executorService.execute(new Runnable() {
                         @Override
@@ -150,11 +164,12 @@ public class RecipesActivity extends AppCompatActivity {
 
                                 @Override
                                 public void error(Message message) {
-
+                                    Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
                                 }
 
                                 @Override
                                 public void failure(Throwable t) {
+                                    Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                                     t.printStackTrace();
                                 }
                             });
@@ -169,6 +184,7 @@ public class RecipesActivity extends AppCompatActivity {
 
     }
 
+    // For the Intent.
     public ActivityResultLauncher Launcher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -179,7 +195,7 @@ public class RecipesActivity extends AppCompatActivity {
             }
     );
 
-
+    // Add Recipe Bottom Navigation Button
     public void addRecipe() {
         this.fabRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,6 +206,7 @@ public class RecipesActivity extends AppCompatActivity {
         });
     }
 
+    // Profile Bottom Navigation Button
     public void Profile() {
         this.llProfile.setOnClickListener(new View.OnClickListener() {
             @Override

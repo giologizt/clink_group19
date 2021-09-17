@@ -144,6 +144,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                     @Override
                     public void failure(Throwable t) {
+                        Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                         t.printStackTrace();
                     }
                 });
@@ -157,6 +158,7 @@ public class ExpandActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expand);
 
+        // Initialization of Layout View Elements
         this.expand_nameTv = findViewById(R.id.tv_recipename);
         this.expand_timeTv = findViewById(R.id.expand_timeTv);
         this.expand_cocktailIv = findViewById(R.id.expand_picIv);
@@ -167,6 +169,7 @@ public class ExpandActivity extends AppCompatActivity {
 
         this.tvError = findViewById(R.id.review_emptyTv);
 
+        // Gets the intent data from the previous page
         Intent intent = getIntent();
 
         executorService = Executors.newSingleThreadExecutor();
@@ -174,7 +177,7 @@ public class ExpandActivity extends AppCompatActivity {
 
         sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-
+        // Add Feedback Button Listener. When pressed, redirects to Add Review Activity.
         this.btnFeedback = findViewById(R.id.leavereviewBtn);
         this.btnFeedback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -289,6 +292,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                     @Override
                     public void failure(Throwable t) {
+                        Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                         t.printStackTrace();
                     }
                 });
@@ -297,7 +301,7 @@ public class ExpandActivity extends AppCompatActivity {
         });
 
     }
-
+    // For the intent
     public ActivityResultLauncher Launcher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {

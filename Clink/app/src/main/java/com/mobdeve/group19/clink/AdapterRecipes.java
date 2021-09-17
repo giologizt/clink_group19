@@ -35,6 +35,7 @@ public class AdapterRecipes extends RecyclerView.Adapter<ViewHolderRecipes> {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cocktail_layout, parent, false);
         ViewHolderRecipes ViewHolderRecipes  = new ViewHolderRecipes(v);
 
+        // Creates an onClick Listener for each recipe. When clicked, should redirect to Expand Activity Page.
         ViewHolderRecipes.getBoxLl().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

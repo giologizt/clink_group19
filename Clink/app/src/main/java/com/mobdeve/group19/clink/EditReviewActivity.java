@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
 
 public class EditReviewActivity extends AppCompatActivity {
 
+    // Intent Keys
     private static final String REVIEW_ID_KEY = "REVIEW_ID_KEY";
     private static final String RECIPE_ID_KEY = "RECIPE_ID_KEY";
 
@@ -44,6 +45,7 @@ public class EditReviewActivity extends AppCompatActivity {
 
         this.helper = new ApiHelper();
 
+        // Listener when cancel button is pressed. Closes the intent.
         this.cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +53,7 @@ public class EditReviewActivity extends AppCompatActivity {
             }
         });
 
+        // Listener when edit button is pressed.
         this.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,18 +68,23 @@ public class EditReviewActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             helper.editReview(recipeId, reviewId, review, new CustomCallback() {
+                                // If successfully edited the review, close the intent.
                                 @Override
                                 public void success(Message message) {
                                     finish();
                                 }
 
+                                // If the server passes an error, this is called.
                                 @Override
                                 public void error(Message message) {
+                                    Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
 
                                 }
 
+                                // If the server timed out or there is a problem with formatting, this is called.
                                 @Override
                                 public void failure(Throwable t) {
+                                    Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                                     t.printStackTrace();
                                 }
                             });
