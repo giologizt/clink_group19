@@ -83,10 +83,13 @@ public class EditProfileActivity extends AppCompatActivity {
                 email = etEmail.getText().toString();
                 birthdate = "";
                 Integer error = 0;
+                day = 0;
+                month = 0;
+                year = 0;
 
                 //check whether there is at least one text field that is not empty
-                if (fullname.equals("") && email.equals("") && etBirthDay.getText().toString().equals("")
-                        && etBirthMonth.getText().toString().equals("") && etBirthYear.getText().toString().equals("")) {
+                if (fullname.equals("") && email.equals("") && (etBirthDay.getText().toString().equals("")
+                        || etBirthMonth.getText().toString().equals("") || etBirthYear.getText().toString().equals(""))) {
                     Toast.makeText(getApplicationContext(), "Error: Please fill up at least one text field.", Toast.LENGTH_SHORT).show();
                 } else {
                     //check to ensure that all text fields about the birthdate is complete
@@ -130,9 +133,6 @@ public class EditProfileActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                         }
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Error: Incomplete date", Toast.LENGTH_SHORT);
-                        error = 1;
                     }
 
                     if(error == 0) {
