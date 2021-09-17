@@ -136,12 +136,12 @@ public class ExpandActivity extends AppCompatActivity {
 
 
                     }
-
+                    // If an error is passed by the callback
                     @Override
                     public void error(Message message) {
                         Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
                     }
-
+                    // If a failure is passed by the callback
                     @Override
                     public void failure(Throwable t) {
                         Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
@@ -153,6 +153,7 @@ public class ExpandActivity extends AppCompatActivity {
         });
     }
 
+    // On the creation of the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -234,11 +235,13 @@ public class ExpandActivity extends AppCompatActivity {
                         expand_nameTv.setText(recipe.getName());
                         currentRecipe = recipe;
 
+                        // Checks if the user is the author to enable the edit button
                         if(!sp.getString(USER_ID_KEY, "").equals(recipe.getAuthor()))
                             btnEditRecipe.setVisibility(View.INVISIBLE);
                         else
                             btnEditRecipe.setVisibility(View.VISIBLE);
 
+                        // Preparation Time Minute or Minutes Checker
                         if(recipe.getPrepTime() <= 1)
                             expand_timeTv.setText(Integer.toString(recipe.getPrepTime()) + " minute");
                         else
@@ -247,6 +250,7 @@ public class ExpandActivity extends AppCompatActivity {
                         StringBuilder steps = new StringBuilder();
                         StringBuilder ingredients = new StringBuilder();
 
+                        // Converts the Ingredients Array into One string
                         for(int j = 0; j < recipe.getIngredients().size(); j++) {
                             ingredients.append(Integer.toString(j+1) + ". " + recipe.getIngredients().get(j).getIngredientName());
                             if(recipe.getIngredients().size() != j+1) {
@@ -255,7 +259,8 @@ public class ExpandActivity extends AppCompatActivity {
                         }
 
                         expand_ingTv.setText(ingredients);
-
+                        
+                        // Converts the Steps Array into One string
                         for(int i = 0; i < recipe.getSteps().size(); i++) {
 
                             steps.append(Integer.toString(i+1) + ". " + recipe.getSteps().get(i));
@@ -284,12 +289,12 @@ public class ExpandActivity extends AppCompatActivity {
 
 
                     }
-
+                    // If an error is passed by the callback
                     @Override
                     public void error(Message message) {
                         Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
                     }
-
+                    // If a failure is passed by the callback
                     @Override
                     public void failure(Throwable t) {
                         Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
