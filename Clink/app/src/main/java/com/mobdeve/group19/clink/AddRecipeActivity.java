@@ -267,12 +267,13 @@ public class AddRecipeActivity extends AppCompatActivity {
                                 //Unsuccessfully added recipe
                                 @Override
                                 public void error(Message message) {
-                                    Toast.makeText(getApplicationContext(), "Error: Something went wrong", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
                                 }
 
                                 //error on the server side
                                 @Override
                                 public void failure(Throwable t) {
+                                    Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                                     t.printStackTrace();
                                 }
                             });

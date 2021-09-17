@@ -124,6 +124,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             @Override
                             public void failure(Throwable t) {
+                                Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                                 t.printStackTrace();
                             }
                         });
