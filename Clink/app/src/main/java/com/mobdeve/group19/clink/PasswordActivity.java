@@ -89,6 +89,7 @@ public class PasswordActivity extends AppCompatActivity {
 
                                     }
                                 }
+                                // Failure Callback
                                 @Override
                                 public void failure(Throwable t) {
                                     Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();

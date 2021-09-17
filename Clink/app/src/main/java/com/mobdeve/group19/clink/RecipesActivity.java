@@ -79,6 +79,7 @@ public class RecipesActivity extends AppCompatActivity {
             @Override
             public void run() {
                 helper.getRecipes(new RecipesCallback() {
+                    // If the callback is a success
                     @Override
                     public void success(Message message, ArrayList<Recipe> recipe) {
                         recipes = recipe;
@@ -86,14 +87,13 @@ public class RecipesActivity extends AppCompatActivity {
                             recyclerView.setAdapter(new AdapterRecipes(recipes, getApplicationContext()));
                         }
                     }
-
+                    // If an error is passed by the callback
                     @Override
                     public void error(Message message) {
                         Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
                     }
-
+                    // If a failure is passed by the callback
                     @Override
-
                     public void failure(Throwable t) {
                         Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
                         t.printStackTrace();
@@ -125,6 +125,7 @@ public class RecipesActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             helper.getRecipes(new RecipesCallback() {
+                                // If the callback is a success
                                 @Override
                                 public void success(Message message, ArrayList<Recipe> recipe) {
                                     recipes = recipe;
@@ -134,12 +135,12 @@ public class RecipesActivity extends AppCompatActivity {
                                     }
 
                                 }
-
+                                // If an error is passed by the callback
                                 @Override
                                 public void error(Message message) {
                                     Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
                                 }
-
+                                // If a failure is passed by the callback
                                 @Override
                                 public void failure(Throwable t) {
                                     Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();
@@ -156,17 +157,18 @@ public class RecipesActivity extends AppCompatActivity {
                         public void run() {
                             String searchEntry = etSearch.getText().toString();
                             helper.searchRecipe(searchEntry, new RecipesCallback() {
+                                // If the callback is a success
                                 @Override
                                 public void success(Message message, ArrayList<Recipe> recipe) {
                                     recipes = recipe;
                                     recyclerView.setAdapter(new AdapterRecipes(recipes, getApplicationContext()));
                                 }
-
+                                // If an error is passed by the callback
                                 @Override
                                 public void error(Message message) {
                                     Toast.makeText(getApplicationContext(), "An error occurred.", Toast.LENGTH_SHORT).show();
                                 }
-
+                                // If a failure is passed by the callback
                                 @Override
                                 public void failure(Throwable t) {
                                     Toast.makeText(getApplicationContext(), "A server error occurred.", Toast.LENGTH_SHORT).show();

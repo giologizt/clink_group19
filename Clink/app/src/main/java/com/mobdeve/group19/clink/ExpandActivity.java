@@ -72,27 +72,30 @@ public class ExpandActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        // Gets the Intent
         Intent intent = getIntent();
 
+        // Runs a Thread for the API Helper
         executorService.execute(new Runnable() {
             @Override
             public void run() {
                 String id = intent.getStringExtra(AdapterRecipes.KEY_RECIPE_ID);
                 recipeId = intent.getStringExtra(AdapterRecipes.KEY_RECIPE_ID);
 
+                // Calls the API via API Helper
                 helper.getRecipe(id, new RecipeCallback() {
                     @Override
                     public void success(Message message, Recipe recipe) {
                         expand_nameTv.setText(recipe.getName());
                         currentRecipe = recipe;
 
-                        Log.i("id of user", sp.getString(USER_ID_KEY, ""));
-
+                        // Checks if the user is the author to enable the edit button
                         if(!sp.getString(USER_ID_KEY, "").equals(recipe.getAuthor()))
                             btnEditRecipe.setVisibility(View.INVISIBLE);
                         else
                             btnEditRecipe.setVisibility(View.VISIBLE);
 
+                        // Preparation Time Minute or Minutes Checker
                         if(recipe.getPrepTime() <= 1)
                             expand_timeTv.setText(Integer.toString(recipe.getPrepTime()) + " minute");
                         else
@@ -101,6 +104,7 @@ public class ExpandActivity extends AppCompatActivity {
                         StringBuilder steps = new StringBuilder();
                         StringBuilder ingredients = new StringBuilder();
 
+                        // Converts the Ingredients Array into One string
                         for(int j = 0; j < recipe.getIngredients().size(); j++) {
                             ingredients.append(Integer.toString(j+1) + ". " + recipe.getIngredients().get(j).getIngredientName());
                             if(recipe.getIngredients().size() != (j+1)) {
@@ -110,6 +114,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                         expand_ingTv.setText(ingredients);
 
+                        // Converts the Steps Array into One string
                         for(int i = 0; i < recipe.getSteps().size(); i++) {
 
                             steps.append(Integer.toString(i+1) + ". " + recipe.getSteps().get(i));
@@ -120,11 +125,13 @@ public class ExpandActivity extends AppCompatActivity {
                         }
                         expand_stepsTv.setText(steps.toString());
 
+                        // Gets the images from the API using Picasso
                         File file = new File("http://10.0.2.2:3000/image/" + recipe.getImage());
                         Picasso.with(getApplicationContext()).load("http://10.0.2.2:3000/image/" + recipe.getImage()).into(expand_cocktailIv);
 
                         String authToken = sp.getString(JSON_TOKEN_KEY, "");
 
+                        // Checks if the Review size is 0. If 0, add a No Reviews Text
                         if(recipe.getReviews().size() == 0) {
                             recyclerView.setVisibility(View.GONE);
                             tvError.setVisibility(View.VISIBLE);
@@ -230,6 +237,7 @@ public class ExpandActivity extends AppCompatActivity {
                 recipeId = intent.getStringExtra(AdapterRecipes.KEY_RECIPE_ID);
 
                 helper.getRecipe(id, new RecipeCallback() {
+                    // If the callback is a success
                     @Override
                     public void success(Message message, Recipe recipe) {
                         expand_nameTv.setText(recipe.getName());
@@ -259,7 +267,7 @@ public class ExpandActivity extends AppCompatActivity {
                         }
 
                         expand_ingTv.setText(ingredients);
-                        
+
                         // Converts the Steps Array into One string
                         for(int i = 0; i < recipe.getSteps().size(); i++) {
 
@@ -278,6 +286,7 @@ public class ExpandActivity extends AppCompatActivity {
 
                         String authToken = sp.getString(JSON_TOKEN_KEY, "");
 
+                        // Checks if the Review size is 0. If 0, add a No Reviews Text
                         if(recipe.getReviews().size() == 0) {
                             recyclerView.setVisibility(View.GONE);
                             tvError.setVisibility(View.VISIBLE);
